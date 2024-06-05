@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="description" content="E-Commerce Website">
+    <title>@ViewData["Title"] - Variate</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
+    <link rel="stylesheet" href="~/css/swiper-icons.css">
+    <link rel="stylesheet" href="https://djpsoftwarecdn.azureedge.net/reviewcss-v1/review.min.css">
+
+    <link rel="stylesheet" href="~/lib/reflow/css/toolkit.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
+    <link rel="stylesheet" href="~/css/swiper-icons.css">
+    <link rel="stylesheet" href="https://djpsoftwarecdn.azureedge.net/reviewcss-v1/review.min.css">
+    <link rel="stylesheet" href="~/css/Navbar-Centered-Links-icons.css">
+    <link rel="stylesheet" href="~/css/Profile-Edit-Form-styles.css">
+    <link rel="stylesheet" href="~/css/Profile-Edit-Form.css">
+    <link rel="stylesheet" href="~/css/Reviews---Manage-reviews-and-ratings_v1.css">
+    <link rel="stylesheet" href="~/css/Simple-Slider-swiper-bundle.min.css">
+    <link rel="stylesheet" href="~/css/Simple-Slider.css">
+</head>
+<body>
+<div>
+    @await Html.PartialAsync("_Header")
+</div>
+<div>
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
+<div>
+    @await Html.PartialAsync("_Footer")
+</div>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+<script src="~/lib/reflow/js/toolkit.min.js"></script>
+<script src="~/js/bs-init.js"></script>
+<script src="~/js/bold-and-bright.js"></script>
+<script src="https://djpsoftwarecdn.azureedge.net/reviewjs-v1/review.min.js"></script>
+<script src="~/js/Profile-Edit-Form-profile.js"></script>
+<script src="~/js/Simple-Slider-swiper-bundle.min.js"></script>
+<script src="~/js/Simple-Slider.js"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

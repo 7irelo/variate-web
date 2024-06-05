@@ -1,0 +1,32 @@
+@model IEnumerable<variate.Dtos.ProductDto>
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = Model?.First().Category.Name ?? "Category Details";
+}
+
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Navbar (col-md-3) -->
+            <div class="col-md-3 col-xxl-3">
+                @await Html.PartialAsync("_Sidebar")
+            </div>
+            <div class="col-md-9 col-xxl-9">
+                <!-- Products Section -->
+                @if (Model != null && Model.Any())
+                {
+                    <div class="mb-4">
+                        <h2>Products in @Model.First().Category.Name</h2>
+                    </div>
+                    <div>
+                        @await Html.PartialAsync("_Products")
+                    </div>
+                }
+                else
+                {
+                    <p>No products available in this category.</p>
+                }
+            </div>
+        </div>
+    </div>
+</section>

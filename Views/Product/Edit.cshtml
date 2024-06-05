@@ -1,0 +1,117 @@
+@model Product
+
+@{
+    ViewData["Title"] = "Edit Product";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h2 class="text-center mb-4">@ViewData["Title"]</h2>
+                <form method="post" asp-action="edit">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                    
+                    <div class="form-floating mb-3" hidden>
+                        <input asp-for="Id" class="form-control" placeholder="iPad Air"/>
+                        <label asp-for="Id"></label>
+                        <span asp-validation-for="Id" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="CategoryId" class="form-control" placeholder="iPad Air" />
+                        <label asp-for="CategoryId"></label>
+                        <span asp-validation-for="CategoryId" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Brand" class="form-control" placeholder="Apple" />
+                        <label asp-for="Brand"></label>
+                        <span asp-validation-for="Brand" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Name" class="form-control" placeholder="iPad Air" />
+                        <label asp-for="Name"></label>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Description" class="form-control" placeholder="Description..." />
+                        <label asp-for="Description"></label>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Size" class="form-control" placeholder="Description..." />
+                        <label asp-for="Size"></label>
+                        <span asp-validation-for="Size" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Colour" class="form-control" placeholder="Description..."/>
+                        <label asp-for="Colour"></label>
+                        <span asp-validation-for="Colour" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Price" class="form-control" placeholder="Price..." />
+                        <label asp-for="Price"></label>
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="DiscountedPrice" class="form-control" placeholder="Discounted Price..." />
+                        <label asp-for="DiscountedPrice"></label>
+                        <span asp-validation-for="DiscountedPrice" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="ReleaseDate" class="form-control" type="date" placeholder="Release Date..." />
+                        <label asp-for="ReleaseDate"></label>
+                        <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="ImageUrl" class="form-control" placeholder="product.jpg" />
+                        <label asp-for="ImageUrl"></label>
+                        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Sku" class="form-control" placeholder="" />
+                        <label asp-for="Sku"></label>
+                        <span asp-validation-for="Sku" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Stock" class="form-control" placeholder="" />
+                        <label asp-for="Stock"></label>
+                        <span asp-validation-for="Stock" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-check mb-3">
+                        <input asp-for="OnSale" class="form-check-input"/>
+                        <label asp-for="OnSale" class="form-check-label"></label>
+                        <span asp-validation-for="OnSale" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-check mb-3">
+                        <input asp-for="IsFeatured" class="form-check-input"/>
+                        <label asp-for="IsFeatured" class="form-check-label"></label>
+                        <span asp-validation-for="IsFeatured" class="text-danger"></span>
+                    </div>
+
+                    <button id="login-submit" type="submit" class="btn btn-primary w-100 py-2">Edit</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

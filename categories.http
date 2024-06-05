@@ -1,0 +1,4 @@
+GET http://localhost:5248/categories
+
+###
+GET http://localhost:5248/categories/1

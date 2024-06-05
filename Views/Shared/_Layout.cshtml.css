@@ -1,0 +1,14 @@
+﻿/* span */
+.bs-icon.bs-icon-circle {
+  border-radius: 50%;
+}
+
+.bs-icon.bs-icon-primary {
+  color: var(--bs-white);
+  background: var(--bs-primary);
+}
+
+.bs-icon-sm {
+  --bs-icon-size: 1rem;
+}
+
