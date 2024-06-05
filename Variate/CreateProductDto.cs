@@ -1,0 +1,9 @@
+using System.ComponentModel.DataAnnotations;
+
+namespace Variate.Dtos;
+
+public record class CreateProductDto(
+    [Required][StringLength(50)] string Name, 
+    [Required][StringLength(50)] string Genre, 
+    [Required][Range(0, 2000)] decimal Price, 
+    DateOnly Release);

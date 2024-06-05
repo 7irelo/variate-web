@@ -1,0 +1,30 @@
+GET http://localhost:5248/products
+
+###
+GET http://localhost:5248/products/1
+
+###
+POST http://localhost:5248/products
+Content-Type: application/json
+
+{
+    "name": "Mama's Gun",
+    "genre": "Soul",
+    "price": 399.99,
+    "release": "2002-11-22"
+}
+
+###
+PUT http://localhost:5248/products/1
+Content-Type: application/json
+
+{
+    "name": "Blonde.",
+    "genre": "Rhythm and Blues",
+    "price": 499.49,
+    "release": "2017-08-22"
+}
+
+###
+DELETE http://localhost:5248/products/1
+Content-Type: application/json
