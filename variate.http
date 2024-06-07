@@ -1,7 +1,7 @@
 GET http://localhost:5248/products
 
 ###
-GET http://localhost:5248/products/1
+GET http://localhost:5248/products/2
 
 ###
 POST http://localhost:5248/products
@@ -15,7 +15,7 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:5248/products/1
+PUT http://localhost:5248/products/10
 Content-Type: application/json
 
 {

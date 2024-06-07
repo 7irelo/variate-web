@@ -12,7 +12,7 @@ public static class ProductsEndpoints
 
     public static RouteGroupBuilder MapProductsEndpoints(this WebApplication app)
     {
-        var group = app.MapGroup("products").WithParameterValidation();
+        RouteGroupBuilder group = app.MapGroup("products").WithParameterValidation();
 
         const string GetProductEndpointName = "GetProduct";
 
@@ -40,7 +40,7 @@ public static class ProductsEndpoints
 
         group.MapPut("/{id}", (int id, UpdateProductDto updatedProduct) => 
         {
-            var index = products.FindIndex(product => product.Id == id);
+            int index = products.FindIndex(product => product.Id == id);
 
             if (index == -1)
             {
