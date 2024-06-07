@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <Folder Include="Dtos\" />
+    <Folder Include="Endpoints\" />
   </ItemGroup>
 
 </Project>
