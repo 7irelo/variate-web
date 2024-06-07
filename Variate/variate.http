@@ -9,7 +9,7 @@ Content-Type: application/json
 
 {
     "name": "Mama's Gun",
-    "genre": "Soul",
+    "genre": "Neo Soul",
     "price": 399.99,
     "release": "2002-11-22"
 }
