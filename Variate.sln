@@ -3,17 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Variate", "Variate\Variate.csproj", "{F0A105DB-75E5-4575-BC3D-9B4705C2BB6A}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dtos", "Dtos", "{7036AB97-BCA0-4AFB-A387-FB404E3CF0DE}"
-	ProjectSection(SolutionItems) = preProject
-		ProductDto.cs = ProductDto.cs
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Endpoints", "Endpoints", "{9BC3C976-4058-4EEC-9C17-2E6FE40CC3BE}"
-	ProjectSection(SolutionItems) = preProject
-		ProductsEndPoints.cs = ProductsEndPoints.cs
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Variate", "Variate\Variate.csproj", "{F0A105DB-75E5-4575-BC3D-9B4705C2BB6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,5 +18,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {964E2209-5BE9-4261-8123-FAE5D28765E8}
 	EndGlobalSection
 EndGlobal

@@ -10,6 +10,8 @@ var app = builder.Build();
 
 app.MapProductsEndpoints();
 
+app.MapGet("/", () => "Hello World");
+
 app.MigrateDb();
 
 app.Run();
