@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Data\Migrations\" />
     <Folder Include="Dtos\" />
     <Folder Include="Endpoints\" />
   </ItemGroup>
