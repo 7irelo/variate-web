@@ -15,7 +15,10 @@ public class VariateContext(DbContextOptions<VariateContext> options): DbContext
             new {Id = 1, Name = "Neo Soul"},
             new {Id = 2, Name = "West Coast Rap"},
             new {Id = 3, Name = "Rhythm and Blues"},
-            new {Id = 4, Name = "Dark Synth Pop"}
+            new {Id = 4, Name = "Pop Punk"},
+            new {Id = 5, Name = "Disco"},
+            new {Id = 6, Name = "Electronic Dance Music"},
+            new {Id = 7, Name = "Dark Synth Pop"}
         );
     }
 }
