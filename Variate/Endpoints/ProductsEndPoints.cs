@@ -1,5 +1,6 @@
+using Variate.Entities;
 using Variate.Dtos;
-
+using Variate.Data;
 namespace Variate.Endpoints;
 
 public static class ProductsEndpoints
@@ -26,16 +27,28 @@ public static class ProductsEndpoints
         })
         .WithName(GetProductEndpointName);
 
-        group.MapPost("/", (CreateProductDto newProduct) => {
-            ProductDto product = new(
-                products.Count + 1, 
-                newProduct.Name, 
-                newProduct.Genre, 
-                newProduct.Price, 
-                newProduct.Release);
-            products.Add(product);
+        group.MapPost("/", (CreateProductDto newProduct, VariateContext dbContext) => {
+            Product product = new()
+            {
+                Name = newProduct.Name,
+                Category = dbContext.Categories.Find(newProduct.CategoryId),
+                CategoryId = newProduct.CategoryId,
+                Price = newProduct.Price,
+                Release = newProduct.Release
+            };
 
-            return Results.CreatedAtRoute(GetProductEndpointName, new {id = product.Id}, product);
+            dbContext.Products.Add(product);
+            dbContext.SaveChanges();
+
+            ProductDto productDto = new(
+                product.Id,
+                product.Name,
+                product.Category!.Name,
+                product.Price,
+                product.Release
+            );
+
+            return Results.CreatedAtRoute(GetProductEndpointName, new {id = product.Id}, productDto);
         });
 
         group.MapPut("/{id}", (int id, UpdateProductDto updatedProduct) => 
@@ -50,7 +63,7 @@ public static class ProductsEndpoints
             products[index] = new ProductDto(
                 id, 
                 updatedProduct.Name, 
-                updatedProduct.Genre, 
+                updatedProduct.Category, 
                 updatedProduct.Price, 
                 updatedProduct.Release);
 
