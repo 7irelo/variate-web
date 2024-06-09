@@ -9,9 +9,10 @@ builder.Services.AddSqlite<VariateContext>(connString);
 WebApplication app = builder.Build();
 
 app.MapProductsEndpoints();
+app.MapCategoriesEndpoints();
 
 app.MapGet("/", () => "Hello World");
 
-app.MigrateDb();
+await app.MigrateDbAsync();
 
 app.Run();
