@@ -1,6 +1,6 @@
 ﻿namespace Variate.Entities;
 
-public class Genre
+public class Category
 {
     public int Id { get; set; }
 

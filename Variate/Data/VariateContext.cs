@@ -7,18 +7,21 @@ public class VariateContext(DbContextOptions<VariateContext> options): DbContext
 {
     public DbSet<Product> Products => Set<Product>();
 
-    public DbSet<Genre> Genres => Set<Genre>();
+    public DbSet<Category> Categories => Set<Category>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Genre>().HasData(
-            new {Id = 1, Name = "Neo Soul"},
-            new {Id = 2, Name = "West Coast Rap"},
-            new {Id = 3, Name = "Rhythm and Blues"},
-            new {Id = 4, Name = "Pop Punk"},
-            new {Id = 5, Name = "Disco"},
-            new {Id = 6, Name = "Electronic Dance Music"},
-            new {Id = 7, Name = "Dark Synth Pop"}
+        modelBuilder.Entity<Category>().HasData(
+            new {Id = 1, Name = "Electronics"},
+            new {Id = 2, Name = "Home and kitchen"},
+            new {Id = 3, Name = "Fashion and beauty"},
+            new {Id = 4, Name = "Toys and games"},
+            new {Id = 5, Name = "Books and DVDs"},
+            new {Id = 6, Name = "Baby Products"},
+            new {Id = 7, Name = "Outdoor and sports equipment"},
+            new {Id = 8, Name = "Health and wellness products"},
+            new {Id = 9, Name = "Arts and craft supplies"},
+            new {Id = 10, Name = "Musical Instruments"}
         );
     }
 }

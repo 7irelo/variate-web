@@ -4,6 +4,6 @@ namespace Variate.Dtos;
 
 public record class CreateProductDto(
     [Required][StringLength(50)] string Name, 
-    [Required][StringLength(50)] string Genre, 
+    int CategoryId, 
     [Range(0, 2000)] decimal Price, 
     DateOnly Release);
