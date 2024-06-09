@@ -1,0 +1,30 @@
+GET http://localhost:5248/products
+
+###
+GET http://localhost:5248/products/2
+
+###
+POST http://localhost:5248/products
+Content-Type: application/json
+
+{
+    "name": "Holy Bible (NKJV)",
+    "categoryId": 5,
+    "price": 699.99,
+    "release": "2024-01-04"
+}
+
+###
+PUT http://localhost:5248/products/2
+Content-Type: application/json
+
+{
+    "name": "Lenovo laptop i3",
+    "categoryId": 1,
+    "price": 6299.99,
+    "release": "2020-02-10"
+}
+
+###
+DELETE http://localhost:5248/products/2
+Content-Type: application/json
