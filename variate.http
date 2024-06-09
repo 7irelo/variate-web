@@ -8,10 +8,10 @@ POST http://localhost:5248/products
 Content-Type: application/json
 
 {
-    "name": "Mama's Gun",
-    "genreId": 5,
-    "price": 399.99,
-    "release": "2002-11-22"
+    "name": "Nike Air Force 1",
+    "categoryId": 3,
+    "price": 1499.99,
+    "release": "2017-08-22"
 }
 
 ###
@@ -20,7 +20,7 @@ Content-Type: application/json
 
 {
     "name": "Blonde.",
-    "genre": "Rhythm and Blues",
+    "categoryId": "Rhythm and Blues",
     "price": 499.49,
     "release": "2017-08-22"
 }

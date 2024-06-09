@@ -1,79 +1,61 @@
 using Variate.Entities;
 using Variate.Dtos;
 using Variate.Data;
+using Variate.Mapping;
+using Microsoft.EntityFrameworkCore;
 namespace Variate.Endpoints;
 
 public static class ProductsEndpoints
 {
-    private static readonly List<ProductDto> products = [
-        new (1, "After Hours", "Dark Synth Pop", 599.99M, new DateOnly(2020, 7, 9)),
-        new (2, "Blonde.", "Rhythm and Blues", 499.99M, new DateOnly(2017, 8, 22)),
-        new (3, "Good Kid M.A.A.D City", "West Coast Rap", 699.99M, new DateOnly(2017, 3, 29))
-    ];
-
     public static RouteGroupBuilder MapProductsEndpoints(this WebApplication app)
     {
         RouteGroupBuilder group = app.MapGroup("products").WithParameterValidation();
 
         const string GetProductEndpointName = "GetProduct";
 
-        group.MapGet("/", () => products);
+        group.MapGet("/", (VariateContext dbContext) => 
+            dbContext.Products.Include(product => product.Category)
+            .Select(product => product.ToProductSummaryDto())
+            .AsNoTracking());
 
-        group.MapGet("/{id}", (int id) => 
+        group.MapGet("/{id}", (int id, VariateContext dbContext) => 
         {
-            ProductDto? product = products.Find(product => product.Id == id);
+            Product? product = dbContext.Products.Find(id);
 
-            return product is null ? Results.NotFound() : Results.Ok(product);
+            return product is null ? Results.NotFound() : Results.Ok(product.ToProductDetailsDto());
         })
         .WithName(GetProductEndpointName);
 
         group.MapPost("/", (CreateProductDto newProduct, VariateContext dbContext) => {
-            Product product = new()
-            {
-                Name = newProduct.Name,
-                Category = dbContext.Categories.Find(newProduct.CategoryId),
-                CategoryId = newProduct.CategoryId,
-                Price = newProduct.Price,
-                Release = newProduct.Release
-            };
+            Product product = newProduct.ToEntity();
+            // product.Category = dbContext.Categories.Find(newProduct.CategoryId);
 
             dbContext.Products.Add(product);
             dbContext.SaveChanges();
 
-            ProductDto productDto = new(
-                product.Id,
-                product.Name,
-                product.Category!.Name,
-                product.Price,
-                product.Release
-            );
-
-            return Results.CreatedAtRoute(GetProductEndpointName, new {id = product.Id}, productDto);
+            return Results.CreatedAtRoute(GetProductEndpointName, new {id = product.Id}, product.ToProductDetailsDto());
         });
 
-        group.MapPut("/{id}", (int id, UpdateProductDto updatedProduct) => 
+        group.MapPut("/{id}", (int id, UpdateProductDto updatedProduct, VariateContext dbContext) => 
         {
-            int index = products.FindIndex(product => product.Id == id);
+            var existingProduct = dbContext.Products.Find(id);
 
-            if (index == -1)
+            if (existingProduct is null)
             {
                 return Results.NotFound();
             }
 
-            products[index] = new ProductDto(
-                id, 
-                updatedProduct.Name, 
-                updatedProduct.Category, 
-                updatedProduct.Price, 
-                updatedProduct.Release);
+            dbContext.Entry(existingProduct).CurrentValues.SetValues(updatedProduct.ToEntity(id));
+            dbContext.SaveChanges();
 
             return Results.NoContent();
         });
 
 
-        group.MapDelete("/{id}", (int id) => 
+        group.MapDelete("/{id}", (int id, VariateContext dbContext) => 
         {
-            products.RemoveAll(product => product.Id == id);
+            dbContext.Products.Where(product => product.Id == id)
+                     .ExecuteDelete();
 
             return Results.NoContent();
         });
