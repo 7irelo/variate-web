@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Category Page";
 }
+<a asp-controller="Category" asp-action="Create">Add New Product</a>
 <div class="products-container">
     @foreach(var obj in Model)
     {
