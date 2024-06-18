@@ -80,15 +80,16 @@ namespace Variate.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(Category obj)
+        public IActionResult DeletePost(int? id)
         {
-           if(ModelState.IsValid)
+           var category = _db.Categories.Find(id);
+           if(category == null)
            {
-               _db.Categories.Delete(obj);
-               _db.SaveChanges();
-               return RedirectToAction("Index");
+               return NotFound();
            }
-           return View(obj);
+           _db.Categories.Remove(category);
+           _db.SaveChanges();
+           return RedirectToAction("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
