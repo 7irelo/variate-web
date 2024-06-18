@@ -4,10 +4,12 @@
 }
 
 <div form-container>
+    <div asp-validation-summary="All"></div>
     <form>
         <div>
             <label asp-for="Name" class="form-field"></label>
             <input asp-for="Name" class="form-field">
+            <span asp-validation-for="Name"></span>
         </div>
         <div>
             <input type="submit" value="submit">
@@ -15,3 +17,8 @@
     </form>
 </div>
 <a asp-controller="Category" asp-action="Index">Go Back</a>
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
