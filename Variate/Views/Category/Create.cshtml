@@ -3,10 +3,14 @@
     ViewData["Title"] = "Create Page";
 }
 
-<div>
+<div form-container>
     <form>
         <div>
-            <input>
+            <label asp-for="Name" class="form-field"></label>
+            <input asp-for="Name" class="form-field">
+        </div>
+        <div>
+            <input type="submit" value="submit">
         </div>
     </form>
 </div>
