@@ -4,11 +4,11 @@ using Variate.Models;
 
 namespace Variate.Controllers
 {
-    public class HomeController : Controller
+    public class ProductController : Controller
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public ProductController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
