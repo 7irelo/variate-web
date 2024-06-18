@@ -2,9 +2,11 @@
 @{
     ViewData["Title"] = "Category Page";
 }
-<div>
+<div class="products-container">
     @foreach(var obj in Model)
     {
-        <div><div
+        <div class="product-card">
+            <p>@obj.Name</p>
+        <div
     }
 </div>
