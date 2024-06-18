@@ -65,6 +65,32 @@ namespace Variate.Controllers
            return View(obj);
         }
 
+        public IActionResult Delete(int? id)
+        {
+            if(id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var category = _db.Categories.Find(id);
+            if(category == null)
+            {
+                return NotFound();
+            }
+            return View(category);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Category obj)
+        {
+           if(ModelState.IsValid)
+           {
+               _db.Categories.Delete(obj);
+               _db.SaveChanges();
+               return RedirectToAction("Index");
+           }
+           return View(obj);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
