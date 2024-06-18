@@ -5,7 +5,7 @@
 
 <div form-container>
     <div asp-validation-summary="All"></div>
-    <form method="POST">
+    <form method="POST" asp-action="DeletePost">
         <div>
             <label asp-for="Name" class="form-field"></label>
             <input asp-for="Name" disabled class="form-field">
