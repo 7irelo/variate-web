@@ -1,11 +1,16 @@
 @model Category
 @{
-    ViewData["Title"] = "Delete Page";
+    ViewData["Title"] = "Edit Page";
 }
 
 <div form-container>
     <div asp-validation-summary="All"></div>
     <form method="POST">
+        <div>
+            <label asp-for="Name" class="form-field"></label>
+            <input asp-for="Name" disabled class="form-field">
+            <span asp-validation-for="Name"></span>
+        </div>
         <div>
             <input type="submit" value="submit">
         </div>
