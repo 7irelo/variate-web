@@ -1,3 +1,6 @@
+.products-container {
+    display: flex;
+}
 .product-card {
     border-radius: 10px;
     box-shadow: 5px 5px 5px hsl(0, 0%, 0%);
