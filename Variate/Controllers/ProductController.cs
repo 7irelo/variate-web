@@ -15,17 +15,20 @@ namespace Variate.Controllers
             _db = db;
         }
 
+        [Route("products")]
         public IActionResult Index()
         {
             IEnumerable<Product> objProductList = _db.Products;
             return View(objProductList);
         }
 
+        [Route("products/create-product")]
         public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
+        [Route("products/create-product")]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Product obj)
         {
@@ -38,7 +41,8 @@ namespace Variate.Controllers
            return View(obj);
         }
 
-        public IActionResult Product(int? id)
+        [Route("products/{id}")]
+        public IActionResult Item(int? id)
         {
             if(id == null || id == 0)
             {
@@ -52,6 +56,7 @@ namespace Variate.Controllers
             return View(product);
         }
 
+        [Route("products/edit-product/{id}")]
         public IActionResult Edit(int? id)
         {
             if(id == null || id == 0)
@@ -65,7 +70,8 @@ namespace Variate.Controllers
             }
             return View(product);
         }
-        [HttpPost]
+        [HttpPut]
+        [Route("products/edit-product/{id}")]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Product obj)
         {
@@ -78,6 +84,7 @@ namespace Variate.Controllers
            return View(obj);
         }
 
+        [Route("products/delete-product/{id}")]
         public IActionResult Delete(int? id)
         {
             if(id == null || id == 0)
@@ -91,7 +98,8 @@ namespace Variate.Controllers
             }
             return View(product);
         }
-        [HttpPost]
+        [HttpDelete]
+        [Route("products/delete-product/{id}")]
         [ValidateAntiForgeryToken]
         public IActionResult DeletePost(int? id)
         {
