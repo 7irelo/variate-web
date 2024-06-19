@@ -1,3 +1,13 @@
 @{
     ViewData["Title"] = "Product Page";
 }
+
+@foreach(var obj in Model)
+{
+    <div classNamec"product-card">
+        <img src=""props.product picture" className="card-image"></img>
+        <h2 className="card-title"></h2>
+        <p className="card-description">@obj.Description</p>
+        <a asp-action="Product"><button>Learn More</button></a>
+    </div>
+}
