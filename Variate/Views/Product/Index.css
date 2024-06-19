@@ -10,22 +10,22 @@
     background-color:hsla(180, 100%, 90%, 0.7);
 }
 
-.card-image {
+.product-card-image {
     max-width: 400px;
 }
 
-.cardTitle {
+.product-card-title {
     padding-left: 10px;
     padding-right: 10px;
 }
 
-.card-description {
+.product-card-description {
     font-weight: lighter;
     padding-left: 15px;
     padding-right: 15px;
 }
 
-button {
+.product-button {
     margin: 40px;
     border-radius: 5px;
     width: 100px;
