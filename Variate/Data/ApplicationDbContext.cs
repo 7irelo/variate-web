@@ -10,8 +10,11 @@ namespace Variate.Data
             : base(options)
         {
             public DbSet<Product> Products => Set<Product>();
-
             public DbSet<Category> Categories => Set<Category>();
+            public DbSet<Order> Orders => Set<Orders>();
+            public DbSet<OrderItem> OrderItems => Set<OrderItem>();
+            public DbSet<Review> Reviews => Set<Review>();
+            public DbSet<Payment> Payments => Set<Payment>();
 
             protected override void OnModelCreating(ModelBuilder modelBuilder)
             {
