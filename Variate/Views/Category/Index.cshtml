@@ -2,13 +2,15 @@
 @{
     ViewData["Title"] = "Category Page";
 }
-<h1>Categories</h1>
-@foreach(var obj in Model)
-{
-    <div class"categoru-card">
-        <img src="" class="category-card-image"></img>
-        <h2 class="category-card-title"></h2>
-        <p class="category-card-description">@obj.Description</p>
-        <a asp-controller="Category" asp-action="Index"><button>Learn More</button></a>
-    </div>
-}
+<h1>Category</h1>
+<div class="category-container">
+    @foreach(var obj in Model)
+    {
+        <div class"category-card">
+            <img src="" class="category-card-image"></img>
+            <h2 class="category-card-title"></h2>
+            <p class="category-card-description">@obj.Description</p>
+            <a asp-action="Product"><button class="category-button">Learn More</button></a>
+        </div>
+    }
+<div>
