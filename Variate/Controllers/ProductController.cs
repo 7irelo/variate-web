@@ -38,6 +38,20 @@ namespace Variate.Controllers
            return View(obj);
         }
 
+        public IActionResult Product(int? id)
+        {
+            if(id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var product = _db.Products.Find(id);
+            if(product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
+        }
+
         public IActionResult Edit(int? id)
         {
             if(id == null || id == 0)
