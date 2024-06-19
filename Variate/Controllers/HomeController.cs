@@ -15,6 +15,7 @@ namespace Variate.Controllers
             _db = db;
         }
 
+        [Route("")]
         public IActionResult Index()
         {
             IEnumerable<Product> objProductList = _db.Products.ToList();
