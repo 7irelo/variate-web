@@ -38,7 +38,6 @@ namespace Variate.Controllers
            return View(obj);
         }
 
-
         public IActionResult Edit(int? id)
         {
             if(id == null || id == 0)
