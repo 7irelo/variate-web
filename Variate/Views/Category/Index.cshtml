@@ -1,13 +1,14 @@
 @model IEnumerable<Category>
 @{
-    ViewData["Title"] = "Category Page";
+    ViewData["Title"] = "Product Page";
 }
-<a asp-controller="Category" asp-action="Create">Add New Product</a>
-<div class="products-container">
-    @foreach(var obj in Model)
-    {
-        <div class="product-card">
-            <p>@obj.Name</p>
-        <div
-    }
-</div>
+<h1>Categories</h1>
+@foreach(var obj in Model)
+{
+    <div classNamec"product-card">
+        <img src="" className="card-image"></img>
+        <h2 className="card-title"></h2>
+        <p className="card-description">@obj.Description</p>
+        <a asp-action="Product"><button>Learn More</button></a>
+    </div>
+}
