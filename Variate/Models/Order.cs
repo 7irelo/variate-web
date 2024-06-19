@@ -6,8 +6,8 @@ public class Product
 {
     [key] public int Id { get; set; }
     [DisplayName("User ID")]
-    public int UserId { get; set; }
-    public User? User{ get; set; }
+    public int IdentityUserId { get; set; }
+    public IdentityUser? IdentityUser{ get; set; }
     [DisplayName("Order Date")]
     public DateOnly OrderDate { get; set; }
     [DisplayName("Total Cost")]
