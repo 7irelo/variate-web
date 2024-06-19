@@ -1,0 +1,15 @@
+@model Product
+@{
+    ViewData["Title"] = "Cart Page";
+}
+
+<div>
+    @foreach(var obj in Model)
+    {
+        <img src=@Model.ImageURL>
+        <h3>@Model.Name</h3>
+        <h1>@Model.Price</h1>
+        <p>@Model.Description</p>
+        <button>Remove</button>
+    }
+</div>
