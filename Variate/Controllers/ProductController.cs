@@ -9,7 +9,7 @@ namespace Variate.Controllers
         private readonly ILogger<ProductController> _logger;
         private readonly ApplicationDbContext _db;
 
-        public CategoryController(ILogger<ProductController> logger, ApplicationDbContext db)
+        public ProductController(ILogger<ProductController> logger, ApplicationDbContext db)
         {
             _logger = logger;
             _db = db;
@@ -17,7 +17,7 @@ namespace Variate.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Product> objProductList = _db.Categories;
+            IEnumerable<Product> objProductList = _db.Products;
             return View(objProductList);
         }
 
