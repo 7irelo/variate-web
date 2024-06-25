@@ -16,27 +16,20 @@ Welcome to **Variate**, a full-featured e-commerce online shopping site built us
 - **Electronics**
 - **Home and Kitchen**
 - **Fashion and Beauty**
-- **Toys and Beauty Products**
-- **Outdoor and Sports**
-- **Health and Wellness**
-- **Musical Instruments and Equipment**
+- **Musical Instruments**
 - **Art and Crafts**
 - **Baby and Toddler**
 - **Bed and Bath**
 - **Decor and Furniture**
-- **DIY and Tools**
-- **Haircare**
 - **Health and Beauty**
 - **Home and Garden**
 - **Jewellery and Watches**
-- **Kitchen and Dining**
 - **Luggage and Travel**
-- **Musical Instruments**
 - **Office and Stationery**
 - **Pet Products**
 - **Sports and Outdoor**
-- **Tools and DIY**
-- **Toys and Games**
+- **Tools and DIY"**
+- **Toys and Games"**
 
 ## Technology Stack
 
