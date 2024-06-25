@@ -36,8 +36,8 @@ Welcome to **Variate**, a full-featured e-commerce online shopping site built us
 - **Backend**: ASP.NET Core
 - **Frontend**: Razor Pages
 - **Database**: PostgreSQL
-- **Payment Gateway**: [Stripe, PayPal]
-- **Hosting**: [Azure, AWS]
+- **Payment Gateway**: [Stripe, PayPal](https://paypal.com)
+- **Hosting**: [Azure, AWS](https://azure.com)
 
 ## Getting Started
 
@@ -98,7 +98,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 For any inquiries or feedback, feel free to reach out:
 
 - Email: [tirelo.eric@gmail.com](mailto:tirelo.eric@gmail.com)
-- Website: [www.variate.com](http://www.7irelo.com)
+- Website: [www.variate.com](http://www.variate.com)
 
 Thank you for using Variate! Happy shopping!
 
