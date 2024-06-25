@@ -36,8 +36,8 @@ Welcome to **Variate**, a full-featured e-commerce online shopping site built us
 - **Backend**: ASP.NET Core
 - **Frontend**: Razor Pages
 - **Database**: PostgreSQL
-- **Payment Gateway**: [Stripe, PayPal](https://paypal.com)
-- **Hosting**: [Azure, AWS](https://azure.com)
+- **Payment Gateway**: [PayPal](https://paypal.com)
+- **Hosting**: [Azure](https://azure.com)
 
 ## Getting Started
 
