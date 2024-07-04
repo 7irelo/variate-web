@@ -50,8 +50,8 @@ Welcome to **Variate**, a full-featured e-commerce online shopping site built us
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/7irelo/variate.git
-   cd variate
+   git clone https://github.com/7irelo/variate-web.git
+   cd variate-web
    ```
 
 2. **Configure the database:**
