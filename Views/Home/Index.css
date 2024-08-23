@@ -1,39 +1,94 @@
-.categories-container {
-    display: flex;
-}
-.category-card {
-    border-radius: 10px;
-    box-shadow: 5px 5px 5px hsl(0, 0%, 0%);
-    padding: 0px;
-    margin: 10px;
-    text-align: center;
-    width: 400px;
-    height: auto;
-    display: inline-block;
-    background-color:hsla(180, 100%, 90%, 0.7);
+.form-container {
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 600px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-.category-card-image {
-    max-width: 400px;
+.form-group {
+    margin-bottom: 15px;
 }
 
-.category-card-title {
-    padding-left: 10px;
-    padding-right: 10px;
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
 }
 
-.category-card-description {
-    font-weight: lighter;
-    padding-left: 15px;
-    padding-right: 15px;
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
 }
 
-.category-button {
-    margin: 40px;
-    border-radius: 5px;
-    width: 100px;
-    height: 40px;
-    background-color: hsl(200, 100%, 50%);
-    color: white;
+.btn {
+    padding: 10px 20px;
     border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #007bff;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+}
+
+.cart-container, .categories-container, .products-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.cart-item, .category-card, .product-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+    width: calc(33.333% - 20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.cart-item-image, .category-card-image, .product-card-image {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+.cart-item-details, .category-card-title, .product-card-title {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.cart-item-price, .product-card-price {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.cart-item-remove, .category-button, .product-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.cart-back-button {
+    margin-top: 30px;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #6c757d;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
 }

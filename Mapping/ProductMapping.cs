@@ -1,5 +1,6 @@
-using Variate.Entities;
+using Variate.Models;
 using Variate.Dtos;
+
 namespace Variate.Mapping;
 
 public static class ProductMapping
@@ -14,7 +15,6 @@ public static class ProductMapping
             Release = product.Release
         };
     }
-
 
     public static Product ToEntity(this UpdateProductDto product, int id)
     {

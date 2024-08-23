@@ -1,24 +1,21 @@
 @model Category
 @{
-    ViewData["Title"] = "Edit Page";
+    ViewData["Title"] = "Delete Category";
 }
 
-<div form-container>
-    <div asp-validation-summary="All"></div>
+<h1>Delete Category</h1>
+<p>Are you sure you want to delete this category?</p>
+
+<div class="form-container">
+    <div asp-validation-summary="All" class="text-danger"></div>
     <form method="POST" asp-action="DeletePost">
-        <div>
-            <label asp-for="Name" class="form-field"></label>
-            <input asp-for="Name" disabled class="form-field">
-            <span asp-validation-for="Name"></span>
+        <div class="form-group">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" disabled class="form-control" />
         </div>
-        <div>
-            <input type="submit" value="submit">
+        <div class="form-group">
+            <input type="submit" value="Delete" class="btn btn-danger">
         </div>
     </form>
 </div>
 <a asp-controller="Category" asp-action="Index">Go Back</a>
-@section Scripts{
-    @{
-        <partial name="_ValidationScriptsPartial" />
-    }
-}

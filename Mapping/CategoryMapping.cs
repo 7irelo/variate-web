@@ -1,8 +1,7 @@
 using Variate.Dto;
-using Variate.Dtos;
-using Variate.Entities;
-namespace Variate.Mapping;
+using Variate.Models;
 
+namespace Variate.Mapping;
 
 public static class CategoryMapping
 {

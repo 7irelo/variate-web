@@ -1,15 +1,28 @@
-@model Product
+@model IEnumerable<CartItem>
 @{
-    ViewData["Title"] = "Cart Page";
+    ViewData["Title"] = "Your Cart";
 }
 
-<div>
-    @foreach(var obj in Model)
+<h1>Your Cart</h1>
+<div class="cart-container">
+    @if(Model.Any())
     {
-        <img src=@Model.ImageURL>
-        <h3>@Model.Name</h3>
-        <h1>@Model.Price</h1>
-        <p>@Model.Description</p>
-        <button>Remove</button>
+        foreach(var item in Model)
+        {
+            <div class="cart-item">
+                <img src="@item.Product.ImageUrl" class="cart-item-image" alt="@item.Product.Name">
+                <div class="cart-item-details">
+                    <h2 class="cart-item-title">@item.Product.Name</h2>
+                    <p class="cart-item-price">@item.Product.Price.ToString("C")</p>
+                    <p class="cart-item-quantity">Quantity: @item.Quantity</p>
+                    <a asp-action="RemoveFromCart" asp-route-id="@item.Product.Id" class="cart-item-remove">Remove</a>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>Your cart is empty.</p>
     }
 </div>
+<a asp-action="Index" asp-controller="Product" class="cart-back-button">Continue Shopping</a>
