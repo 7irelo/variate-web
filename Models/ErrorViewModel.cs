@@ -1,4 +1,4 @@
-namespace Variate.Models
+namespace variate.Models
 {
     public class ErrorViewModel
     {
