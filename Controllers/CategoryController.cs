@@ -1,101 +1,124 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
+using Variate.Data;
+using Variate.Dto;
 using Variate.Models;
+using Variate.Mapping;
 
-namespace Variate.Controllers
+namespace Variate.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class CategoryController : ControllerBase
 {
-    public class CategoryController : Controller
+    private readonly ApplicationDbContext _context;
+
+    public CategoryController(ApplicationDbContext context)
     {
-        private readonly ILogger<CategoryController> _logger;
-        private readonly ApplicationDbContext _db;
+        _context = context;
+    }
 
-        public CategoryController(ILogger<CategoryController> logger, ApplicationDbContext db)
-        {
-            _logger = logger;
-            _db = db;
-        }
+    // GET: api/Category
+    [HttpGet]
+    public IActionResult GetCategories()
+    {
+        var categories = _context.Categories.Select(c => c.ToDto()).ToList();
+        return Ok(categories);
+    }
 
-        public IActionResult Index()
+    // GET: api/Category/5
+    [HttpGet("{id}")]
+    public IActionResult GetCategory(int id)
+    {
+        var category = _context.Categories.Find(id);
+        if (category == null)
         {
-            IEnumerable<Category> objCategoryList = _db.Categories.ToList();
-            return View(objCategoryList);
+            return NotFound();
         }
+        return Ok(category.ToDto());
+    }
 
-        public IActionResult Create()
+    // POST: api/Category
+    [HttpPost]
+    public IActionResult CreateCategory([FromBody] CategoryDto categoryDto)
+    {
+        if (!ModelState.IsValid)
         {
-            return View();
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(Category obj)
-        {
-           if(ModelState.IsValid)
-           {
-               _db.Categories.Add(obj);
-               _db.SaveChanges();
-               return RedirectToAction("Index");
-           }
-           return View(obj);
-        }
-
-
-        public IActionResult Edit(int? id)
-        {
-            if(id == null || id == 0)
-            {
-                return NotFound();
-            }
-            var category = _db.Categories.Find(id);
-            if(category == null)
-            {
-                return NotFound();
-            }
-            return View(category);
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(Category obj)
-        {
-           if(ModelState.IsValid)
-           {
-               _db.Categories.Update(obj);
-               _db.SaveChanges();
-               return RedirectToAction("Index");
-           }
-           return View(obj);
+            return BadRequest(ModelState);
         }
 
-        public IActionResult Delete(int? id)
+        var category = new Category
         {
-            if(id == null || id == 0)
-            {
-                return NotFound();
-            }
-            var category = _db.Categories.Find(id);
-            if(category == null)
-            {
-                return NotFound();
-            }
-            return View(category);
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult DeletePost(int? id)
+            Name = categoryDto.Name
+        };
+
+        _context.Categories.Add(category);
+        _context.SaveChanges();
+
+        return CreatedAtAction(nameof(GetCategory), new { id = category.Id }, category.ToDto());
+    }
+
+    // PUT: api/Category/5
+    [HttpPut("{id}")]
+    public IActionResult UpdateCategory(int id, [FromBody] CategoryDto categoryDto)
+    {
+        if (!ModelState.IsValid)
         {
-           var category = _db.Categories.Find(id);
-           if(category == null)
-           {
-               return NotFound();
-           }
-           _db.Categories.Remove(category);
-           _db.SaveChanges();
-           return RedirectToAction("Index");
+            return BadRequest(ModelState);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        var category = _context.Categories.Find(id);
+        if (category == null)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return NotFound();
         }
+
+        category.Name = categoryDto.Name;
+
+        _context.Categories.Update(category);
+        _context.SaveChanges();
+
+        return NoContent();
+    }
+
+    // PATCH: api/Category/5
+    [HttpPatch("{id}")]
+    public IActionResult PatchCategory(int id, [FromBody] CategoryDto categoryDto)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var category = _context.Categories.Find(id);
+        if (category == null)
+        {
+            return NotFound();
+        }
+
+        if (!string.IsNullOrEmpty(categoryDto.Name))
+        {
+            category.Name = categoryDto.Name;
+        }
+
+        _context.Categories.Update(category);
+        _context.SaveChanges();
+
+        return NoContent();
+    }
+
+    // DELETE: api/Category/5
+    [HttpDelete("{id}")]
+    public IActionResult DeleteCategory(int id)
+    {
+        var category = _context.Categories.Find(id);
+        if (category == null)
+        {
+            return NotFound();
+        }
+
+        _context.Categories.Remove(category);
+        _context.SaveChanges();
+
+        return NoContent();
     }
 }

@@ -1,13 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Variate.Data;
-
-public static class DataExtentions
+namespace Variate.Data
 {
-    public static async Task MigrateDbAsync(this WebApplication app)
+    public static class DataExtensions
     {
-        using var scope = app.Services.CreateScope();
-        ApplicationDbContext dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-        await dbContext.Database.MigrateAsync();
+        public static async Task MigrateDbAsync(this WebApplication app)
+        {
+            using var scope = app.Services.CreateScope();
+            ApplicationDbContext dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            await dbContext.Database.MigrateAsync();
+        }
     }
 }
