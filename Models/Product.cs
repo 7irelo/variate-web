@@ -13,5 +13,5 @@ public class Product
     [Required][StringLength(200)] public string Description { get; set; }
     [Range(0, 10000)] public decimal Price { get; set; }
     public DateOnly Release { get; set; }
-    public string ImageUrl { get; set; }
+    [Required] public string ImageUrl { get; set; }
 }

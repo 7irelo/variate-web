@@ -1,25 +1,26 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using Variate.Models;
+using variate.Models;
 
-namespace Variate.Controllers
+namespace variate.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ApplicationDbContext _db;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext db)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            _db = db;
         }
 
-        [Route("")]
         public IActionResult Index()
         {
-            IEnumerable<Product> objProductList = _db.Products.ToList();
-            return View(objProductList);
+            return View();
+        }
+
+        public IActionResult Privacy()
+        {
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

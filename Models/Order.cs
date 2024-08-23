@@ -9,8 +9,8 @@ public class Order
     [DisplayName("User ID")]
     public int IdentityUserId { get; set; }
     public IdentityUser? IdentityUser { get; set; }
-    [DisplayName("Order Date")]
-    public DateOnly OrderDate { get; set; }
+    [DisplayName("Order DateTime")]
+    public DateTime OrderDateTime { get; set; } = DateTime.Now;
     [DisplayName("Total Cost")]
     public decimal TotalCost { get; set; }
     public string Status { get; set; }
