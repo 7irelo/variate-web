@@ -3,6 +3,11 @@
     ViewData["Title"] = "Categories";
 }
 
+@if (TempData["success"] != null)
+{
+    <h2>@TempData["success"]</h2>
+}
+
 <h1>Categories</h1>
 <div class="categories-container">
     @foreach(var obj in Model)
@@ -14,6 +19,7 @@
             <a asp-action="Product" asp-route-categoryId="@obj.Id">
                 <button class="category-button">View Products</button>
             </a>
+            <a asp-controller="Category" asp-action="Edit" asp-route-id="@obj.Id"></a>
         </div>
     }
 </div>

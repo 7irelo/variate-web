@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Variate.Dtos;
+namespace variate.Dtos;
 
 public record class UpdateProductDto(
     [Required][StringLength(50)] string Name, 

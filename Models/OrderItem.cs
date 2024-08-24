@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Variate.Models;
+namespace variate.Models;
 
 public class OrderItem
 {
