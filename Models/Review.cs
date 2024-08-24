@@ -1,7 +1,8 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
-namespace Variate.Models;
+namespace variate.Models;
 
 public class Review
 {
@@ -11,7 +12,7 @@ public class Review
     public Product? Product { get; set; }
     [DisplayName("User ID")]
     public int UserId { get; set; }
-    public User? User { get; set; }
+    public IdentityUser? IdentityUser { get; set; }
     public int Rating { get; set; }
     [DisplayName("Comment")]
     [Required][StringLength(200)]

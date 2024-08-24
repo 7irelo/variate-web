@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Variate.Data
+namespace variate.Data
 {
     public static class DataExtensions
     {

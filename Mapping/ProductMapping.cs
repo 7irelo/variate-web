@@ -1,7 +1,7 @@
-using Variate.Models;
-using Variate.Dtos;
+using variate.Models;
+using variate.Dtos;
 
-namespace Variate.Mapping;
+namespace variate.Mapping;
 
 public static class ProductMapping
 {
