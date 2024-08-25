@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using variate.Data;
 using variate.Models;
@@ -18,8 +19,16 @@ namespace variate.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Product> objProductList = _db.Products.ToList();
-            return View(objProductList);
+            // Fetch categories for the sidebar
+            var categories = _db.Categories.ToList();
+            ViewBag.Categories = categories;
+
+            // Fetch categories along with their products to display on the page
+            var categoriesWithProducts = _db.Categories
+                                            .Include(c => c.Products)
+                                            .ToList();
+
+            return View(categoriesWithProducts);
         }
 
         public IActionResult Privacy()

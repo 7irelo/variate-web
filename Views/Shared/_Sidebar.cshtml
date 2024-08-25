@@ -1,0 +1,13 @@
+@model IEnumerable<Category>
+
+<div class="sidebar" style="width: 20%; float: left; background-color: #f9f9f9; padding: 20px;">
+    <h2>Categories</h2>
+    <ul class="category-list">
+        @foreach (var category in Model)
+        {
+            <li class="category-item">
+                <a asp-controller="Category" asp-action="Index" asp-route-id="@category.Name.Replace(" ", "-").ToLower()">@category.Name</a>
+            </li>
+        }
+    </ul>
+</div>
