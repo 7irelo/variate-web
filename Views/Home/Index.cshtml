@@ -1,20 +1,40 @@
-@model IEnumerable<Product>
+@model IEnumerable<Category>
+
 @{
-    ViewData["Title"] = "Products On Sale";
+    ViewData["Title"] = "Products by Category";
 }
 
-<h1>Products On Sale</h1>
-<div class="products-container">
-    @foreach(var obj in Model)
-    {
-        <div class="product-card">
-            <img src="@obj.ImageUrl" class="product-card-image" alt="@obj.Name">
-            <h2 class="product-card-title">@obj.Name</h2>
-            <p class="product-card-description">@obj.Description</p>
-            <p class="product-card-price">@obj.Price.ToString("C")</p>
-            <a asp-action="Details" asp-route-id="@obj.Id">
-                <button class="product-button">Learn More</button>
-            </a>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3">
+            @await Html.PartialAsync("_Sidebar", ViewBag.Categories)
         </div>
-    }
+
+        <!-- Main content -->
+        <div class="col-md-9">
+            <h1>Products by Category</h1>
+
+            @foreach (var category in Model)
+            {
+                <div class="category-container">
+                    <h2>@category.Name</h2>
+                    <div class="products-container">
+                        @foreach (var product in category.Products)
+                        {
+                            <div class="product-card">
+                                <img src="@product.ImageUrl" class="product-card-image" alt="@product.Name">
+                                <h3 class="product-card-title">@product.Name</h3>
+                                <p class="product-card-description">@product.Description</p>
+                                <p class="product-card-price">@product.Price.ToString("C")</p>
+                                <a asp-action="Details" asp-route-id="@product.Id">
+                                    <button class="product-button">Learn More</button>
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
 </div>
