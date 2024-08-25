@@ -4,11 +4,11 @@ using variate.Models;
 
 namespace variate.Controllers
 {
-    public class CategoryController1 : Controller
+    public class CategoryController : Controller
     {
         private readonly ApplicationDbContext _db;
 
-        public CategoryController1(ApplicationDbContext db)
+        public CategoryController(ApplicationDbContext db)
         {
             _db = db;            
         }
