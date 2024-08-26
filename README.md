@@ -1,4 +1,4 @@
-![variate](https://github.com/user-attachments/assets/93122657-b264-4141-a253-a0f5406fe71c)
+![variate](https://github.com/user-attachments/assets/91d42448-412c-4ccc-89c1-4c3a5320438c)
 
 # Variate
 
