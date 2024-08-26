@@ -1,3 +1,5 @@
+![variate](https://github.com/user-attachments/assets/93122657-b264-4141-a253-a0f5406fe71c)
+
 # Variate
 
 Welcome to **Variate**, a full-featured e-commerce online shopping site built using the ASP.NET Core framework, Razor pages, and a PostgreSQL database. Variate offers a wide range of product categories to provide a comprehensive online shopping experience.
@@ -68,7 +70,7 @@ Welcome to **Variate**, a full-featured e-commerce online shopping site built us
    ```
 
 5. **Visit the application:**
-   Open your browser and navigate to `http://localhost:5000`
+   Open your browser and navigate to `http://localhost:5263`
 
 ## Contributing
 
