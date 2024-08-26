@@ -458,6 +458,9 @@ namespace variate.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
+                    b.Property<bool>("OnSale")
+                        .HasColumnType("boolean");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
@@ -478,6 +481,7 @@ namespace variate.Migrations
                             Description = "A sleek smartphone with a powerful processor.",
                             ImageUrl = "samsung_a15_blue.jpg",
                             Name = "Samsung A15 Blue",
+                            OnSale = true,
                             Price = 5999m,
                             Release = new DateOnly(2024, 1, 1)
                         },
@@ -488,6 +492,7 @@ namespace variate.Migrations
                             Description = "A high-performance laptop with a stunning display.",
                             ImageUrl = "dell_xps_15.jpg",
                             Name = "Dell XPS 15",
+                            OnSale = true,
                             Price = 21999m,
                             Release = new DateOnly(2024, 2, 1)
                         },
@@ -498,6 +503,7 @@ namespace variate.Migrations
                             Description = "Noise-cancelling wireless headphones.",
                             ImageUrl = "sony_wh_1000xm4.jpg",
                             Name = "Sony WH-1000XM4",
+                            OnSale = false,
                             Price = 3999m,
                             Release = new DateOnly(2024, 3, 1)
                         },
@@ -508,6 +514,7 @@ namespace variate.Migrations
                             Description = "A versatile tablet with a powerful A14 chip.",
                             ImageUrl = "ipad_air.jpg",
                             Name = "Apple iPad Air",
+                            OnSale = false,
                             Price = 9999m,
                             Release = new DateOnly(2024, 4, 1)
                         },
@@ -518,6 +525,7 @@ namespace variate.Migrations
                             Description = "A full-frame mirrorless camera for professional photography.",
                             ImageUrl = "canon_eos_r6.jpg",
                             Name = "Canon EOS R6",
+                            OnSale = false,
                             Price = 36999m,
                             Release = new DateOnly(2024, 5, 1)
                         },
@@ -528,6 +536,7 @@ namespace variate.Migrations
                             Description = "A healthy way to fry food with little to no oil.",
                             ImageUrl = "philips_air_fryer.jpg",
                             Name = "Philips Air Fryer",
+                            OnSale = true,
                             Price = 2799m,
                             Release = new DateOnly(2024, 1, 1)
                         },
@@ -538,6 +547,7 @@ namespace variate.Migrations
                             Description = "A powerful cordless vacuum cleaner.",
                             ImageUrl = "dyson_v11.jpg",
                             Name = "Dyson V11 Vacuum Cleaner",
+                            OnSale = false,
                             Price = 7999m,
                             Release = new DateOnly(2024, 2, 1)
                         },
@@ -548,6 +558,7 @@ namespace variate.Migrations
                             Description = "A versatile mixer for all your baking needs.",
                             ImageUrl = "kitchenaid_mixer.jpg",
                             Name = "KitchenAid Stand Mixer",
+                            OnSale = true,
                             Price = 6999m,
                             Release = new DateOnly(2024, 3, 1)
                         },
@@ -558,6 +569,7 @@ namespace variate.Migrations
                             Description = "A convenient way to make espresso at home.",
                             ImageUrl = "nespresso_machine.jpg",
                             Name = "Nespresso Coffee Machine",
+                            OnSale = false,
                             Price = 3499m,
                             Release = new DateOnly(2024, 4, 1)
                         },
@@ -568,6 +580,7 @@ namespace variate.Migrations
                             Description = "A multi-use pressure cooker for quick meals.",
                             ImageUrl = "instant_pot_duo.jpg",
                             Name = "Instant Pot Duo",
+                            OnSale = true,
                             Price = 1599m,
                             Release = new DateOnly(2024, 5, 1)
                         },
@@ -578,6 +591,7 @@ namespace variate.Migrations
                             Description = "A timeless fragrance for special occasions.",
                             ImageUrl = "chanel_no_5.jpg",
                             Name = "Chanel No. 5 Perfume",
+                            OnSale = true,
                             Price = 1999m,
                             Release = new DateOnly(2024, 1, 1)
                         },
@@ -588,6 +602,7 @@ namespace variate.Migrations
                             Description = "A volumizing mascara for bold lashes.",
                             ImageUrl = "maybelline_mascara.jpg",
                             Name = "Maybelline Mascara",
+                            OnSale = false,
                             Price = 199m,
                             Release = new DateOnly(2024, 2, 1)
                         },
@@ -598,6 +613,7 @@ namespace variate.Migrations
                             Description = "A luxury handbag made from fine leather.",
                             ImageUrl = "gucci_handbag.jpg",
                             Name = "Gucci Handbag",
+                            OnSale = false,
                             Price = 15999m,
                             Release = new DateOnly(2024, 3, 1)
                         },
@@ -608,6 +624,7 @@ namespace variate.Migrations
                             Description = "Classic sunglasses with polarized lenses.",
                             ImageUrl = "rayban_aviator.jpg",
                             Name = "Ray-Ban Aviator Sunglasses",
+                            OnSale = true,
                             Price = 2999m,
                             Release = new DateOnly(2024, 4, 1)
                         },
@@ -618,6 +635,7 @@ namespace variate.Migrations
                             Description = "A long-lasting lipstick in a range of colors.",
                             ImageUrl = "mac_lipstick.jpg",
                             Name = "MAC Lipstick",
+                            OnSale = true,
                             Price = 299m,
                             Release = new DateOnly(2024, 5, 1)
                         },
@@ -628,6 +646,7 @@ namespace variate.Migrations
                             Description = "A high-quality acoustic guitar for all levels.",
                             ImageUrl = "yamaha_acoustic_guitar.jpg",
                             Name = "Yamaha Acoustic Guitar",
+                            OnSale = true,
                             Price = 4999m,
                             Release = new DateOnly(2024, 1, 1)
                         },
@@ -638,6 +657,7 @@ namespace variate.Migrations
                             Description = "A digital piano with realistic touch and sound.",
                             ImageUrl = "roland_digital_piano.jpg",
                             Name = "Roland Digital Piano",
+                            OnSale = false,
                             Price = 19999m,
                             Release = new DateOnly(2024, 2, 1)
                         },
@@ -648,6 +668,7 @@ namespace variate.Migrations
                             Description = "A legendary electric guitar for professionals.",
                             ImageUrl = "fender_stratocaster.jpg",
                             Name = "Fender Stratocaster",
+                            OnSale = false,
                             Price = 17999m,
                             Release = new DateOnly(2024, 3, 1)
                         },
@@ -658,6 +679,7 @@ namespace variate.Migrations
                             Description = "Professional cymbals for drummers.",
                             ImageUrl = "zildjian_cymbals.jpg",
                             Name = "Zildjian Cymbals",
+                            OnSale = false,
                             Price = 5999m,
                             Release = new DateOnly(2024, 4, 1)
                         },
@@ -668,6 +690,7 @@ namespace variate.Migrations
                             Description = "A reliable microphone for live performances.",
                             ImageUrl = "shure_sm58.jpg",
                             Name = "Shure SM58 Microphone",
+                            OnSale = true,
                             Price = 1999m,
                             Release = new DateOnly(2024, 5, 1)
                         },
@@ -675,50 +698,55 @@ namespace variate.Migrations
                         {
                             Id = 21,
                             CategoryId = 5,
-                            Description = "Professional-grade watercolor paints.",
-                            ImageUrl = "watercolors_winsor_newton.jpg",
+                            Description = "High-quality watercolor paints for artists.",
+                            ImageUrl = "winsor_newton_watercolors.jpg",
                             Name = "Winsor & Newton Watercolors",
-                            Price = 899m,
+                            OnSale = false,
+                            Price = 999m,
                             Release = new DateOnly(2024, 1, 1)
                         },
                         new
                         {
                             Id = 22,
                             CategoryId = 5,
-                            Description = "A set of high-quality markers for artists.",
-                            ImageUrl = "copic_marker_set.jpg",
-                            Name = "Copic Marker Set",
-                            Price = 3999m,
+                            Description = "A set of professional-grade colored pencils.",
+                            ImageUrl = "faber_castell_pencils.jpg",
+                            Name = "Faber-Castell Pencils",
+                            OnSale = false,
+                            Price = 599m,
                             Release = new DateOnly(2024, 2, 1)
                         },
                         new
                         {
                             Id = 23,
                             CategoryId = 5,
-                            Description = "A premium sketchbook for drawing.",
-                            ImageUrl = "strathmore_sketchbook.jpg",
-                            Name = "Strathmore Sketchbook",
-                            Price = 299m,
+                            Description = "A versatile cutting machine for crafting.",
+                            ImageUrl = "cricut_maker.jpg",
+                            Name = "Cricut Maker",
+                            OnSale = false,
+                            Price = 4999m,
                             Release = new DateOnly(2024, 3, 1)
                         },
                         new
                         {
                             Id = 24,
                             CategoryId = 5,
-                            Description = "Vibrant colored pencils for coloring.",
-                            ImageUrl = "faber_castell_pencils.jpg",
-                            Name = "Faber-Castell Colored Pencils",
-                            Price = 499m,
+                            Description = "Richly pigmented oil pastels for artists.",
+                            ImageUrl = "sennelier_oil_pastels.jpg",
+                            Name = "Sennelier Oil Pastels",
+                            OnSale = false,
+                            Price = 1999m,
                             Release = new DateOnly(2024, 4, 1)
                         },
                         new
                         {
                             Id = 25,
                             CategoryId = 5,
-                            Description = "Oven-bake clay for sculpting projects.",
-                            ImageUrl = "sculpey_clay.jpg",
-                            Name = "Sculpey Clay",
-                            Price = 199m,
+                            Description = "High-quality drawing paper for all mediums.",
+                            ImageUrl = "canson_drawing_paper.jpg",
+                            Name = "Canson Drawing Paper",
+                            OnSale = true,
+                            Price = 499m,
                             Release = new DateOnly(2024, 5, 1)
                         });
                 });
