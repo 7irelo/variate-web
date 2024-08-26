@@ -13,8 +13,6 @@
 
         <!-- Main content -->
         <div class="col-md-9 col-xs-12">
-            <h1>Home</h1>
-
             @if (Model != null && Model.Any())
             {
                 @foreach (var category in Model)
@@ -28,11 +26,28 @@
                                 {
                                     <div class="col-md-3 my-3">
                                         <a style="text-decoration: none; color: black;" asp-controller="Product" asp-action="Details" asp-route-id="@product.Name">
-                                            <div class="card p-3" style="border-radius: 5px; text-align: center;">
+                                            <div class="card p-3 position-relative" style="border-radius: 5px; text-align: center;">
+                                                @if (product.OnSale)
+                                                {
+                                                    <img src="sale.png" alt="On Sale" style="position: absolute; top: 0; left: 0; width: 50px; height: auto;">
+                                                }
                                                 <img src="@product.ImageUrl" class="card-image-top col-12" alt="@product.Name">
                                                 <h6 style="font-weight: bold; height: 50px;" class="product-card-title col-12 my-3">@product.Name</h6>
                                                 <div class="card-footer text-muted">
-                                                    <small class="product-card-price">@product.Price.ToString("C")</small>
+                                                    @if (product.OnSale)
+                                                    {
+                                                        <!-- Calculate and display the discounted price directly in the Razor view -->
+                                                        <small class="product-card-price">
+                                                            <span style="text-decoration: line-through;">@product.Price.ToString("C")</span>
+                                                            <span style="color: red; font-weight: bold;">
+                                                                @((Math.Round(product.Price * 0.93m / 10) * 10).ToString("C"))
+                                                            </span>
+                                                        </small>
+                                                    }
+                                                    else
+                                                    {
+                                                        <small class="product-card-price">@product.Price.ToString("C")</small>
+                                                    }
                                                 </div>
                                             </div>
                                         </a>
