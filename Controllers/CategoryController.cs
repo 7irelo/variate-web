@@ -5,6 +5,7 @@ using variate.Models;
 
 namespace variate.Controllers
 {
+    [Route("category")]
     public class CategoryController : Controller
     {
         private readonly ApplicationDbContext _db;
@@ -14,36 +15,58 @@ namespace variate.Controllers
             _db = db;            
         }
 
-        // Updated Index to handle category name as a route parameter
-        public IActionResult Index(string id)
+        [HttpGet("{categoryName?}")]
+        public IActionResult Index(string categoryName)
         {
-            if (string.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(categoryName))
             {
                 // If no category name is provided, show the list of categories
                 IEnumerable<Category> objCategoryList = _db.Categories.ToList();
                 return View(objCategoryList);
             }
 
-            // Fetch category by name (after replacing spaces with hyphens and converting to lowercase)
+            // Convert the categoryName to the format used in the database
+            string formattedCategoryName = ConvertToTitleCase(categoryName.Replace("-", " "));
+
             var category = _db.Categories
-                              .Include(c => c.Products)
-                              .FirstOrDefault(c => c.Name.Replace(" ", "-").ToLower() == id.ToLower());
+                            .Include(c => c.Products)
+                            .FirstOrDefault(c => c.Name == formattedCategoryName);
 
             if (category == null)
             {
                 return NotFound();
             }
 
-            // Return the category details view (you'll need to create a view for this)
+            // Return the category details view
             return View("CategoryDetails", category);
         }
 
+        // Helper method to convert the category name to Title Case
+        private string ConvertToTitleCase(string input)
+        {
+            var words = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < words.Length; i++)
+            {
+                // Skip "and" and capitalize all other words
+                if (words[i].ToLower() != "and")
+                {
+                    words[i] = char.ToUpper(words[i][0]) + words[i][1..].ToLower();
+                }
+                else
+                {
+                    words[i] = words[i].ToLower();
+                }
+            }
+            return string.Join(' ', words);
+        }
+
+        [HttpGet("create")]
         public IActionResult Create()
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Category obj)
         {
@@ -57,6 +80,7 @@ namespace variate.Controllers
             return View(obj);
         }
 
+        [HttpGet("edit/{id}")]
         public IActionResult Edit(int? id)
         {
             if (id == null || id == 0)
@@ -72,7 +96,7 @@ namespace variate.Controllers
             return View(categoryFromDb);
         }
 
-        [HttpPost]
+        [HttpPost("edit/{id}")]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Category obj)
         {
@@ -86,6 +110,7 @@ namespace variate.Controllers
             return View(obj);
         }
 
+        [HttpGet("delete/{id}")]
         public IActionResult Delete(int? id)
         {
             if (id == null || id == 0)
@@ -101,7 +126,7 @@ namespace variate.Controllers
             return View(categoryFromDb);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost("delete/{id}")]
         [ValidateAntiForgeryToken]
         public IActionResult DeletePOST(int? id)
         {

@@ -7,13 +7,13 @@
 <div class="container-fluid">
     <div class="row">
         <!-- Sidebar -->
-        <div class="col-md-3">
-            @await Html.PartialAsync("_Sidebar", Model) <!-- Pass the categories model directly -->
+        <div class="col-md-3 col-xs-12" style="padding: 0">
+            @await Html.PartialAsync("_Sidebar", Model)
         </div>
 
         <!-- Main content -->
-        <div class="col-md-9">
-            <h1>Products by Category</h1>
+        <div class="col-md-9 col-xs-12">
+            <h1>Home</h1>
 
             @if (Model != null && Model.Any())
             {
@@ -21,18 +21,20 @@
                 {
                     <div class="category-container">
                         <h2>@category.Name</h2>
-                        <div class="products-container">
+                        <div class="row">
                             @if (category.Products != null && category.Products.Any())
                             {
                                 @foreach (var product in category.Products)
                                 {
-                                    <div class="product-card">
-                                        <img src="@product.ImageUrl" class="product-card-image" alt="@product.Name">
-                                        <h3 class="product-card-title">@product.Name</h3>
-                                        <p class="product-card-description">@product.Description</p>
-                                        <p class="product-card-price">@product.Price.ToString("C")</p>
-                                        <a asp-action="Details" asp-route-id="@product.Id">
-                                            <button class="product-button">Learn More</button>
+                                    <div class="col-md-3 my-3">
+                                        <a style="text-decoration: none; color: black;" asp-controller="Product" asp-action="Details" asp-route-id="@product.Name">
+                                            <div class="card p-3" style="border-radius: 5px; text-align: center;">
+                                                <img src="@product.ImageUrl" class="card-image-top col-12" alt="@product.Name">
+                                                <h6 style="font-weight: bold; height: 50px;" class="product-card-title col-12 my-3">@product.Name</h6>
+                                                <div class="card-footer text-muted">
+                                                    <small class="product-card-price">@product.Price.ToString("C")</small>
+                                                </div>
+                                            </div>
                                         </a>
                                     </div>
                                 }

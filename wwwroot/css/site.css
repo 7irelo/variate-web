@@ -1,5 +1,7 @@
 html {
   font-size: 14px;
+  margin: 0;
+  font-family: Bahnschrift;
 }
 
 @media (min-width: 768px) {
@@ -19,4 +21,5 @@ html {
 
 body {
   margin-bottom: 60px;
+  background: #f2f2f2;
 }

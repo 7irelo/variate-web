@@ -1,12 +1,14 @@
-@model IEnumerable<Category>
-
-<div class="sidebar" style="width: 20%; float: left; background-color: #f9f9f9; padding: 20px;">
-    <h2>Categories</h2>
-    <ul class="category-list">
+<div class="sidebar col-12 p-3 bg-light shadow rounded">
+    <h2 class="text-center mb-3">Categories</h2>
+    <hr>
+    <ul class="list-group">
         @foreach (var category in Model)
         {
-            <li class="category-item">
-                <a asp-controller="Category" asp-action="Index" asp-route-id="@category.Name.Replace(" ", "-").ToLower()">@category.Name</a>
+            <li class="list-group-item list-group-item-action">
+                <a class="text-decoration-none text-dark d-block text-center" 
+                   href="@Url.Action("Index", "Category", new { categoryName = category.Name.Replace(" ", "-").ToLower() })">
+                   @category.Name
+                </a>
             </li>
         }
     </ul>
