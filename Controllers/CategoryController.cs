@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 using variate.Data;
 using variate.Models;
+using System.Linq;
 
 namespace variate.Controllers
 {
-    [Route("category")]
+    [Route("categories")]
     public class CategoryController : Controller
     {
         private readonly ApplicationDbContext _db;
@@ -15,19 +17,31 @@ namespace variate.Controllers
             _db = db;            
         }
 
-        [HttpGet("{categoryName?}")]
-        public IActionResult Index(string categoryName)
+        [HttpGet]
+        public IActionResult Index()
         {
-            if (string.IsNullOrEmpty(categoryName))
-            {
-                // If no category name is provided, show the list of categories
-                IEnumerable<Category> objCategoryList = _db.Categories.ToList();
-                return View(objCategoryList);
-            }
+            // Fetch categories for the sidebar
+            var categories = _db.Categories.ToList();
+            ViewBag.Categories = categories;
 
-            // Convert the categoryName to the format used in the database
-            string formattedCategoryName = ConvertToTitleCase(categoryName.Replace("-", " "));
+            // Fetch categories along with their products to display on the page
+            var categoriesWithProducts = _db.Categories
+                                            .Include(c => c.Products)
+                                            .ToList();
 
+            return View(categoriesWithProducts);
+        }
+
+        [HttpGet("{categoryName}")]
+        public IActionResult Details(string categoryName)
+        {
+            // Transform the URL segment to the appropriate category name format
+            string formattedCategoryName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(categoryName.Replace("-", " "));
+            
+            // Exception handling for the word "and" (ensure "and" is not capitalized)
+            formattedCategoryName = formattedCategoryName.Replace(" And ", " and ");
+
+            // Fetch the category by name including its products
             var category = _db.Categories
                             .Include(c => c.Products)
                             .FirstOrDefault(c => c.Name == formattedCategoryName);
@@ -37,27 +51,7 @@ namespace variate.Controllers
                 return NotFound();
             }
 
-            // Return the category details view
-            return View("CategoryDetails", category);
-        }
-
-        // Helper method to convert the category name to Title Case
-        private string ConvertToTitleCase(string input)
-        {
-            var words = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-            for (int i = 0; i < words.Length; i++)
-            {
-                // Skip "and" and capitalize all other words
-                if (words[i].ToLower() != "and")
-                {
-                    words[i] = char.ToUpper(words[i][0]) + words[i][1..].ToLower();
-                }
-                else
-                {
-                    words[i] = words[i].ToLower();
-                }
-            }
-            return string.Join(' ', words);
+            return View(category);
         }
 
         [HttpGet("create")]

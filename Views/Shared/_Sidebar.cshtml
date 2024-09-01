@@ -6,7 +6,7 @@
         {
             <li class="list-group-item list-group-item-action">
                 <a class="text-decoration-none text-dark d-block text-center" 
-                   href="@Url.Action("Index", "Category", new { categoryName = category.Name.Replace(" ", "-").ToLower() })">
+                   href="/categories/@category.Name.Replace(" ", "-").ToLower()">
                    @category.Name
                 </a>
             </li>
