@@ -2,8 +2,8 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using variate.Data;
 
 #nullable disable
@@ -18,32 +18,33 @@ namespace variate.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.7")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasDatabaseName("RoleNameIndex");
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
                 });
@@ -52,19 +53,19 @@ namespace variate.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RoleId")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -76,54 +77,54 @@ namespace variate.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("boolean");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("boolean");
+                        .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("boolean");
+                        .HasColumnType("bit");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("boolean");
+                        .HasColumnType("bit");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
@@ -132,7 +133,8 @@ namespace variate.Migrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasDatabaseName("UserNameIndex");
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -141,19 +143,19 @@ namespace variate.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -166,18 +168,18 @@ namespace variate.Migrations
                 {
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderKey")
                         .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -189,10 +191,10 @@ namespace variate.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("RoleId")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -204,18 +206,18 @@ namespace variate.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Name")
                         .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Value")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
@@ -226,23 +228,26 @@ namespace variate.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
-                        .HasColumnType("text");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("ImageUrl")
-                        .HasColumnType("text");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("categories");
 
                     b.HasData(
                         new
@@ -353,49 +358,51 @@ namespace variate.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("IdentityUserId")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("OrderDateTime")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Status")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<decimal>("TotalCost")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("IdentityUserId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("orders");
                 });
 
             modelBuilder.Entity("variate.Models.OrderItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("OrderId")
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
                     b.Property<int>("ProductId")
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
                     b.Property<int>("Quantity")
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
                     b.Property<int>("UnitPrice")
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -403,66 +410,69 @@ namespace variate.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderItems");
+                    b.ToTable("order_items");
                 });
 
             modelBuilder.Entity("variate.Models.Payment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("OrderId")
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
-                    b.Property<string>("PaymentDate")
-                        .HasColumnType("text");
+                    b.Property<DateTime>("PaymentDateTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("PaymentMethod")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("Payments");
+                    b.ToTable("payments");
                 });
 
             modelBuilder.Entity("variate.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CategoryId")
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("OnSale")
-                        .HasColumnType("boolean");
+                        .HasColumnType("bit");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateOnly>("Release")
                         .HasColumnType("date");
@@ -471,7 +481,7 @@ namespace variate.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products");
+                    b.ToTable("products");
 
                     b.HasData(
                         new
@@ -514,7 +524,7 @@ namespace variate.Migrations
                             Description = "A versatile tablet with a powerful A14 chip.",
                             ImageUrl = "ipad_air.jpg",
                             Name = "Apple iPad Air",
-                            OnSale = false,
+                            OnSale = true,
                             Price = 9999m,
                             Release = new DateOnly(2024, 4, 1)
                         },
@@ -536,7 +546,7 @@ namespace variate.Migrations
                             Description = "A healthy way to fry food with little to no oil.",
                             ImageUrl = "philips_air_fryer.jpg",
                             Name = "Philips Air Fryer",
-                            OnSale = true,
+                            OnSale = false,
                             Price = 2799m,
                             Release = new DateOnly(2024, 1, 1)
                         },
@@ -547,7 +557,7 @@ namespace variate.Migrations
                             Description = "A powerful cordless vacuum cleaner.",
                             ImageUrl = "dyson_v11.jpg",
                             Name = "Dyson V11 Vacuum Cleaner",
-                            OnSale = false,
+                            OnSale = true,
                             Price = 7999m,
                             Release = new DateOnly(2024, 2, 1)
                         },
@@ -580,7 +590,7 @@ namespace variate.Migrations
                             Description = "A multi-use pressure cooker for quick meals.",
                             ImageUrl = "instant_pot_duo.jpg",
                             Name = "Instant Pot Duo",
-                            OnSale = true,
+                            OnSale = false,
                             Price = 1599m,
                             Release = new DateOnly(2024, 5, 1)
                         },
@@ -591,7 +601,7 @@ namespace variate.Migrations
                             Description = "A timeless fragrance for special occasions.",
                             ImageUrl = "chanel_no_5.jpg",
                             Name = "Chanel No. 5 Perfume",
-                            OnSale = true,
+                            OnSale = false,
                             Price = 1999m,
                             Release = new DateOnly(2024, 1, 1)
                         },
@@ -602,7 +612,7 @@ namespace variate.Migrations
                             Description = "A volumizing mascara for bold lashes.",
                             ImageUrl = "maybelline_mascara.jpg",
                             Name = "Maybelline Mascara",
-                            OnSale = false,
+                            OnSale = true,
                             Price = 199m,
                             Release = new DateOnly(2024, 2, 1)
                         },
@@ -613,7 +623,7 @@ namespace variate.Migrations
                             Description = "A luxury handbag made from fine leather.",
                             ImageUrl = "gucci_handbag.jpg",
                             Name = "Gucci Handbag",
-                            OnSale = false,
+                            OnSale = true,
                             Price = 15999m,
                             Release = new DateOnly(2024, 3, 1)
                         },
@@ -646,7 +656,7 @@ namespace variate.Migrations
                             Description = "A high-quality acoustic guitar for all levels.",
                             ImageUrl = "yamaha_acoustic_guitar.jpg",
                             Name = "Yamaha Acoustic Guitar",
-                            OnSale = true,
+                            OnSale = false,
                             Price = 4999m,
                             Release = new DateOnly(2024, 1, 1)
                         },
@@ -668,7 +678,7 @@ namespace variate.Migrations
                             Description = "A legendary electric guitar for professionals.",
                             ImageUrl = "fender_stratocaster.jpg",
                             Name = "Fender Stratocaster",
-                            OnSale = false,
+                            OnSale = true,
                             Price = 17999m,
                             Release = new DateOnly(2024, 3, 1)
                         },
@@ -679,7 +689,7 @@ namespace variate.Migrations
                             Description = "Professional cymbals for drummers.",
                             ImageUrl = "zildjian_cymbals.jpg",
                             Name = "Zildjian Cymbals",
-                            OnSale = false,
+                            OnSale = true,
                             Price = 5999m,
                             Release = new DateOnly(2024, 4, 1)
                         },
@@ -690,7 +700,7 @@ namespace variate.Migrations
                             Description = "A reliable microphone for live performances.",
                             ImageUrl = "shure_sm58.jpg",
                             Name = "Shure SM58 Microphone",
-                            OnSale = true,
+                            OnSale = false,
                             Price = 1999m,
                             Release = new DateOnly(2024, 5, 1)
                         },
@@ -712,7 +722,7 @@ namespace variate.Migrations
                             Description = "A set of professional-grade colored pencils.",
                             ImageUrl = "faber_castell_pencils.jpg",
                             Name = "Faber-Castell Pencils",
-                            OnSale = false,
+                            OnSale = true,
                             Price = 599m,
                             Release = new DateOnly(2024, 2, 1)
                         },
@@ -723,7 +733,7 @@ namespace variate.Migrations
                             Description = "A versatile cutting machine for crafting.",
                             ImageUrl = "cricut_maker.jpg",
                             Name = "Cricut Maker",
-                            OnSale = false,
+                            OnSale = true,
                             Price = 4999m,
                             Release = new DateOnly(2024, 3, 1)
                         },
@@ -734,7 +744,7 @@ namespace variate.Migrations
                             Description = "Richly pigmented oil pastels for artists.",
                             ImageUrl = "sennelier_oil_pastels.jpg",
                             Name = "Sennelier Oil Pastels",
-                            OnSale = false,
+                            OnSale = true,
                             Price = 1999m,
                             Release = new DateOnly(2024, 4, 1)
                         },
@@ -755,26 +765,26 @@ namespace variate.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("IdentityUserId")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("ProductId")
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
                     b.Property<int>("Rating")
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
                     b.Property<string>("ReviewComment")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -782,7 +792,7 @@ namespace variate.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Reviews");
+                    b.ToTable("reviews");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

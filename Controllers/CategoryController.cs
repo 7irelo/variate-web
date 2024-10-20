@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Globalization;
 using variate.Data;
 using variate.Models;
 using System.Linq;
@@ -17,6 +16,7 @@ namespace variate.Controllers
             _db = db;            
         }
 
+        // Fetch all categories with their products
         [HttpGet]
         public IActionResult Index()
         {
@@ -24,7 +24,7 @@ namespace variate.Controllers
             var categories = _db.Categories.ToList();
             ViewBag.Categories = categories;
 
-            // Fetch categories along with their products to display on the page
+            // Fetch categories along with their products
             var categoriesWithProducts = _db.Categories
                                             .Include(c => c.Products)
                                             .ToList();
@@ -32,19 +32,14 @@ namespace variate.Controllers
             return View(categoriesWithProducts);
         }
 
-        [HttpGet("{categoryName}")]
-        public IActionResult Details(string categoryName)
+        // Fetch category by ID and its products
+        [HttpGet("{id:int}")]
+        public IActionResult Details(int id)
         {
-            // Transform the URL segment to the appropriate category name format
-            string formattedCategoryName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(categoryName.Replace("-", " "));
-            
-            // Exception handling for the word "and" (ensure "and" is not capitalized)
-            formattedCategoryName = formattedCategoryName.Replace(" And ", " and ");
-
-            // Fetch the category by name including its products
+            // Fetch the category by ID including its products
             var category = _db.Categories
-                            .Include(c => c.Products)
-                            .FirstOrDefault(c => c.Name == formattedCategoryName);
+                              .Include(c => c.Products)
+                              .FirstOrDefault(c => c.Id == id);
 
             if (category == null)
             {
@@ -54,12 +49,14 @@ namespace variate.Controllers
             return View(category);
         }
 
+        // Create category (GET)
         [HttpGet("create")]
         public IActionResult Create()
         {
             return View();
         }
 
+        // Create category (POST)
         [HttpPost("create")]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Category obj)
@@ -74,23 +71,22 @@ namespace variate.Controllers
             return View(obj);
         }
 
-        [HttpGet("edit/{id}")]
-        public IActionResult Edit(int? id)
+        // Edit category by ID (GET)
+        [HttpGet("{id:int}/edit")]
+        public IActionResult Edit(int id)
         {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
             var categoryFromDb = _db.Categories.FirstOrDefault(c => c.Id == id);
 
             if (categoryFromDb == null)
             {
                 return NotFound();
             }
+
             return View(categoryFromDb);
         }
 
-        [HttpPost("edit/{id}")]
+        // Edit category by ID (POST)
+        [HttpPost("{id:int}/edit")]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Category obj)
         {
@@ -101,34 +97,35 @@ namespace variate.Controllers
                 TempData["success"] = "Category updated successfully";
                 return RedirectToAction("Index");
             }
+
             return View(obj);
         }
 
-        [HttpGet("delete/{id}")]
-        public IActionResult Delete(int? id)
+        // Delete category by ID (GET)
+        [HttpGet("{id:int}/delete")]
+        public IActionResult Delete(int id)
         {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
             var categoryFromDb = _db.Categories.FirstOrDefault(c => c.Id == id);
 
             if (categoryFromDb == null)
             {
                 return NotFound();
             }
+
             return View(categoryFromDb);
         }
 
-        [HttpPost("delete/{id}")]
+        // Delete category by ID (POST)
+        [HttpPost("{id:int}/delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeletePOST(int? id)
+        public IActionResult DeletePOST(int id)
         {
             var obj = _db.Categories.Find(id);
             if (obj == null)
             {
                 return NotFound();
             }
+
             _db.Categories.Remove(obj);
             _db.SaveChanges();
             TempData["success"] = "Category deleted successfully";

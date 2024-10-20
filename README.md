@@ -103,7 +103,3 @@ For any inquiries or feedback, feel free to reach out:
 - Website: [www.variate.com](http://www.variate.com)
 
 Thank you for using Variate! Happy shopping!
-
----
-
-This README.md is a template and may need adjustments based on your project's specifics. Make sure to update sections like the payment gateway, hosting service, and contact information accordingly.

@@ -17,23 +17,43 @@ namespace variate.Controllers
             _db = db; 
         }
 
-        public IActionResult Index()
+        // Index action to fetch products on sale
+        public async Task<IActionResult> Index()
         {
-            // Fetch categories for the sidebar
-            var categories = _db.Categories.ToList();
-            ViewBag.Categories = categories;
+            try
+            {
+                // Log that we are fetching products on sale
+                _logger.LogInformation("Fetching products that are on sale");
 
-            // Fetch categories along with their products to display on the page
-            var categoriesWithProducts = _db.Categories
-                                            .Include(c => c.Products)
-                                            .ToList();
+                // Fetch all products where OnSale is true asynchronously
+                var productsOnSale = await _db.Products
+                                              .Where(p => p.OnSale)
+                                              .ToListAsync();
 
-            return View(categoriesWithProducts);
+                // Log the number of products fetched
+                _logger.LogInformation("{Count} products found on sale", productsOnSale.Count);
+
+                // Pass the list of products to the view
+                return View(productsOnSale);
+            }
+            catch (Exception ex)
+            {
+                // Log the error
+                _logger.LogError(ex, "Error occurred while fetching products on sale");
+
+                // Optionally, redirect to an error page or return an error view
+                return RedirectToAction("Error");
+            }
         }
 
         public IActionResult Privacy()
         {
             return View();
+        }
+        
+        public IActionResult NotFound()
+        {
+            return View("NotFound");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
