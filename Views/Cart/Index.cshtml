@@ -2,27 +2,340 @@
 @{
     ViewData["Title"] = "Your Cart";
 }
-
-<h1>Your Cart</h1>
-<div class="cart-container">
-    @if(Model.Any())
-    {
-        foreach(var item in Model)
-        {
-            <div class="cart-item">
-                <img src="@item.Product.ImageUrl" class="cart-item-image" alt="@item.Product.Name">
-                <div class="cart-item-details">
-                    <h2 class="cart-item-title">@item.Product.Name</h2>
-                    <p class="cart-item-price">@item.Product.Price.ToString("C")</p>
-                    <p class="cart-item-quantity">Quantity: @item.Quantity</p>
-                    <a asp-action="RemoveFromCart" asp-route-id="@item.Product.Id" class="cart-item-remove">Remove</a>
+<div class="reflow-shopping-cart" style="display: block;">
+    <div class="ref-loading-overlay"></div>
+    <div class="ref-message" style="display: none;">Unable to load shopping cart.</div>
+    <div class="ref-cart" style="display: block;">
+        <div class="ref-heading">Shopping Cart</div>
+        <div class="ref-th">
+            <div class="ref-product-col">Product</div>
+            <div class="ref-price-col">Price</div>
+            <div class="ref-quantity-col">Quantity</div>
+            <div class="ref-total-col">Total</div>
+        </div>
+        <div class="ref-cart-table">
+            <div class="ref-product" data-id="1168761308" data-quantity="2">
+                <div class="ref-product-col">
+                    <div class="ref-product-wrapper"><img class="ref-product-photo" src="https://cdn.bootstrapstudio.io/products/product-21_sm.jpg" alt="Vintage Clock" />
+                        <div class="ref-product-data">
+                            <div class="ref-product-info">
+                                <div>
+                                    <div class="ref-product-name">Vintage Clock</div>
+                                    <div class="ref-product-category">Tech</div>
+                                    <div class="ref-product-variants"></div>
+                                    <div class="ref-product-personalization-holder"></div>
+                                </div>
+                                <div class="ref-product-price ref-mobile-product-price">$18.34</div>
+                            </div>
+                            <div class="ref-product-controls ref-mobile-product-controls">
+                                <div class="ref-product-quantity">
+                                    <div class="ref-quantity-container" data-reflow-product="1168761308" data-reflow-max-qty="999" data-reflow-quantity="2">
+                                        <div class="ref-quantity-widget">
+                                            <div class="ref-decrease"><span></span></div><input type="text" value="1" />
+                                            <div class="ref-increase"><span></span></div>
+                                        </div>
+                                    </div>
+                                    <div class="ref-product-qty-message"></div>
+                                </div>
+                                <div class="ref-product-remove"><svg xmlns="http://www.w3.org/2000/svg" height="18" width="18" viewBox="0 0 48 48">
+                                        <path fill="currentColor" d="M13.05 42q-1.2 0-2.1-.9-.9-.9-.9-2.1V10.5H8v-3h9.4V6h13.2v1.5H40v3h-2.05V39q0 1.2-.9 2.1-.9.9-2.1.9Zm21.9-31.5h-21.9V39h21.9Zm-16.6 24.2h3V14.75h-3Zm8.3 0h3V14.75h-3Zm-13.6-24.2V39Z"></path>
+                                    </svg></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ref-price-col">
+                    <div class="ref-product-price">$18.34</div>
+                </div>
+                <div class="ref-quantity-col">
+                    <div class="ref-product-quantity">
+                        <div class="ref-quantity-container" data-reflow-product="1168761308" data-reflow-max-qty="999" data-reflow-quantity="2">
+                            <div class="ref-quantity-widget">
+                                <div class="ref-decrease"><span></span></div><input type="text" value="1" />
+                                <div class="ref-increase"><span></span></div>
+                            </div>
+                        </div>
+                        <div class="ref-product-qty-message"></div>
+                        <div class="ref-product-remove">Remove</div>
+                    </div>
+                </div>
+                <div class="ref-total-col">
+                    <div class="ref-product-total">
+                        <div class="ref-product-total-sum">$36.68</div>
+                    </div>
                 </div>
             </div>
-        }
-    }
-    else
-    {
-        <p>Your cart is empty.</p>
-    }
+            <div class="ref-product" data-id="589605485" data-quantity="1" data-variant_id="199976733_s">
+                <div class="ref-product-col">
+                    <div class="ref-product-wrapper"><img class="ref-product-photo" src="https://cdn.bootstrapstudio.io/products/product-18_sm.jpg" alt="Reusable Cup" />
+                        <div class="ref-product-data">
+                            <div class="ref-product-info">
+                                <div>
+                                    <div class="ref-product-name">Reusable Cup</div>
+                                    <div class="ref-product-category">Cups</div>
+                                    <div class="ref-product-variants">
+                                        <div class="ref-product-variant">Size: S</div>
+                                    </div>
+                                    <div class="ref-product-personalization-holder"></div>
+                                </div>
+                                <div class="ref-product-price ref-mobile-product-price">$35.39</div>
+                            </div>
+                            <div class="ref-product-controls ref-mobile-product-controls">
+                                <div class="ref-product-quantity">
+                                    <div class="ref-quantity-container" data-reflow-variant="199976733_s" data-reflow-product="589605485" data-reflow-max-qty="999" data-reflow-quantity="1">
+                                        <div class="ref-quantity-widget">
+                                            <div class="ref-decrease"><span></span></div><input type="text" value="1" />
+                                            <div class="ref-increase"><span></span></div>
+                                        </div>
+                                    </div>
+                                    <div class="ref-product-qty-message"></div>
+                                </div>
+                                <div class="ref-product-remove"><svg xmlns="http://www.w3.org/2000/svg" height="18" width="18" viewBox="0 0 48 48">
+                                        <path fill="currentColor" d="M13.05 42q-1.2 0-2.1-.9-.9-.9-.9-2.1V10.5H8v-3h9.4V6h13.2v1.5H40v3h-2.05V39q0 1.2-.9 2.1-.9.9-2.1.9Zm21.9-31.5h-21.9V39h21.9Zm-16.6 24.2h3V14.75h-3Zm8.3 0h3V14.75h-3Zm-13.6-24.2V39Z"></path>
+                                    </svg></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ref-price-col">
+                    <div class="ref-product-price">$35.39</div>
+                </div>
+                <div class="ref-quantity-col">
+                    <div class="ref-product-quantity">
+                        <div class="ref-quantity-container" data-reflow-variant="199976733_s" data-reflow-product="589605485" data-reflow-max-qty="999" data-reflow-quantity="1">
+                            <div class="ref-quantity-widget">
+                                <div class="ref-decrease"><span></span></div><input type="text" value="1" />
+                                <div class="ref-increase"><span></span></div>
+                            </div>
+                        </div>
+                        <div class="ref-product-qty-message"></div>
+                        <div class="ref-product-remove">Remove</div>
+                    </div>
+                </div>
+                <div class="ref-total-col">
+                    <div class="ref-product-total">
+                        <div class="ref-product-total-sum">$35.39</div>
+                    </div>
+                </div>
+            </div>
+            <div class="ref-product" data-id="589605485" data-quantity="1" data-variant_id="199976733_m">
+                <div class="ref-product-col">
+                    <div class="ref-product-wrapper"><img class="ref-product-photo" src="https://cdn.bootstrapstudio.io/products/product-18_sm.jpg" alt="Reusable Cup" />
+                        <div class="ref-product-data">
+                            <div class="ref-product-info">
+                                <div>
+                                    <div class="ref-product-name">Reusable Cup</div>
+                                    <div class="ref-product-category">Cups</div>
+                                    <div class="ref-product-variants">
+                                        <div class="ref-product-variant">Size: M</div>
+                                    </div>
+                                    <div class="ref-product-personalization-holder"></div>
+                                </div>
+                                <div class="ref-product-price ref-mobile-product-price">$35.39</div>
+                            </div>
+                            <div class="ref-product-controls ref-mobile-product-controls">
+                                <div class="ref-product-quantity">
+                                    <div class="ref-quantity-container" data-reflow-variant="199976733_m" data-reflow-product="589605485" data-reflow-max-qty="999" data-reflow-quantity="1">
+                                        <div class="ref-quantity-widget">
+                                            <div class="ref-decrease"><span></span></div><input type="text" value="1" />
+                                            <div class="ref-increase"><span></span></div>
+                                        </div>
+                                    </div>
+                                    <div class="ref-product-qty-message"></div>
+                                </div>
+                                <div class="ref-product-remove"><svg xmlns="http://www.w3.org/2000/svg" height="18" width="18" viewBox="0 0 48 48">
+                                        <path fill="currentColor" d="M13.05 42q-1.2 0-2.1-.9-.9-.9-.9-2.1V10.5H8v-3h9.4V6h13.2v1.5H40v3h-2.05V39q0 1.2-.9 2.1-.9.9-2.1.9Zm21.9-31.5h-21.9V39h21.9Zm-16.6 24.2h3V14.75h-3Zm8.3 0h3V14.75h-3Zm-13.6-24.2V39Z"></path>
+                                    </svg></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ref-price-col">
+                    <div class="ref-product-price">$35.39</div>
+                </div>
+                <div class="ref-quantity-col">
+                    <div class="ref-product-quantity">
+                        <div class="ref-quantity-container" data-reflow-variant="199976733_m" data-reflow-product="589605485" data-reflow-max-qty="999" data-reflow-quantity="1">
+                            <div class="ref-quantity-widget">
+                                <div class="ref-decrease"><span></span></div><input type="text" value="1" />
+                                <div class="ref-increase"><span></span></div>
+                            </div>
+                        </div>
+                        <div class="ref-product-qty-message"></div>
+                        <div class="ref-product-remove">Remove</div>
+                    </div>
+                </div>
+                <div class="ref-total-col">
+                    <div class="ref-product-total">
+                        <div class="ref-product-total-sum">$35.39</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ref-footer">
+            <div class="ref-links"><a href="https://google.com" target="_blank">Terms &amp; Conditions</a><a href="https://google.com" target="_blank">Privacy Policy</a><a href="https://google.com" target="_blank">Refund Policy</a></div>
+            <div class="ref-totals">
+                <div class="ref-subtotal">Subtotal: $107.46</div>
+                <form class="ref-accept-terms" style="display: block;"><label><input id="ref-terms-agreement" type="checkbox" data-state-src="accept-terms" required /><span class="ref-terms-agreement-text"><span>I agree to the </span><a href="https://google.com">Terms &amp; Conditions</a><span>, </span><a href="https://google.com">Privacy Policy</a><span> and </span><a href="https://google.com">Refund Policy</a></span></label></form>
+                <div class="ref-row ref-checkout-buttons">
+                    <div class="ref-paypal-express-checkout-holder">
+                        <div class="paypal-button paypal-button-gold button-demo-payment"><svg xmlns="http://www.w3.org/2000/svg" height="22" viewBox="0 0 101 32" preserveAspectRatio="xMinYMin meet">
+                                <path fill="#003087" d="M 12.237 2.8 L 4.437 2.8 C 3.937 2.8 3.437 3.2 3.337 3.7 L 0.237 23.7 C 0.137 24.1 0.437 24.4 0.837 24.4 L 4.537 24.4 C 5.037 24.4 5.537 24 5.637 23.5 L 6.437 18.1 C 6.537 17.6 6.937 17.2 7.537 17.2 L 10.037 17.2 C 15.137 17.2 18.137 14.7 18.937 9.8 C 19.237 7.7 18.937 6 17.937 4.8 C 16.837 3.5 14.837 2.8 12.237 2.8 Z M 13.137 10.1 C 12.737 12.9 10.537 12.9 8.537 12.9 L 7.337 12.9 L 8.137 7.7 C 8.137 7.4 8.437 7.2 8.737 7.2 L 9.237 7.2 C 10.637 7.2 11.937 7.2 12.637 8 C 13.137 8.4 13.337 9.1 13.137 10.1 Z"></path>
+                                <path fill="#003087" d="M 35.437 10 L 31.737 10 C 31.437 10 31.137 10.2 31.137 10.5 L 30.937 11.5 L 30.637 11.1 C 29.837 9.9 28.037 9.5 26.237 9.5 C 22.137 9.5 18.637 12.6 17.937 17 C 17.537 19.2 18.037 21.3 19.337 22.7 C 20.437 24 22.137 24.6 24.037 24.6 C 27.337 24.6 29.237 22.5 29.237 22.5 L 29.037 23.5 C 28.937 23.9 29.237 24.3 29.637 24.3 L 33.037 24.3 C 33.537 24.3 34.037 23.9 34.137 23.4 L 36.137 10.6 C 36.237 10.4 35.837 10 35.437 10 Z M 30.337 17.2 C 29.937 19.3 28.337 20.8 26.137 20.8 C 25.037 20.8 24.237 20.5 23.637 19.8 C 23.037 19.1 22.837 18.2 23.037 17.2 C 23.337 15.1 25.137 13.6 27.237 13.6 C 28.337 13.6 29.137 14 29.737 14.6 C 30.237 15.3 30.437 16.2 30.337 17.2 Z"></path>
+                                <path fill="#003087" d="M 55.337 10 L 51.637 10 C 51.237 10 50.937 10.2 50.737 10.5 L 45.537 18.1 L 43.337 10.8 C 43.237 10.3 42.737 10 42.337 10 L 38.637 10 C 38.237 10 37.837 10.4 38.037 10.9 L 42.137 23 L 38.237 28.4 C 37.937 28.8 38.237 29.4 38.737 29.4 L 42.437 29.4 C 42.837 29.4 43.137 29.2 43.337 28.9 L 55.837 10.9 C 56.137 10.6 55.837 10 55.337 10 Z"></path>
+                                <path fill="#009cde" d="M 67.737 2.8 L 59.937 2.8 C 59.437 2.8 58.937 3.2 58.837 3.7 L 55.737 23.6 C 55.637 24 55.937 24.3 56.337 24.3 L 60.337 24.3 C 60.737 24.3 61.037 24 61.037 23.7 L 61.937 18 C 62.037 17.5 62.437 17.1 63.037 17.1 L 65.537 17.1 C 70.637 17.1 73.637 14.6 74.437 9.7 C 74.737 7.6 74.437 5.9 73.437 4.7 C 72.237 3.5 70.337 2.8 67.737 2.8 Z M 68.637 10.1 C 68.237 12.9 66.037 12.9 64.037 12.9 L 62.837 12.9 L 63.637 7.7 C 63.637 7.4 63.937 7.2 64.237 7.2 L 64.737 7.2 C 66.137 7.2 67.437 7.2 68.137 8 C 68.637 8.4 68.737 9.1 68.637 10.1 Z"></path>
+                                <path fill="#009cde" d="M 90.937 10 L 87.237 10 C 86.937 10 86.637 10.2 86.637 10.5 L 86.437 11.5 L 86.137 11.1 C 85.337 9.9 83.537 9.5 81.737 9.5 C 77.637 9.5 74.137 12.6 73.437 17 C 73.037 19.2 73.537 21.3 74.837 22.7 C 75.937 24 77.637 24.6 79.537 24.6 C 82.837 24.6 84.737 22.5 84.737 22.5 L 84.537 23.5 C 84.437 23.9 84.737 24.3 85.137 24.3 L 88.537 24.3 C 89.037 24.3 89.537 23.9 89.637 23.4 L 91.637 10.6 C 91.637 10.4 91.337 10 90.937 10 Z M 85.737 17.2 C 85.337 19.3 83.737 20.8 81.537 20.8 C 80.437 20.8 79.637 20.5 79.037 19.8 C 78.437 19.1 78.237 18.2 78.437 17.2 C 78.737 15.1 80.537 13.6 82.637 13.6 C 83.737 13.6 84.537 14 85.137 14.6 C 85.737 15.3 85.937 16.2 85.737 17.2 Z"></path>
+                                <path fill="#009cde" d="M 95.337 3.3 L 92.137 23.6 C 92.037 24 92.337 24.3 92.737 24.3 L 95.937 24.3 C 96.437 24.3 96.937 23.9 97.037 23.4 L 100.237 3.5 C 100.337 3.1 100.037 2.8 99.637 2.8 L 96.037 2.8 C 95.637 2.8 95.437 3 95.337 3.3 Z"></path>
+                            </svg></div>
+                    </div>
+                    <div class="ref-button ref-standard-checkout-button">Checkout</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ref-checkout" style="display: none;">
+        <div class="ref-checkout-content">
+            <form class="ref-details">
+                <div class="ref-back">← Back to Cart</div>
+                <div class="ref-heading">Customer Details</div>
+                <div class="text-center ref-auth-button-holder">
+                    <div class="ref-auth-button" data-reflow-type="auth-button">
+                        <div class="reflow-auth-button">
+                            <div class="ref-auth-button-guest">
+                                <div class="ref-button ref-sign-in">Sign In</div>
+                                <div class="ref-register">Don&#39;t have an account? <span class="text-primary">Register<span></span></span></div>
+                            </div>
+                            <div class="ref-auth-button-signed"><a class="ref-profile-info"></a>
+                                <div class="ref-button ref-sign-out">Sign Out</div>
+                            </div>
+                        </div>
+                    </div>
+                </div><label><span>Email</span><input id="ref-field-email" class="ref-form-control" type="email" name="email" value required data-state-src="email" />
+                    <div class="ref-validation-error"></div>
+                </label><label class="ref-phone-input"><span>Phone</span><input id="ref-field-phone" class="ref-form-control" type="tel" name="phone" value pattern="[0-9\+\- ]{5,30}" placeholder="+1234567890" required data-state-src="phone" />
+                    <div class="ref-validation-error"></div>
+                </label><label class="ref-customer-name-input"><span>Name</span><input class="ref-form-control" type="text" name="customer-name" value data-state-src="customer-name" minlength="5" required />
+                    <div class="ref-validation-error"></div>
+                </label>
+                <fieldset class="ref-digital-delivery" disabled>
+                    <div class="ref-digital-address-holder"></div><input type="hidden" name="delivery-method" value="digital" />
+                </fieldset>
+                <div class="ref-heading ref-heading-delivery">Delivery</div>
+                <div class="ref-delivery-unavailable"></div>
+                <div class="ref-delivery-card">
+                    <div class="ref-tab ref-local-pickup-tab" data-ref-delivery="pickup"><label class="ref-tab-toggle"><input type="radio" value="pickup" name="delivery-method" required />
+                            <div class="ref-heading-small">Pickup at Store</div>
+                        </label>
+                        <fieldset class="ref-tab-content">
+                            <div class="ref-heading-small">Select a Store</div>
+                            <div class="ref-locations ref-error-parent"></div>
+                            <div class="ref-billing-container">
+                                <div class="ref-button ref-add-billing">Add Billing Info</div>
+                                <fieldset class="ref-billing-address" disabled>
+                                    <div class="ref-row">
+                                        <div class="ref-heading-small">Billing Address</div>
+                                        <div class="ref-button ref-remove-billing">Remove</div>
+                                    </div>
+                                    <div class="ref-billing-address-holder"></div>
+                                </fieldset>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="ref-tab ref-shipping-tab" data-ref-delivery="shipping"><label class="ref-tab-toggle"><input type="radio" value="shipping" name="delivery-method" required />
+                            <div class="ref-heading-small">Deliver to Address</div>
+                        </label>
+                        <fieldset class="ref-tab-content">
+                            <div class="ref-heading-small">Shipping Address</div>
+                            <div class="ref-shipping-address-holder"></div>
+                            <div class="ref-auth-save-address"><label><input type="checkbox" name="auth-save-address" checked /><span>Save my address for future purchases</span></label></div>
+                            <div class="ref-billing-container">
+                                <div class="ref-button ref-add-billing">Add Billing Info</div>
+                                <fieldset class="ref-billing-address" disabled>
+                                    <div class="ref-row">
+                                        <div class="ref-heading-small">Billing Address</div>
+                                        <div class="ref-button ref-remove-billing">Remove</div>
+                                    </div>
+                                    <div class="ref-billing-address-holder"></div>
+                                </fieldset>
+                            </div>
+                            <div class="ref-heading-shipping-methods ref-heading-small">Shipping Method</div>
+                            <div class="ref-shipping-methods ref-error-parent"></div>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="ref-tax-note">
+                    <hr />
+                    <div class="ref-field-collapsible open"><span class="ref-field-toggle"><span class="ref-field-toggle-title">Apply a Tax Exemption</span></span>
+                        <div class="ref-collapse">
+                            <div class="ref-tax-exemption-file">
+                                <div class="ref-old-tax-file"><a class="ref-tax-file-dl" href="#">Tax Exemption File</a><span class="ref-remove-tax-file">Remove</span></div><label class="ref-new-tax-file"><span class="ref-tax-file-label">Attach a document or photo of your tax exemption</span><input id="ref-field-exemption-file" class="ref-form-control" type="file" name="tax-exemption-file" accept=".doc,.docx,.pdf,.jpg,.jpeg,.png" />
+                                    <div class="ref-validation-error"></div>
+                                </label>
+                            </div><label class="ref-tax-exemption-text"><span>Enter your EU VAT number</span><input id="ref-field-exemption-text" class="ref-form-control" type="text" name="tax-exemption-text" maxlength="30" />
+                                <div class="ref-validation-error"></div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="ref-field-collapsible ref-note-to-seller open"><span class="ref-field-toggle"><span class="ref-field-toggle-title">Note to Seller</span></span><label class="ref-collapse"><textarea id="ref-field-note-seller" class="ref-form-control" name="note-to-seller" row="4" maxlength="1000" placeholder="If you have any specific instructions you want to give to the seller, write them here." data-state-src="note"></textarea></label>
+                    <div class="ref-validation-error"></div>
+                </div>
+                <hr />
+                <div>
+                    <div class="ref-heading ref-heading-payment">Payment</div>
+                    <div class="ref-paypal-payment-holder"></div>
+                    <div class="ref-standard-payment-buttons"></div>
+                </div>
+            </form>
+            <div class="ref-instructions">
+                <div class="ref-heading ref-payment-method-name"></div>
+                <div class="ref-payment-method-instructions"></div>
+            </div>
+            <div class="ref-links"></div>
+        </div>
+        <div class="ref-checkout-summary">
+            <div class="ref-heading">Order Summary</div>
+            <div class="ref-products"></div>
+            <hr />
+            <div class="ref-discount-code">
+                <div class="ref-discount-code-container">
+                    <div class="ref-discount-code-input-holder"><input id="ref-discount-code-input" class="ref-form-control" name="discount-code" type="text" maxlength="32" autocomplete="off" placeholder="Enter coupon or gift card code" /><span class="ref-discount-code-input-clear" title="Clear">✕</span></div>
+                    <div class="ref-button ref-button-success ref-add-code inactive">Apply</div>
+                </div>
+                <div class="ref-validation-error"></div>
+            </div>
+            <hr />
+            <div class="ref-totals">
+                <div class="ref-subtotal">
+                    <div class="ref-row"><span>Subtotal</span><span></span></div>
+                </div>
+                <div class="ref-applied-coupon">
+                    <div class="ref-row">
+                        <div class="ref-row"><span></span><span class="ref-remove-coupon">Remove</span></div><span></span>
+                    </div>
+                    <div class="ref-applied-coupon-error"></div>
+                </div>
+                <div class="ref-shipping">
+                    <div class="ref-row"><span>Shipping</span><span></span></div>
+                </div>
+                <div class="ref-taxes">
+                    <div class="ref-row"><span></span><span></span></div>
+                </div>
+                <div class="ref-applied-gift-card">
+                    <div class="ref-row">
+                        <div class="ref-row"><span></span><span class="ref-remove-gift-card">Remove</span></div><span></span>
+                    </div>
+                    <div class="ref-row"></div>
+                    <div class="ref-applied-gift-card-error"></div>
+                </div>
+            </div>
+            <hr />
+            <div class="ref-total">
+                <div class="ref-row"><span>Total</span><span></span></div>
+                <div class="ref-total-note"></div>
+            </div>
+        </div>
+        <div class="ref-summary-toggle ref-field-collapsible"><span class="ref-field-toggle"><span class="ref-field-toggle-title">Show Summary</span><span class="ref-summary-total"></span></span></div>
+    </div>
 </div>
-<a asp-action="Index" asp-controller="Product" class="cart-back-button">Continue Shopping</a>

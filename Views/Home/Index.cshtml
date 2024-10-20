@@ -1,71 +1,110 @@
-@model IEnumerable<Category>
-
+@model IEnumerable<variate.Models.Product>
 @{
-    ViewData["Title"] = "Products by Category";
+    Layout = "_Layout";
 }
 
-<div class="container-fluid">
-    <div class="row">
-        <!-- Sidebar -->
-        <div class="col-md-3 col-xs-12" style="padding: 0">
-            @await Html.PartialAsync("_Sidebar", Model)
-        </div>
-
-        <!-- Main content -->
-        <div class="col-md-9 col-xs-12">
-            @if (Model != null && Model.Any())
-            {
-                @foreach (var category in Model)
-                {
-                    <div class="category-container">
-                        <h2>@category.Name</h2>
-                        <div class="row">
-                            @if (category.Products != null && category.Products.Any())
-                            {
-                                @foreach (var product in category.Products)
-                                {
-                                    <div class="col-md-3 my-3">
-                                        <a style="text-decoration: none; color: black;" asp-controller="Product" asp-action="Details" asp-route-id="@product.Name">
-                                            <div class="card p-3 position-relative" style="border-radius: 5px; text-align: center;">
-                                                @if (product.OnSale)
-                                                {
-                                                    <img src="sale.png" alt="On Sale" style="position: absolute; top: 0; left: 0; width: 50px; height: auto;">
-                                                }
-                                                <img src="@product.ImageUrl" class="card-image-top col-12" alt="@product.Name">
-                                                <h6 style="font-weight: bold; height: 50px;" class="product-card-title col-12 my-3">@product.Name</h6>
-                                                <div class="card-footer text-muted">
-                                                    @if (product.OnSale)
-                                                    {
-                                                        <!-- Calculate and display the discounted price directly in the Razor view -->
-                                                        <small class="product-card-price">
-                                                            <span style="text-decoration: line-through;">@product.Price.ToString("C")</span>
-                                                            <span style="color: red; font-weight: bold;">
-                                                                @((Math.Round(product.Price * 0.93m / 10) * 10).ToString("C"))
-                                                            </span>
-                                                        </small>
-                                                    }
-                                                    else
-                                                    {
-                                                        <small class="product-card-price">@product.Price.ToString("C")</small>
-                                                    }
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                }
-                            }
-                            else
-                            {
-                                <p>No products available in this category.</p>
-                            }
-                        </div>
-                    </div>
-                }
-            }
-            else
-            {
-                <p>No categories available.</p>
-            }
+<header class="bg-primary-gradient">
+    <div class="container py-5">
+        <div data-reflow-type="product-search">
+            <div class="reflow-product-search">
+                <div class="ref-input-wrapper">
+                    <input class="ref-search" type="text" inputmode="search" placeholder="Search Products" />
+                    <span class="ref-cancel-search" style="display: none;"></span>
+                </div>
+                <div class="ref-button" type="submit">Search</div>
+            </div>
         </div>
     </div>
-</div>
+</header>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Navbar (col-md-3) -->
+            <div class="col-md-3 col-xxl-3">
+                @await Html.PartialAsync("_NavbarPartial")
+            </div>
+
+            <!-- Slider + Products (col-md-9) -->
+            <div class="col-md-9 col-xxl-9">
+                <!-- Slider -->
+                <div class="simple-slider mb-5">
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide" style="background: url('@Url.Content("~/img/arts_and_crafts.jpeg")') center center / cover no-repeat;"></div>
+                            <div class="swiper-slide" style="background: url('@Url.Content("~/img/baby_and_toddler.jpg")') center center / cover no-repeat;"></div>
+                            <div class="swiper-slide" style="background: url('@Url.Content("~/products/3.jpg")') center center / cover no-repeat;"></div>
+                        </div>
+                        <!-- Pagination dots -->
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+
+                <!-- Products Section -->
+                <div class="mb-4">
+                    <h2 class="fw-bold text-center">Products on Sale</h2>
+                    <p class="text-center text-muted">Check out the latest discounts and deals on our best-selling items.</p>
+                </div>
+                
+                <div class="reflow-product-list ref-cards">
+                    <div class="row">
+                        @foreach (var product in Model)
+                        {
+                            <div class="col-md-4">
+                                <div class="card mb-4 shadow-sm" style="width: 100%; border: 1px solid #e0e0e0;">
+                                    <a class="ref-product" href="/product.html?product=@product.Id">
+                                        <div class="card-img-top ref-media">
+                                            <img class="ref-image" src="~/@product.ImageUrl" alt="@product.Name" loading="lazy" style="width: 100%; height: auto;" />
+                                            @if (product.OnSale)
+                                            {
+                                                <div class="sale-badge">SALE</div>
+                                            }
+                                        </div>
+                                    </a>
+                                    <div class="card-body ref-product-data text-center">
+                                        <h5 class="card-title ref-name">@product.Name</h5>
+                                        <p class="card-text ref-excerpt">@product.Description</p>
+                                        @if (product.OnSale)
+                                        {
+                                            <strong class="ref-price ref-on-sale">
+                                                <s class="ref-original-price">R @product.Price</s>
+                                                R @product.Price
+                                            </strong>
+                                        }
+                                        else
+                                        {
+                                            <strong class="ref-price">$@product.Price</strong>
+                                        }
+
+                                        <div class="mt-3">
+                                            <a class="btn btn-primary" href="#">Add to Cart</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="border rounded border-0 border-white d-flex flex-column justify-content-between align-items-center flex-lg-row bg-primary-gradient p-4 p-lg-5">
+            <div class="text-center text-lg-start py-3 py-lg-1">
+                <h2 class="fw-bold mb-2">Subscribe to our newsletter</h2>
+                <p class="mb-0">Imperdiet consectetur dolor.</p>
+            </div>
+            <form class="d-flex justify-content-center flex-wrap flex-lg-nowrap" method="post" data-bs-theme="light">
+                <div class="my-2">
+                    <input class="border rounded-pill shadow-sm form-control" type="email" name="email" placeholder="Your Email">
+                </div>
+                <div class="my-2">
+                    <button class="btn btn-primary shadow ms-2" type="submit" style="border-radius: 10px;">Subscribe</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

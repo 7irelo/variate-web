@@ -1,0 +1,12 @@
+.simple-slider .swiper-slide {
+  height: 150px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+@media (max-width: 767px) {
+  .simple-slider .swiper-slide {
+    height: 90px;
+  }
+}
