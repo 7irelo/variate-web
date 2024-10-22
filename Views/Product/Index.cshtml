@@ -2,16 +2,37 @@
 @{
     ViewData["Title"] = "Product Page";
 }
-<h1>Products</h1>
-<div class="category-container">
-    @foreach(var obj in Model)
-    {
-        <div class="product-card">
-            <img src="" class="product-card-image"></img>
-            <h2 class="product-card-title"></h2>
-            <p class="product-card-description">@obj.Description</p>
-            <a asp-action="Product"><button class="product-button">Learn More</button></a>
-        </div>
-    }
+
+<div>
+    @await Html.PartialAsync("_Searchbar")
 </div>
-}
+
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Navbar (col-md-3) -->
+            <div class="col-md-3 col-xxl-3">
+                @await Html.PartialAsync("_Sidebar")
+            </div>
+            <div class="col-md-9 col-xxl-9">
+
+                <!-- Products Section -->
+                <div class="mb-4">
+                    <h2 class="fw-bold text-center">Products</h2>
+                    <p class="text-center text-muted">Check out the latest discounts and deals on our best-selling items.</p>
+                </div>
+                @if (Model != null && Model.Any())
+                {
+                    <div>
+                        @await Html.PartialAsync("_Products")
+                    </div>
+                }
+                else
+                {
+                    <p>No products found.</p>
+                }
+                
+            </div>
+        </div>
+    </div>
+</section>

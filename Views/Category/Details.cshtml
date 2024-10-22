@@ -1,59 +1,32 @@
-@model Category
-
+@model IEnumerable<variate.Models.Product>
 @{
-    ViewData["Title"] = Model?.Name ?? "Category Details";
+    Layout = "_Layout";
+    ViewData["Title"] = Model?.FirstOrDefault().Category.Name ?? "Category Details";
 }
 
-<div class="container-fluid row">
-    <div class="col-md-3 col-xxl-3">
-        @await Html.PartialAsync("_NavbarPartial")
-    </div>
-    <!-- Main content -->
-    <div class="col-md-9 col-xs-12">
-        @if (Model != null && Model.Products != null && Model.Products.Any())
-        {
-            <h2>@Model.Name</h2>
-            <div class="row">
-                @foreach (var product in Model.Products)
-                {
-                            <div class="col-md-4">
-                                <div class="card mb-4 shadow-sm" style="width: 100%; border: 1px solid #e0e0e0;">
-                                    <a class="ref-product" href="/product.html?product=@product.Id">
-                                        <div class="card-img-top ref-media">
-                                            <img class="ref-image" src="~/@product.ImageUrl" alt="@product.Name" loading="lazy" style="width: 100%; height: auto;" />
-                                            @if (product.OnSale)
-                                            {
-                                                <div class="sale-badge">SALE</div>
-                                            }
-                                        </div>
-                                    </a>
-                                    <div class="card-body ref-product-data text-center">
-                                        <h5 class="card-title ref-name">@product.Name</h5>
-                                        <p class="card-text ref-excerpt">@product.Description</p>
-                                        @if (product.OnSale)
-                                        {
-                                            <strong class="ref-price ref-on-sale">
-                                                <s class="ref-original-price">$@product.Price</s>
-                                                $@product.Price
-                                            </strong>
-                                        }
-                                        else
-                                        {
-                                            <strong class="ref-price">$@product.Price</strong>
-                                        }
-
-                                        <div class="mt-3">
-                                            <a class="btn btn-primary" href="#">Add to Cart</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        }
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Navbar (col-md-3) -->
+            <div class="col-md-3 col-xxl-3">
+                @await Html.PartialAsync("_Sidebar")
             </div>
-        }
-        else
-        {
-            <p>No products available in this category.</p>
-        }
+            <div class="col-md-9 col-xxl-9">
+                <!-- Products Section -->
+                @if (Model != null && Model.Any())
+                {
+                    <div class="mb-4">
+                        <h2>Products in @Model.FirstOrDefault().Category.Name</h2>
+                    </div>
+                    <div>
+                        @await Html.PartialAsync("_Products")
+                    </div>
+                }
+                else
+                {
+                    <p>No products available in this category.</p>
+                }
+            </div>
+        </div>
     </div>
-</div>
+</section>

@@ -5,7 +5,7 @@ using variate.Models;
 
 namespace variate.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -86,9 +86,9 @@ namespace variate.Data
 
             // Configuring the relationship between Order and IdentityUser
             modelBuilder.Entity<Order>()
-                .HasOne(o => o.IdentityUser)
+                .HasOne(o => o.ApplicationUser)
                 .WithMany()  // IdentityUser can have multiple Orders
-                .HasForeignKey(o => o.IdentityUserId)
+                .HasForeignKey(o => o.ApplicationUserId)
                 .OnDelete(DeleteBehavior.Cascade);  // Set appropriate delete behavior
         }
     }

@@ -1,39 +1,28 @@
 @model IEnumerable<variate.Models.Product>
 @{
     Layout = "_Layout";
+    ViewData["Title"] = "Home";
 }
 
-<header class="bg-primary-gradient">
-    <div class="container py-5">
-        <div data-reflow-type="product-search">
-            <div class="reflow-product-search">
-                <div class="ref-input-wrapper">
-                    <input class="ref-search" type="text" inputmode="search" placeholder="Search Products" />
-                    <span class="ref-cancel-search" style="display: none;"></span>
-                </div>
-                <div class="ref-button" type="submit">Search</div>
-            </div>
-        </div>
-    </div>
-</header>
+<div>
+    @await Html.PartialAsync("_Searchbar")
+</div>
 
 <section class="py-5">
     <div class="container">
         <div class="row">
             <!-- Navbar (col-md-3) -->
             <div class="col-md-3 col-xxl-3">
-                @await Html.PartialAsync("_NavbarPartial")
+                @await Html.PartialAsync("_Sidebar")
             </div>
-
-            <!-- Slider + Products (col-md-9) -->
             <div class="col-md-9 col-xxl-9">
                 <!-- Slider -->
                 <div class="simple-slider mb-5">
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide" style="background: url('@Url.Content("~/img/arts_and_crafts.jpeg")') center center / cover no-repeat;"></div>
-                            <div class="swiper-slide" style="background: url('@Url.Content("~/img/baby_and_toddler.jpg")') center center / cover no-repeat;"></div>
-                            <div class="swiper-slide" style="background: url('@Url.Content("~/products/3.jpg")') center center / cover no-repeat;"></div>
+                            <div class="swiper-slide" style="background: url('@Url.Content("~/img/categories/arts_and_crafts.jpeg")') center center / cover no-repeat;"><a class="slider-badge" href="@Url.Action("Details", "Category", new { id = 5 })">View Category</a></div>
+                            <div class="swiper-slide" style="background: url('@Url.Content("~/img/categories/baby_and_toddler.jpg")') center center / cover no-repeat;"><a class="slider-badge" href="@Url.Action("Details", "Category", new { id = 6 })">View Category</a></div>
+                            <div class="swiper-slide" style="background: url('@Url.Content("~/products/3.jpg")') center center / cover no-repeat;"><a class="slider-badge" href="@Url.Action("Details", "Category", new { id = 7 })">View Category</a></div>
                         </div>
                         <!-- Pagination dots -->
                         <div class="swiper-pagination"></div>
@@ -45,45 +34,8 @@
                     <h2 class="fw-bold text-center">Products on Sale</h2>
                     <p class="text-center text-muted">Check out the latest discounts and deals on our best-selling items.</p>
                 </div>
-                
-                <div class="reflow-product-list ref-cards">
-                    <div class="row">
-                        @foreach (var product in Model)
-                        {
-                            <div class="col-md-4">
-                                <div class="card mb-4 shadow-sm" style="width: 100%; border: 1px solid #e0e0e0;">
-                                    <a class="ref-product" href="/product.html?product=@product.Id">
-                                        <div class="card-img-top ref-media">
-                                            <img class="ref-image" src="~/@product.ImageUrl" alt="@product.Name" loading="lazy" style="width: 100%; height: auto;" />
-                                            @if (product.OnSale)
-                                            {
-                                                <div class="sale-badge">SALE</div>
-                                            }
-                                        </div>
-                                    </a>
-                                    <div class="card-body ref-product-data text-center">
-                                        <h5 class="card-title ref-name">@product.Name</h5>
-                                        <p class="card-text ref-excerpt">@product.Description</p>
-                                        @if (product.OnSale)
-                                        {
-                                            <strong class="ref-price ref-on-sale">
-                                                <s class="ref-original-price">R @product.Price</s>
-                                                R @product.Price
-                                            </strong>
-                                        }
-                                        else
-                                        {
-                                            <strong class="ref-price">$@product.Price</strong>
-                                        }
-
-                                        <div class="mt-3">
-                                            <a class="btn btn-primary" href="#">Add to Cart</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    </div>
+                <div>
+                    @await Html.PartialAsync("_Products")
                 </div>
             </div>
         </div>
@@ -95,7 +47,7 @@
         <div class="border rounded border-0 border-white d-flex flex-column justify-content-between align-items-center flex-lg-row bg-primary-gradient p-4 p-lg-5">
             <div class="text-center text-lg-start py-3 py-lg-1">
                 <h2 class="fw-bold mb-2">Subscribe to our newsletter</h2>
-                <p class="mb-0">Imperdiet consectetur dolor.</p>
+                <p class="mb-0">Together we Can!</p>
             </div>
             <form class="d-flex justify-content-center flex-wrap flex-lg-nowrap" method="post" data-bs-theme="light">
                 <div class="my-2">

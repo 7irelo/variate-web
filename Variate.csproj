@@ -32,4 +32,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.0" /> <!-- Swagger UI -->
 </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Auth\Login.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Auth\Register.cshtml" />
+  </ItemGroup>
+
 </Project>
