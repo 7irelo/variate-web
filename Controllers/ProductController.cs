@@ -1,29 +1,55 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using variate.Data;
+using variate.Models;
+using System.Linq;
 
 namespace variate.Controllers
 {
+    [Route("products")]
     public class ProductController : Controller
     {
-        // GET: ProductController
-        public ActionResult Index()
+        private readonly ApplicationDbContext _db;
+
+        public ProductController(ApplicationDbContext db)
         {
-            return View();
+            _db = db;
         }
 
-        // GET: ProductController/Details/5
+        // GET: /products
+        [HttpGet("")]
+        public ActionResult Index(string searchString)
+        {
+            var products = _db.Products.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                searchString = searchString.ToLower();
+
+                // Search by product name or category name
+                products = products.Where(p => p.Name.ToLower().Contains(searchString) ||
+                                                p.Category.Name.ToLower().Contains(searchString));
+            }
+
+            return View(products.ToList());
+        }
+
+        // GET: /products/details/5
+        [HttpGet("details/{id}")]
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: ProductController/Create
+        // GET: /products/create
+        [HttpGet("create")]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: ProductController/Create
-        [HttpPost]
+        // POST: /products/create
+        [HttpPost("create")]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
         {
@@ -37,14 +63,15 @@ namespace variate.Controllers
             }
         }
 
-        // GET: ProductController/Edit/5
+        // GET: /products/edit/5
+        [HttpGet("edit/{id}")]
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: ProductController/Edit/5
-        [HttpPost]
+        // POST: /products/edit/5
+        [HttpPost("edit/{id}")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
         {
@@ -58,14 +85,15 @@ namespace variate.Controllers
             }
         }
 
-        // GET: ProductController/Delete/5
+        // GET: /products/delete/5
+        [HttpGet("delete/{id}")]
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: ProductController/Delete/5
-        [HttpPost]
+        // POST: /products/delete/5
+        [HttpPost("delete/{id}")]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {

@@ -1,6 +1,7 @@
 @model IEnumerable<Category>
 
 @{
+    Layout = "_Layout";
     ViewData["Title"] = "Categories";
 }
 
@@ -8,7 +9,7 @@
     <div class="row">
         <!-- NavbarPartial -->
         <div class="col-md-3 col-xs-0" style="padding: 0">
-            @await Html.PartialAsync("_NavbarPartial", Model)
+            @await Html.PartialAsync("_Sidebar", Model)
         </div>
 
         <!-- Main content -->

@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Identity;
 
 namespace variate.Models;
 
-[Table("orders")]
-public class Order
+[Table("carts")]
+public class Cart
 {
     [Key]
     public int Id { get; set; }
@@ -16,8 +16,8 @@ public class Order
     
     public ApplicationUser? ApplicationUser { get; set; }
 
-    [DisplayName("Order DateTime")]
-    public DateTime OrderDateTime { get; set; } = DateTime.Now;
+    [DisplayName("Added DateTime")]
+    public DateTime AddedDateTime { get; set; } = DateTime.Now;
 
     [DisplayName("Total Cost")]
     public decimal TotalCost { get; set; }

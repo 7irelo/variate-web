@@ -32,21 +32,22 @@ namespace variate.Controllers
             return View(categoriesWithProducts);
         }
 
-        // Fetch category by ID and its products
+        // Fetch all products in a specific category by category ID
         [HttpGet("{id:int}")]
         public IActionResult Details(int id)
         {
-            // Fetch the category by ID including its products
-            var category = _db.Categories
-                              .Include(c => c.Products)
-                              .FirstOrDefault(c => c.Id == id);
+            // Fetch the products in the category by category ID
+            var productsInCategory = _db.Products
+                                        .Include(p => p.Category)
+                                        .Where(p => p.CategoryId == id)
+                                        .ToList();
 
-            if (category == null)
+            if (!productsInCategory.Any())
             {
-                return NotFound();
+                return NotFound(); // Return 404 if no products are found in the category
             }
 
-            return View(category);
+            return View(productsInCategory);
         }
 
         // Create category (GET)
