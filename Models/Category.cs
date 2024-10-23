@@ -17,5 +17,13 @@ public class Category
     
     [MaxLength(200)]
     public string? ImageUrl { get; set; }
+
+    // Meta fields (e.g., for SEO purposes)
+    [MaxLength(100)]
+    public string? MetaTitle { get; set; }
+    
+    [MaxLength(160)]
+    public string? MetaDescription { get; set; }
+
     public ICollection<Product> Products { get; set; } = new List<Product>();
 }

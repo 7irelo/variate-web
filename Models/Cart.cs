@@ -10,17 +10,18 @@ public class Cart
 {
     [Key]
     public int Id { get; set; }
-    
-    [DisplayName("User ID")]
+
+    [Required]
     public string ApplicationUserId { get; set; } = string.Empty;
-    
+
     public ApplicationUser? ApplicationUser { get; set; }
 
-    [DisplayName("Added DateTime")]
-    public DateTime AddedDateTime { get; set; } = DateTime.Now;
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
 
     [DisplayName("Total Cost")]
-    public decimal TotalCost { get; set; }
+    public decimal TotalCost => CartItems.Sum(item => item.Quantity * item.UnitPrice);
+
+    public ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();
 
     [Required, MaxLength(50)]
     public string? Status { get; set; }
