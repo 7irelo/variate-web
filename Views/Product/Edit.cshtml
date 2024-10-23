@@ -1,0 +1,104 @@
+@model variate.Models.Product
+
+@{
+    ViewData["Title"] = "Edit Product";
+}
+
+<h2>Edit Product</h2>
+
+<form asp-action="Edit" method="post" class="form-horizontal" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="CategoryId" class="control-label"></label>
+        <input asp-for="CategoryId" class="form-control" />
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Price" class="control-label"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DiscountedPrice" class="control-label"></label>
+        <input asp-for="DiscountedPrice" class="form-control" />
+        <span asp-validation-for="DiscountedPrice" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Release" class="control-label"></label>
+        <input asp-for="Release" class="form-control" type="date" />
+        <span asp-validation-for="Release" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ImageUrl" class="control-label"></label>
+        <input asp-for="ImageUrl" class="form-control" />
+        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SKU" class="control-label"></label>
+        <input asp-for="SKU" class="form-control" />
+        <span asp-validation-for="SKU" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Stock" class="control-label"></label>
+        <input asp-for="Stock" class="form-control" />
+        <span asp-validation-for="Stock" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="IsFeatured" class="control-label"></label>
+        <input type="hidden" asp-for="IsFeatured" value="false" />
+        <input asp-for="IsFeatured" class="form-control" type="checkbox" value="true" @(Model.IsFeatured == true ? "checked" : "") />
+        <span asp-validation-for="IsFeatured" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="OnSale" class="control-label"></label>
+        <input type="hidden" asp-for="OnSale" value="false" />
+        <input asp-for="OnSale" class="form-control" type="checkbox" value="true" @(Model.OnSale ? "checked" : "") />
+        <span asp-validation-for="OnSale" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Brand" class="control-label"></label>
+        <input asp-for="Brand" class="form-control" />
+        <span asp-validation-for="Brand" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CreatedAt" class="control-label"></label>
+        <input asp-for="CreatedAt" class="form-control" type="datetime-local" readonly />
+        <span asp-validation-for="CreatedAt" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="UpdatedAt" class="control-label"></label>
+        <input asp-for="UpdatedAt" class="form-control" type="datetime-local" />
+        <span asp-validation-for="UpdatedAt" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

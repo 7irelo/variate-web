@@ -9,18 +9,19 @@ public class CartItem
 {
     [Key]
     public int Id { get; set; }
-    
+
     [DisplayName("Cart ID")]
     public int CartId { get; set; }
-    
+
     public Cart? Cart { get; set; }
-    
+
+    [DisplayName("Product ID")]
     public int ProductId { get; set; }
-    
+
     public Product? Product { get; set; }
-    
+
     public int Quantity { get; set; }
-    
+
     [DisplayName("Unit Price")]
-    public int UnitPrice { get; set; }
+    public decimal UnitPrice { get; set; }
 }

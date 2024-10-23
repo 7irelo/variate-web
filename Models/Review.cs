@@ -10,20 +10,24 @@ public class Review
 {
     [Key]
     public int Id { get; set; }
-    
+
+    [Required]
     [DisplayName("Product ID")]
     public int ProductId { get; set; }
     
     public Product? Product { get; set; }
-    
+
+    [Required]
     [DisplayName("User ID")]
-    public int UserId { get; set; }
-    
-    public IdentityUser? IdentityUser { get; set; }
-    
+    public string ApplicationUserId { get; set; } = string.Empty;
+
+    public ApplicationUser? ApplicationUser { get; set; }
+
+    [Range(1, 5)]
     public int Rating { get; set; }
-    
-    [DisplayName("Comment")]
-    [Required][StringLength(200)]
+
+    [Required, StringLength(200)]
     public string? ReviewComment { get; set; }
+
+    public DateTime ReviewDate { get; set; } = DateTime.Now;
 }

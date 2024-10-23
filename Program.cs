@@ -13,11 +13,21 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+// Identity Configuration: Add ApplicationUser and roles, with confirmed accounts required.
+builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = true;
+    options.Password.RequireDigit = true;
+    options.Password.RequiredLength = 6;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireLowercase = true;
+})
+    .AddRoles<IdentityRole>() // Enables role management
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders(); // Ensures token providers are added for email confirmation and password reset
 
 builder.Services.AddControllersWithViews();
-
 
 // Add Swagger services
 builder.Services.AddSwaggerGen(c =>
@@ -35,7 +45,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c => 
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Variante API v1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Variate API v1");
     });
 }
 else
@@ -49,6 +59,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseStatusCodePagesWithReExecute("/Home/NotFound");
@@ -57,5 +68,15 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapRazorPages();
+    endpoints.MapControllerRoute(
+        name: "auth",
+        pattern: "auth/{action}",
+        defaults: new { area = "Identity", controller = "Account" }
+    );
+});
+
 
 app.Run();

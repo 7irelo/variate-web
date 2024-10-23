@@ -10,17 +10,17 @@ public class Order
 {
     [Key]
     public int Id { get; set; }
-    
-    [DisplayName("User ID")]
+
+    [Required]
     public string ApplicationUserId { get; set; } = string.Empty;
-    
+
     public ApplicationUser? ApplicationUser { get; set; }
 
-    [DisplayName("Order DateTime")]
     public DateTime OrderDateTime { get; set; } = DateTime.Now;
 
-    [DisplayName("Total Cost")]
-    public decimal TotalCost { get; set; }
+    public decimal TotalCost => OrderItems.Sum(item => item.Quantity * item.UnitPrice);
+
+    public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
     [Required, MaxLength(50)]
     public string? Status { get; set; }
