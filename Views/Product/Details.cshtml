@@ -16,13 +16,49 @@
                 </div>
                 <div class="ref-product-data">
                     <h2 class="ref-name">@Model.Name</h2>
-                    <div class="ref-categories"><span class="ref-category">@Model.Category.Name</span></div><strong class="ref-price ref-on-sale"><s class="ref-original-price">$@Model.Price</s>$@Model.Price</strong><span data-reflow-type="add-to-cart" data-reflow-shoppingcart-url="shopping-cart.html" data-reflow-addtocart-text data-reflow-product="717978921" data-reflow-variant="199976733_s">
+                    <div class="ref-categories">
+                        <span class="ref-category">@Model.Category.Name</span>
+                    </div>
+                    @if (Model.OnSale)
+                        {
+                            <strong class="ref-price ref-on-sale">
+                                <s class="ref-original-price">$@Model.Price</s>
+                                $@(Model.Price - 100)
+                            </strong>
+                        }
+                        else
+                        {
+                            <strong class="ref-price">$@Model.Price</strong>
+                        }
+                        <span data-reflow-type="add-to-cart" data-reflow-shoppingcart-url="shopping-cart.html" data-reflow-addtocart-text data-reflow-product="717978921" data-reflow-variant="199976733_s">
                         <div class="reflow-add-to-cart ref-product-controls">
-                            <div class="ref-variant"><label><span>Colour</span><select class="ref-form-control ref-field-variants" name="variant-state" required>
-                                        <option value="199976733_s">Red</option>
-                                        <option value="199976733_m">Green</option>
-                                        <option value="199976733_l">Blue</option>
-                                    </select></label></div><span data-reflow-variant="199976733_s" data-reflow-product="717978921" data-reflow-max-qty="999" data-reflow-quantity="1">
+                                <div class="ref-variant">
+                                    <label><span>Colour</span>
+                                    <select class="ref-form-control ref-field-variants" name="variant-state" required>
+                                        <option value="red">Red</option>
+                                        <option value="orange">Orange</option>
+                                        <option value="yellow">Yellow</option>
+                                        <option value="green">Green</option>
+                                        <option value="blue">Blue</option>
+                                        <option value="indigo">Indigo</option>
+                                        <option value="violet">Violet</option>
+                                    </select>
+                                 </label>
+                             </div>
+                            @if (Model.Size != null && Model.Size.Any())
+                            {
+                                <div class="ref-variant">
+                                    <label><span>Colour</span>
+                                    <select class="ref-form-control ref-field-variants" name="variant-state" required>
+                                    @foreach (var size in Model.Size)
+                                    {
+                                        <option value="@size">@size</option>
+                                    }
+                                    </select>
+                                 </label>
+                             </div>
+                            }
+                            <span data-reflow-variant="199976733_s" data-reflow-product="717978921" data-reflow-max-qty="999" data-reflow-quantity="1">
                                 <div class="ref-quantity-widget">
                                     <div class="ref-decrease"><span></span></div><input type="text" value="1" />
                                     <div class="ref-increase"><span></span></div>
@@ -30,7 +66,7 @@
                             </span><a class="ref-button" href="#">Add to Cart</a>
                         </div>
                     </span>
-                    <div class="ref-description">Laborum fuga <b>nostrum</b> assumenda <i>qui</i> sit perspiciatis dolorum harum.</div>
+                    <div class="ref-description">@Model.Description</div>
                 </div>
             </div>
         </div>

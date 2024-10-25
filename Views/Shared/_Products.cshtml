@@ -4,7 +4,7 @@
         {
             <div class="col-md-6 col-sm-4 col-lg-4">
                 <div class="card mb-4 shadow-sm" style="width: 100%; border: 1px solid #e0e0e0;">
-                    <a class="ref-product" href="/product.html?product=@product.Id">
+                    <a class="ref-product" href="@Url.Action("Details", "Product", new { id = product.Id })">
                         <div class="card-img-top ref-media">
                             <img class="ref-image" src="~/img/products/@product.ImageUrl" alt="@product.Name" loading="lazy" style="width: 100%; height: auto;" />
                             @if (product.OnSale)
@@ -14,13 +14,13 @@
                         </div>
                     </a>
                     <div class="card-body ref-product-data text-center">
-                        <h5 class="card-title ref-name">@product.Name</h5>
+                        <h5 class="card-title ref-name">@product.Brand @product.Name</h5>
                         <p class="card-text ref-excerpt">@product.Description</p>
                         @if (product.OnSale)
                         {
                             <strong class="ref-price ref-on-sale">
                                 <s class="ref-original-price">$@product.Price</s>
-                                $@product.Price
+                                $@product.DiscountedPrice
                             </strong>
                         }
                         else
