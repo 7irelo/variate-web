@@ -1,9 +1,13 @@
-![variate_home](https://github.com/user-attachments/assets/baf442f2-db0e-40a8-a34b-94c522966dd7)
-
 # Variate
 
-Welcome to **Variate**, a full-featured e-commerce online shopping site built using the ASP.NET Core framework, Razor pages, and a PostgreSQL database. Variate offers a wide range of product categories to provide a comprehensive online shopping experience.
+Welcome to **Variate**, a full-featured e-commerce online shopping site built using the ASP.NET Core framework, Razor pages, and a SQL Server database. Variate offers a wide range of product categories to provide a comprehensive online shopping experience.
 
+![variate_home](https://github.com/user-attachments/assets/baf442f2-db0e-40a8-a34b-94c522966dd7)
+![variate_electronics](https://github.com/user-attachments/assets/81f1ae15-f118-4612-aa9d-a7bcaeacc8f8)
+![variate_product](https://github.com/user-attachments/assets/bec81fcc-4979-4911-89c2-26737f847026)
+![variate_reviews](https://github.com/user-attachments/assets/bfa0190b-5c48-4b96-a47c-d29eac3bd9a7)
+![variate_cart](https://github.com/user-attachments/assets/b8338bb9-543c-4147-a317-a6b6a4956a2c)
+![variate_register](https://github.com/user-attachments/assets/935dcea1-7312-4d5f-8fe6-faf470020e0b)
 ## Features
 
 - **User Authentication**: Secure login and registration functionality.
@@ -37,7 +41,7 @@ Welcome to **Variate**, a full-featured e-commerce online shopping site built us
 
 - **Backend**: ASP.NET Core
 - **Frontend**: Razor Pages
-- **Database**: PostgreSQL
+- **Database**: SQL Server
 - **Payment Gateway**: [PayPal](https://paypal.com)
 - **Hosting**: [Azure](https://azure.com)
 
@@ -57,7 +61,7 @@ Welcome to **Variate**, a full-featured e-commerce online shopping site built us
    ```
 
 2. **Configure the database:**
-   - Update the connection string in `appsettings.json` to match your PostgreSQL setup.
+   - Update the connection string in `appsettings.json` to match your SQL Server setup.
 
 3. **Apply database migrations:**
    ```bash
