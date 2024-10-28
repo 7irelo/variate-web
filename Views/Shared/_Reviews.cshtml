@@ -1,0 +1,76 @@
+<h3>Reviews</h3>
+<p>Please leave us a review by clicking on the button below. We welcome your feedback. Thank you!</p>
+<div id="addReview" class="modal fade" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Review</h3><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Please fill in the details below to submit your review. If you prefer your name not to be displayed you can check the &#39;Display anonymously&#39; box. Thank you! <br /></p>
+            </div>
+            <form>
+                <div class="form-group mb-3"><label class="form-label">First Name</label><input id="firstName" class="form-control" type="text" maxlength="50" /></div>
+                <div class="form-group mb-3"><label class="form-label">Last Name</label><input id="lastName" class="form-control" type="text" maxlength="50" /></div>
+                <div class="form-group mb-3"><label class="form-label">Email address</label><input id="email" class="form-control" type="email" /></div>
+                <div class="form-group mb-3"><select id="rating" class="form-select">
+                        <option value="0" selected>Please enter your rating</option>
+                        <option value="1"></option>
+                        <option value="2">**</option>
+                        <option value="3">***</option>
+                        <option value="4">****</option>
+                        <option value="5">*****</option>
+                    </select></div>
+                <div class="form-group mb-3"><label class="form-label">Review</label><textarea id="review" class="form-control" rows="3" maxlength="2000"></textarea></div>
+                <div class="form-group mb-3">
+                    <div class="form-check"><input id="anonDisplay" class="form-check-input" type="checkbox" /><label class="form-check-label" for="anonDisplay">Display anonymously</label></div>
+                </div>
+            </form>
+            <div class="modal-footer"><button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button><button id="submitReview" class="btn btn-primary" type="button">Submit</button></div>
+        </div>
+    </div>
+</div>
+<div><button class="btn btn-primary mb-4" type="button" data-bs-toggle="modal" data-bs-target="#addReview">Add Review</button></div>
+<div class="feedback">
+    <div id="waitingIcon"></div>
+    <p id="message"></p>
+    <div id="reviewList">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">Praesent at felis blandit, sagittis libero eget, ultrices dolor. Morbi vitae augue felis. Etiam euismod consectetur ex eget pulvinar. Cras sollicitudin imperdiet rutrum. Maecenas hendrerit vitae lorem quis ultricies. Morbi faucibus eget velit a vulputate. Pellentesque ut libero purus. Vivamus commodo vitae velit iaculis finibus. - Peter Smith<br /><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span><span class="text-muted"> Nov 2022</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">Est veniam repudiandae est vitae enim id quia dolores vel labore magnam et dolor doloremque qui autem perferendis. Ut molestiae debitis At vitae consequatur in aliquam maiores aut quam nisi et alias asperiores. Quo possimus nostrum id excepturi magnam id voluptatibus ipsa sed accusamus distinctio ut optio quas ea velit repellat. - Megan Smith<br /><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span><span class="text-muted"> Oct 2022</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">Ullamcorper velit sed ullamcorper morbi tincidunt. Augue mauris augue neque gravida in fermentum et. Nulla at volutpat diam ut venenatis. - Company A Customer<br /><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span><span class="text-muted"> Feb 2021</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nibh venenatis cras sed felis. Turpis nunc eget lorem dolor sed viverra. Pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus. - Steven Smith<br /><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span><span class="text-muted"> Jan 2021</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">Laoreet suspendisse interdum consectetur libero id. Sit amet risus nullam eget felis. Ultrices vitae auctor eu augue ut lectus arcu bibendum at. Turpis egestas maecenas pharetra convallis. - Sophie Smith<br /><span><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span><span class="text-muted"> May 2020</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
