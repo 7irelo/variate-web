@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using variate.Data;
 using variate.Models;
 using System.Linq;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Logging;
 
 namespace variate.Controllers
 {
@@ -21,15 +21,13 @@ namespace variate.Controllers
 
         // GET: /products
         [HttpGet("")]
-        public ActionResult Index(string searchString)
+        public IActionResult Index(string searchString)
         {
-            var products = _db.Products.AsQueryable();
+            var products = _db.Products.Include(p => p.Category).AsQueryable();
 
             if (!string.IsNullOrEmpty(searchString))
             {
                 searchString = searchString.ToLower();
-
-                // Search by product name or category name
                 products = products.Where(p => p.Name.ToLower().Contains(searchString) ||
                                                 p.Category.Name.ToLower().Contains(searchString));
             }
@@ -39,24 +37,29 @@ namespace variate.Controllers
 
         // GET: /products/details/5
         [HttpGet("{id}")]
-        public ActionResult Details(int id)
+        public IActionResult Details(int id)
         {
             var product = _db.Products
-                                .Include(p => p.Category)
-                                .FirstOrDefault(p => p.Id == id);
+                             .Include(p => p.Category)
+                             .FirstOrDefault(p => p.Id == id);
 
             if (product == null)
             {
+                _logger.LogWarning("Product with ID {Id} not found.", id);
                 return NotFound();
             }
+
+            ViewData["ColorList"] = product.Colour?.Split(", ") ?? new string[0];
+            ViewData["SizeList"] = product.Size?.Split(", ") ?? new string[0];
 
             return View(product);
         }
 
         // GET: /products/create
         [HttpGet("create")]
-        public ActionResult Create()
+        public IActionResult Create()
         {
+            PopulateCategories();
             return View();
         }
 
@@ -65,46 +68,37 @@ namespace variate.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Product product)
         {
-            try
+            if (ValidateProduct(product))
             {
-                if (product.Name.Contains(product.Brand))
-                {
-                    ModelState.AddModelError("CustomError", "The Product Name should not contain the Brand Name");
-                }
-                else if (product.CategoryId < 1)
-                {
-                    ModelState.AddModelError("CustomError", "The Category ID cannot be less than zero");
-                }
-
-                if (ModelState.IsValid)
+                try
                 {
                     _db.Products.Add(product);
                     _db.SaveChanges();
                     return RedirectToAction("Index");
                 }
-                return View(product); 
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error creating product.");
+                    ModelState.AddModelError(string.Empty, "An error occurred while creating the product.");
+                }
             }
-            catch
-            {
-                return View(product);
-            }
+
+            PopulateCategories();
+            return View(product);
         }
 
         // GET: /products/edit/5
         [HttpGet("edit/{id}")]
-        public ActionResult Edit(int? id)
+        public IActionResult Edit(int id)
         {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-
             var product = _db.Products.FirstOrDefault(p => p.Id == id);
-
             if (product == null)
             {
+                _logger.LogWarning("Product with ID {Id} not found.", id);
                 return NotFound();
             }
+
+            PopulateCategories();
             return View(product);
         }
 
@@ -113,58 +107,81 @@ namespace variate.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Product product)
         {
-            try
+            if (ValidateProduct(product))
             {
-                if (product.Name.Contains(product.Brand))
-                {
-                    ModelState.AddModelError("CustomError", "The Product Name should not contain the Brand Name");
-                }
-                else if (product.CategoryId < 1)
-                {
-                    ModelState.AddModelError("CustomError", "The Category ID cannot be less than zero");
-                }
-
-                if (ModelState.IsValid)
+                try
                 {
                     _db.Products.Update(product);
                     _db.SaveChanges();
                     return RedirectToAction("Index");
                 }
-                return View(product); 
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error editing product with ID {Id}.", product.Id);
+                    ModelState.AddModelError(string.Empty, "An error occurred while updating the product.");
+                }
             }
-            catch
-            {
-                return View(product);
-            }
+
+            PopulateCategories();
+            return View(product);
         }
 
         // GET: /products/delete/5
         [HttpGet("delete/{id}")]
-        public ActionResult Delete(int id)
+        public IActionResult Delete(int id)
         {
-            return View();
+            var product = _db.Products.FirstOrDefault(p => p.Id == id);
+            if (product == null)
+            {
+                _logger.LogWarning("Product with ID {Id} not found.", id);
+                return NotFound();
+            }
+            return View(product);
         }
 
         // POST: /products/delete/5
         [HttpPost("delete/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteP(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
+            var product = _db.Products.FirstOrDefault(p => p.Id == id);
+            if (product == null)
+            {
+                _logger.LogWarning("Product with ID {Id} not found.", id);
+                return NotFound();
+            }
+
             try
             {
-                var product = _db.Products.FirstOrDefault(p => p.Id == id);
-                if (product == null)
-                {
-                    return NotFound();
-                }
-                
                 _db.Products.Remove(product);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                _logger.LogError(ex, "Error deleting product with ID {Id}.", id);
+                ModelState.AddModelError(string.Empty, "An error occurred while deleting the product.");
+                return View(product);
             }
+        }
+
+        private bool ValidateProduct(Product product)
+        {
+            if (product.Name.Contains(product.Brand))
+            {
+                ModelState.AddModelError("Name", "The Product Name should not contain the Brand Name");
+            }
+            if (product.CategoryId < 1)
+            {
+                ModelState.AddModelError("CategoryId", "The Category ID cannot be less than zero");
+            }
+
+            return ModelState.IsValid;
+        }
+
+        private void PopulateCategories()
+        {
+            ViewData["Categories"] = _db.Categories.ToList();
         }
     }
 }
