@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using variate.Data;
+using variate.Mapping;
 using variate.Models;
-using System.Linq;
-using Microsoft.Extensions.Logging;
 
 namespace variate.Controllers
 {
@@ -16,172 +15,211 @@ namespace variate.Controllers
         public ProductController(ILogger<ProductController> logger, ApplicationDbContext db)
         {
             _logger = logger;
-            _db = db; 
+            _db = db;
+        }
+
+        // Helper method for logging errors and redirecting
+        private IActionResult HandleError(Exception ex, string action, string message)
+        {
+            _logger.LogError(ex, message);
+            return RedirectToAction("Error", "Home");
         }
 
         // GET: /products
         [HttpGet("")]
-        public IActionResult Index(string searchString)
+        public async Task<IActionResult> Index(string? searchString)
         {
-            var products = _db.Products.Include(p => p.Category).AsQueryable();
-
-            if (!string.IsNullOrEmpty(searchString))
+            try
             {
-                searchString = searchString.ToLower();
-                products = products.Where(p => p.Name.ToLower().Contains(searchString) ||
-                                                p.Category.Name.ToLower().Contains(searchString));
-            }
+                searchString = searchString?.ToLower();
+                var products = await _db.Products
+                    .AsNoTracking()
+                    .Include(p => p.Category)
+                    .Where(p => string.IsNullOrEmpty(searchString) ||
+                        p.Name.ToLower().Contains(searchString) ||
+                        p.Brand.ToLower().Contains(searchString) ||
+                        p.Category.Name.ToLower().Contains(searchString))
+                    .Select(p => p.ToDto())
+                    .ToListAsync();
 
-            return View(products);
+                return View(products);
+            }
+            catch (Exception e)
+            {
+                return HandleError(e, nameof(Index), "Error fetching products.");
+            }
         }
 
-        // GET: /products/details/5
-        [HttpGet("{id}")]
-        public IActionResult Details(int id)
+        // GET: /products/{id}
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> Details(int id)
         {
-            var product = _db.Products
-                             .Include(p => p.Category)
-                             .FirstOrDefault(p => p.Id == id);
-
-            if (product == null)
+            try
             {
-                _logger.LogWarning("Product with ID {Id} not found.", id);
-                return NotFound();
+                var product = await _db.Products
+                    .AsNoTracking()
+                    .Include(p => p.Category)
+                    .Select(p => p.ToDto())
+                    .FirstOrDefaultAsync(p => p.Id == id);
+
+                if (product == null)
+                {
+                    _logger.LogWarning("Product with ID {Id} not found.", id);
+                    return NotFound();
+                }
+
+                ViewBag.ColorList = product.Colour?.Split(", ") ?? Array.Empty<string>();
+                ViewBag.SizeList = product.Size?.Split(", ") ?? Array.Empty<string>();
+                return View(product);
             }
-
-            ViewData["ColorList"] = product.Colour?.Split(", ") ?? new string[0];
-            ViewData["SizeList"] = product.Size?.Split(", ") ?? new string[0];
-
-            return View(product);
+            catch (Exception e)
+            {
+                return HandleError(e, nameof(Details), $"Error fetching product with ID {id}.");
+            }
         }
 
         // GET: /products/create
         [HttpGet("create")]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            PopulateCategories();
+            await PopulateCategoriesAsync();
             return View();
         }
 
         // POST: /products/create
         [HttpPost("create")]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Product product)
+        public async Task<IActionResult> Create(Product product)
         {
-            if (ValidateProduct(product))
+            if (!ValidateProduct(product))
             {
-                try
-                {
-                    _db.Products.Add(product);
-                    _db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "Error creating product.");
-                    ModelState.AddModelError(string.Empty, "An error occurred while creating the product.");
-                }
-            }
-
-            PopulateCategories();
-            return View(product);
-        }
-
-        // GET: /products/edit/5
-        [HttpGet("edit/{id}")]
-        public IActionResult Edit(int id)
-        {
-            var product = _db.Products.FirstOrDefault(p => p.Id == id);
-            if (product == null)
-            {
-                _logger.LogWarning("Product with ID {Id} not found.", id);
-                return NotFound();
-            }
-
-            PopulateCategories();
-            return View(product);
-        }
-
-        // POST: /products/edit/5
-        [HttpPost("edit/{id}")]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(Product product)
-        {
-            if (ValidateProduct(product))
-            {
-                try
-                {
-                    _db.Products.Update(product);
-                    _db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "Error editing product with ID {Id}.", product.Id);
-                    ModelState.AddModelError(string.Empty, "An error occurred while updating the product.");
-                }
-            }
-
-            PopulateCategories();
-            return View(product);
-        }
-
-        // GET: /products/delete/5
-        [HttpGet("delete/{id}")]
-        public IActionResult Delete(int id)
-        {
-            var product = _db.Products.FirstOrDefault(p => p.Id == id);
-            if (product == null)
-            {
-                _logger.LogWarning("Product with ID {Id} not found.", id);
-                return NotFound();
-            }
-            return View(product);
-        }
-
-        // POST: /products/delete/5
-        [HttpPost("delete/{id}")]
-        [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
-        {
-            var product = _db.Products.FirstOrDefault(p => p.Id == id);
-            if (product == null)
-            {
-                _logger.LogWarning("Product with ID {Id} not found.", id);
-                return NotFound();
+                await PopulateCategoriesAsync();
+                return View(product);
             }
 
             try
             {
-                _db.Products.Remove(product);
-                _db.SaveChanges();
+                await _db.Products.AddAsync(product);
+                await _db.SaveChangesAsync();
+                TempData["success"] = "Product created successfully";
                 return RedirectToAction("Index");
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                _logger.LogError(ex, "Error deleting product with ID {Id}.", id);
-                ModelState.AddModelError(string.Empty, "An error occurred while deleting the product.");
+                return HandleError(e, nameof(Create), "Error creating product.");
+            }
+        }
+
+        // GET: /products/edit/{id}
+        [HttpGet("edit/{id:int}")]
+        public async Task<IActionResult> Edit(int id)
+        {
+            try
+            {
+                var product = await _db.Products.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+                if (product == null)
+                {
+                    _logger.LogWarning("Product with ID {Id} not found.", id);
+                    return NotFound();
+                }
+
+                await PopulateCategoriesAsync();
                 return View(product);
+            }
+            catch (Exception e)
+            {
+                return HandleError(e, nameof(Edit), $"Error fetching product with ID {id}.");
+            }
+        }
+
+        // POST: /products/edit/{id}
+        [HttpPost("edit/{id:int}")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Product product)
+        {
+            if (!ValidateProduct(product))
+            {
+                await PopulateCategoriesAsync();
+                return View(product);
+            }
+
+            try
+            {
+                _db.Products.Update(product);
+                await _db.SaveChangesAsync();
+                TempData["success"] = "Product updated successfully";
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                return HandleError(e, nameof(Edit), $"Error updating product with ID {product.Id}.");
+            }
+        }
+
+        // GET: /products/delete/{id}
+        [HttpGet("delete/{id:int}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                var product = await _db.Products
+                    .AsNoTracking()
+                    .Select(p => p.ToDto())
+                    .FirstOrDefaultAsync(p => p.Id == id);
+
+                if (product == null)
+                {
+                    _logger.LogWarning("Product with ID {Id} not found.", id);
+                    return NotFound();
+                }
+
+                return View(product);
+            }
+            catch (Exception e)
+            {
+                return HandleError(e, nameof(Delete), $"Error fetching product with ID {id}.");
+            }
+        }
+
+        // POST: /products/delete/{id}
+        [HttpPost("delete/{id:int}")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            try
+            {
+                var product = await _db.Products.FindAsync(id);
+                if (product == null)
+                {
+                    _logger.LogWarning("Product with ID {Id} not found for deletion.", id);
+                    return NotFound();
+                }
+
+                _db.Products.Remove(product);
+                await _db.SaveChangesAsync();
+                TempData["success"] = "Product deleted successfully";
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                return HandleError(e, nameof(DeleteConfirmed), $"Error deleting product with ID {id}.");
             }
         }
 
         private bool ValidateProduct(Product product)
         {
-            if (product.Name.Contains(product.Brand))
-            {
-                ModelState.AddModelError("Name", "The Product Name should not contain the Brand Name");
-            }
+            if (product.Name.Contains(product.Brand, StringComparison.OrdinalIgnoreCase))
+                ModelState.AddModelError("Name", "The Product Name should not contain the Brand Name.");
+
             if (product.CategoryId < 1)
-            {
-                ModelState.AddModelError("CategoryId", "The Category ID cannot be less than zero");
-            }
+                ModelState.AddModelError("CategoryId", "Please select a valid category.");
 
             return ModelState.IsValid;
         }
 
-        private void PopulateCategories()
+        private async Task PopulateCategoriesAsync()
         {
-            ViewData["Categories"] = _db.Categories.ToList();
+            ViewBag.Categories = await _db.Categories.AsNoTracking().ToListAsync();
         }
     }
 }
