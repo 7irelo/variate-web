@@ -1,3 +1,14 @@
-namespace variate.Dto;
+using variate.Models;
 
-public record class CategoryDto(int Id, string Name);
+namespace variate.Dtos
+{
+    public record class CategoryDto(
+        int Id, 
+        string Name, 
+        string Description, 
+        string ImageUrl, 
+        string MetaTitle, 
+        string MetaDescription, 
+        ICollection<Product> Products
+    );
+}

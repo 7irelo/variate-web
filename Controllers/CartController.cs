@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using variate.Data;
 using variate.Models;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace variate.Controllers
 {
@@ -24,117 +22,136 @@ namespace variate.Controllers
             _userManager = userManager;
         }
 
-        [HttpGet]
+        // Helper method for logging errors and redirecting
+        private IActionResult HandleError(Exception ex, string methodName, string message)
+        {
+            _logger.LogError(ex, "{Method}: {Message}", methodName, message);
+            return RedirectToAction("Error", "Home");
+        }
+
+        // GET: /cart
+        [HttpGet("")]
         public async Task<IActionResult> Index()
         {
-            var userCart = await GetOrCreateUserCart();
+            var userCart = await GetOrCreateUserCartAsync();
 
-            if (userCart == null) return RedirectToAction("Login", "Account");
+            if (userCart == null) return RedirectToAction("Login", "Account", new { area = "Identity" });
 
             return View(userCart);
         }
 
+        // POST: /cart/create
         [HttpPost("create")]
         public async Task<IActionResult> AddToCart(int productId, int quantity, string selectedColor, string selectedSize)
         {
-            var userCart = await GetOrCreateUserCart();
-            if (userCart == null) return BadRequest("User cart could not be found or created.");
-
-            // Find the product and include the Category data
-            var product = await _db.Products
-                                .Include(p => p.Category)
-                                .FirstOrDefaultAsync(p => p.Id == productId);
-
-            if (product == null) return NotFound("Product not found.");
-            if (product.Category == null) return BadRequest("Product has an invalid CategoryId.");
-
-            // Check if the item already exists in the cart
-            var existingCartItem = userCart.CartItems
-                                        .FirstOrDefault(ci => ci.Id == productId && ci.Colour == selectedColor && ci.Size == selectedSize);
-
-            if (existingCartItem != null)
+            try
             {
-                existingCartItem.Quantity += quantity;
-            }
-            else
-            {
-                var newCartItem = new CartItem
+                var userCart = await GetOrCreateUserCartAsync();
+                if (userCart == null) return BadRequest("User cart could not be found or created.");
+
+                var product = await _db.Products
+                    .Include(p => p.Category)
+                    .FirstOrDefaultAsync(p => p.Id == productId);
+
+                if (product == null) return NotFound("Product not found.");
+
+                var existingCartItem = userCart.CartItems
+                    .FirstOrDefault(ci => ci.Id == productId && ci.Colour == selectedColor && ci.Size == selectedSize);
+
+                if (existingCartItem != null)
                 {
-                    CartId = userCart.Id,
-                    Name = product.Name,
-                    Price = product.Price,
-                    Brand = product.Brand,
-                    Category = product.Category,
-                    Description = product.Description,
-                    ImageUrl = product.ImageUrl,
-                    Colour = selectedColor,
-                    Size = selectedSize,
-                    Quantity = quantity
-                };
-                userCart.CartItems.Add(newCartItem);
-            }
+                    existingCartItem.Quantity += quantity;
+                }
+                else
+                {
+                    userCart.CartItems.Add(new CartItem
+                    {
+                        CartId = userCart.Id,
+                        Name = product.Name,
+                        Price = product.Price,
+                        Brand = product.Brand,
+                        Category = product.Category,
+                        Description = product.Description,
+                        ImageUrl = product.ImageUrl,
+                        Colour = selectedColor,
+                        Size = selectedSize,
+                        Quantity = quantity
+                    });
+                }
 
-            await _db.SaveChangesAsync();
-            return RedirectToAction("Index");
+                await _db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                return HandleError(e, nameof(AddToCart), "Error adding product to cart.");
+            }
         }
 
+        // POST: /cart/updateQuantity
         [HttpPost("updateQuantity")]
         public async Task<IActionResult> UpdateQuantity(int productId, int delta)
         {
-            var userCart = await GetOrCreateUserCart();
-            if (userCart == null) return BadRequest("Cart not found.");
-
-            var cartItem = userCart.CartItems.FirstOrDefault(ci => ci.Id == productId);
-            if (cartItem == null) return NotFound("Product not found in cart.");
-
-            cartItem.Quantity = Math.Max(1, cartItem.Quantity + delta);
-
-            await _db.SaveChangesAsync();
-            return Json(new { success = true });
-        }
-
-        [HttpPost("delete/{id}")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var userCart = await GetOrCreateUserCart();
-            _logger.LogInformation("Cart Found");
-            if (userCart == null) 
-            {
-                _logger.LogError("Cart with ID {Id} not found.", id);
-                return BadRequest("Cart not found.");
-            }
-
-            var cartItem = userCart.CartItems.FirstOrDefault(ci => ci.Id == id);
-            if (cartItem == null)
-            {
-                _logger.LogWarning("Cart Item with ID {Id} not found.", id);
-                return NotFound();
-            }
-
             try
             {
-                userCart.CartItems.Remove(cartItem);
-                _db.SaveChanges();
+                var userCart = await GetOrCreateUserCartAsync();
+                if (userCart == null) return BadRequest("Cart not found.");
+
+                var cartItem = userCart.CartItems.FirstOrDefault(ci => ci.Id == productId);
+                if (cartItem == null) return NotFound("Product not found in cart.");
+
+                cartItem.Quantity = Math.Max(1, cartItem.Quantity + delta);
+                await _db.SaveChangesAsync();
+
                 return Json(new { success = true });
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                _logger.LogError(ex, "Error deleting product with ID {Id}.", id);
-                ModelState.AddModelError(string.Empty, "An error occurred while deleting the product.");
-                return View(cartItem);
+                return HandleError(e, nameof(UpdateQuantity), "Error updating quantity.");
             }
         }
 
-        // Method to get the current user's cart or create one if not found
-        private async Task<Cart> GetOrCreateUserCart()
+        // POST: /cart/delete/{id}
+        [HttpPost("delete/{id:int}")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                var userCart = await GetOrCreateUserCartAsync();
+                if (userCart == null)
+                {
+                    _logger.LogWarning("Cart not found for deletion.");
+                    return BadRequest("Cart not found.");
+                }
+
+                var cartItem = userCart.CartItems.FirstOrDefault(ci => ci.Id == id);
+                if (cartItem == null)
+                {
+                    _logger.LogWarning("Cart item with ID {Id} not found.", id);
+                    return NotFound();
+                }
+
+                userCart.CartItems.Remove(cartItem);
+                await _db.SaveChangesAsync();
+                return Json(new { success = true });
+            }
+            catch (Exception e)
+            {
+                return HandleError(e, nameof(Delete), $"Error deleting cart item with ID {id}.");
+            }
+        }
+
+        // Method to get or create the user's cart
+        private async Task<Cart> GetOrCreateUserCartAsync()
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
                 return null;
 
-            var cart = await _db.Carts.Include(c => c.CartItems)
-                                       .FirstOrDefaultAsync(c => c.ApplicationUserId == user.Id && c.Status == "Active");
+            var cart = await _db.Carts
+                .Include(c => c.CartItems)
+                .FirstOrDefaultAsync(c => c.ApplicationUserId == user.Id && c.Status == "Active");
 
             if (cart == null)
             {
@@ -152,5 +169,3 @@ namespace variate.Controllers
         }
     }
 }
-
-
