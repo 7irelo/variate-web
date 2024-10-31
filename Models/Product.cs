@@ -47,9 +47,8 @@ public class Product
     [MaxLength(100)]
     [DisplayName("Stock Keeping Unit")]
     public string? Sku { get; set; } // Stock Keeping Unit
-    
-    [Range(0, 10000)]
-    public int Stock { get; set; }
+
+    [Range(0, 10000)] public int Stock { get; set; } = 0;
 
     [DefaultValue(false)]
     [DisplayName("Is Featured")]
@@ -61,5 +60,5 @@ public class Product
 
     // Timestamps
     public DateTime CreatedAt { get; set; } = DateTime.Now;
-    public DateTime UpdatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; } = DateTime.Now;
 }

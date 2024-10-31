@@ -22,16 +22,16 @@
                         <span class="ref-category">@Model.Category.Name</span>
                     </div>
                     @if (Model.OnSale)
-                        {
-                            <strong class="ref-price ref-on-sale">
-                                <s class="ref-original-price">$@Model.Price</s>
-                                $@Model.DiscountedPrice
-                            </strong>
-                        }
-                        else
-                        {
-                            <strong class="ref-price">$@Model.Price</strong>
-                        }
+                    {
+                        <strong class="ref-price ref-on-sale">
+                            <s class="ref-original-price">$@Model.Price</s>
+                            $@Model.DiscountedPrice
+                        </strong>
+                    }
+                    else
+                    {
+                        <strong class="ref-price">$@Model.Price</strong>
+                    }
 
                     <form asp-controller="Cart" asp-action="AddToCart" method="post" class="reflow-add-to-cart ref-product-controls">
                         <input type="hidden" name="productId" value="@Model.Id" />
@@ -41,12 +41,12 @@
                         {
                             <div class="ref-variant">
                                 <label><span>Color</span>
-                                <select class="ref-form-control ref-field-variants" name="selectedColor" required>
-                                @foreach (var color in colorList)
-                                {
-                                    <option value="@color">@color</option>
-                                }
-                                </select>
+                                    <select class="ref-form-control ref-field-variants" name="selectedColor" required>
+                                        @foreach (var color in colorList)
+                                        {
+                                            <option value="@color">@color</option>
+                                        }
+                                    </select>
                                 </label>
                             </div>
                         }
@@ -55,12 +55,12 @@
                         {
                             <div class="ref-variant">
                                 <label><span>Size</span>
-                                <select class="ref-form-control ref-field-variants" name="selectedSize" required>
-                                @foreach (var size in sizeList)
-                                {
-                                    <option value="@size">@size</option>
-                                }
-                                </select>
+                                    <select class="ref-form-control ref-field-variants" name="selectedSize" required>
+                                        @foreach (var size in sizeList)
+                                        {
+                                            <option value="@size">@size</option>
+                                        }
+                                    </select>
                                 </label>
                             </div>
                         }
@@ -69,11 +69,121 @@
                     </form>
 
                     <div class="ref-description">@Model.Description</div>
+                    <div id="addReview" class="modal fade" role="dialog" tabindex="-1">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3>Edit Product</h3><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Please fill in the details below to submit the product.<br /></p>
+                                </div>
+                                <form method="post">
+                                    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                                    <div class="form-floating mb-3" hidden>
+                                        <input asp-for="Id" class="form-control" placeholder="iPad Air"/>
+                                        <label asp-for="Id"></label>
+                                        <span asp-validation-for="Id" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <input asp-for="CategoryId" class="form-control" placeholder="iPad Air" />
+                                        <label asp-for="CategoryId"></label>
+                                        <span asp-validation-for="CategoryId" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <input asp-for="Brand" class="form-control" placeholder="Apple" />
+                                        <label asp-for="Brand"></label>
+                                        <span asp-validation-for="Brand" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <input asp-for="Name" class="form-control" placeholder="iPad Air" />
+                                        <label asp-for="Name"></label>
+                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <input asp-for="Description" class="form-control" placeholder="Description..." />
+                                        <label asp-for="Description"></label>
+                                        <span asp-validation-for="Description" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <input asp-for="Size" class="form-control" placeholder="Description..." />
+                                        <label asp-for="Size"></label>
+                                        <span asp-validation-for="Size" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <input asp-for="Colour" class="form-control" placeholder="Description..."/>
+                                        <label asp-for="Colour"></label>
+                                        <span asp-validation-for="Colour" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <input asp-for="Price" class="form-control" placeholder="Price..." />
+                                        <label asp-for="Price"></label>
+                                        <span asp-validation-for="Price" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <input asp-for="DiscountedPrice" class="form-control" placeholder="Discounted Price..." />
+                                        <label asp-for="DiscountedPrice"></label>
+                                        <span asp-validation-for="DiscountedPrice" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <input asp-for="Release" class="form-control" type="date" placeholder="Release Date..." />
+                                        <label asp-for="Release"></label>
+                                        <span asp-validation-for="Release" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <input asp-for="ImageUrl" class="form-control" placeholder="product.jpg" />
+                                        <label asp-for="ImageUrl"></label>
+                                        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <input asp-for="Sku" class="form-control" placeholder="" />
+                                        <label asp-for="Sku"></label>
+                                        <span asp-validation-for="Sku" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <input asp-for="Stock" class="form-control" placeholder="" />
+                                        <label asp-for="Stock"></label>
+                                        <span asp-validation-for="Stock" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-check mb-3">
+                                        <input asp-for="OnSale" class="form-check-input"/>
+                                        <label asp-for="OnSale" class="form-check-label"></label>
+                                        <span asp-validation-for="OnSale" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-check mb-3">
+                                        <input asp-for="IsFeatured" class="form-check-input"/>
+                                        <label asp-for="IsFeatured" class="form-check-label"></label>
+                                        <span asp-validation-for="IsFeatured" class="text-danger"></span>
+                                    </div>
+
+                                    <button id="login-submit" type="submit" class="btn btn-primary w-100 py-2">Edit</button>
+
+                                </form>
+                                <div class="modal-footer"><button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button><button id="submitReview" class="btn btn-primary" type="button">Submit</button></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div><button class="btn btn-primary mb-4" type="button" data-bs-toggle="modal" data-bs-target="#addReview">Edit</button></div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<div class="container review-wrapper" data-customer-id="8DCFD3C1-F06A-2DF5-AC70-EF4FCEA97E0F" data-company-name="Company A" data-show-review-dates="true" data-sort-review-dates="descending">
-    @await Html.PartialAsync("_Reviews")
-</div>
+@* <div class="container review-wrapper" data-customer-id="8DCFD3C1-F06A-2DF5-AC70-EF4FCEA97E0F" data-company-name="Company A" data-show-review-dates="true" data-sort-review-dates="descending"> *@
+@*     @await Html.PartialAsync("_Reviews") *@
+@* </div> *@

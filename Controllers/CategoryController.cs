@@ -1,206 +1,127 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using variate.Data;
 using variate.Dtos;
-using variate.Mapping;
+using variate.Services;
 
 namespace variate.Controllers
 {
     [Route("categories")]
     public class CategoryController : Controller
     {
+        private readonly ICategoryService _categoryService;
         private readonly ILogger<CategoryController> _logger;
-        private readonly ApplicationDbContext _db;
 
-        public CategoryController(ILogger<CategoryController> logger, ApplicationDbContext db)
+        public CategoryController(ICategoryService categoryService, ILogger<CategoryController> logger)
         {
+            _categoryService = categoryService;
             _logger = logger;
-            _db = db;
         }
 
-        // Helper method for logging errors and redirecting
-        private IActionResult HandleError(Exception ex, string action, string message)
-        {
-            _logger.LogError(ex, message);
-            return RedirectToAction("Error", "Home");
-        }
-
-        // Fetch all categories with their products
         [HttpGet("")]
         public async Task<IActionResult> Index()
         {
-            try
+            var categories = await _categoryService.GetAllCategoriesAsync();
+            if (!categories.Any())
             {
-                var categories = await _db.Categories
-                    .AsNoTracking()
-                    .Include(c => c.Products)
-                    .Select(c => c.ToDto())
-                    .ToListAsync();
-
-                if (!categories.Any())
-                {
-                    _logger.LogWarning("No categories found.");
-                    return NotFound();
-                }
-
-                return View(categories);
+                _logger.LogWarning("No categories found.");
+                return NotFound();
             }
-            catch (Exception e)
-            {
-                return HandleError(e, nameof(Index), "Error fetching categories.");
-            }
+
+            return View(categories);
         }
 
-        // Fetch all products in a specific category by category ID
         [HttpGet("{id:int}")]
         public async Task<IActionResult> Details(int id)
         {
-            try
+            var products = await _categoryService.GetProductsByCategoryIdAsync(id);
+            if (!products.Any())
             {
-                var products = await _db.Products
-                    .AsNoTracking()
-                    .Where(p => p.CategoryId == id)
-                    .Select(p => p.ToDto())
-                    .ToListAsync();
-
-                if (!products.Any())
-                {
-                    _logger.LogWarning("No products found in category with ID {Id}", id);
-                    return NotFound();
-                }
-
-                return View(products);
+                _logger.LogWarning("No products found in category with ID {Id}.", id);
+                return NotFound();
             }
-            catch (Exception e)
-            {
-                return HandleError(e, nameof(Details), $"Error fetching products from category with ID {id}.");
-            }
+
+            return View(products);
         }
 
-        // Create category (GET)
         [HttpGet("create")]
         public IActionResult Create() => View();
 
-        // Create category (POST)
         [HttpPost("create")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CategoryDto obj)
+        public async Task<IActionResult> Create(CategoryDto categoryDto)
         {
-            if (!ModelState.IsValid) return View(obj);
+            if (!ModelState.IsValid) return View(categoryDto);
 
-            try
+            var result = await _categoryService.CreateCategoryAsync(categoryDto);
+            if (!result)
             {
-                await _db.Categories.AddAsync(obj.ToEntity());
-                await _db.SaveChangesAsync();
-                TempData["success"] = "Category created successfully";
-                return RedirectToAction("Index");
+                _logger.LogError("Failed to create category.");
+                return BadRequest("Error creating category.");
             }
-            catch (Exception e)
-            {
-                return HandleError(e, nameof(Create), "Error creating category.");
-            }
+
+            TempData["success"] = "Category created successfully";
+            return RedirectToAction("Index");
         }
 
-        // Edit category by ID (GET)
         [HttpGet("edit/{id:int}")]
         public async Task<IActionResult> Edit(int id)
         {
-            try
+            var category = await _categoryService.GetCategoryByIdAsync(id);
+            if (category == null)
             {
-                var category = await _db.Categories
-                    .AsNoTracking()
-                    .Where(c => c.Id == id)
-                    .Select(c => c.ToDto())
-                    .FirstOrDefaultAsync();
-
-                if (category == null)
-                {
-                    _logger.LogWarning("Category with ID {Id} not found.", id);
-                    return NotFound();
-                }
-
-                return View(category);
+                _logger.LogWarning("Category with ID {Id} not found.", id);
+                return NotFound();
             }
-            catch (Exception e)
-            {
-                return HandleError(e, nameof(Edit), $"Error fetching category with ID {id}.");
-            }
+
+            return View(category);
         }
 
-        // Edit category by ID (POST)
         [HttpPost("edit/{id:int}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(CategoryDto obj, int id)
+        public async Task<IActionResult> Edit(CategoryDto categoryDto, int id)
         {
-            if (!ModelState.IsValid || obj.Id != id)
+            if (!ModelState.IsValid || categoryDto.Id != id)
             {
                 _logger.LogWarning("Invalid ModelState or ID mismatch for editing category with ID {Id}.", id);
-                return View(obj);
+                return View(categoryDto);
             }
 
-            try
+            var result = await _categoryService.UpdateCategoryAsync(categoryDto);
+            if (!result)
             {
-                _db.Categories.Update(obj.ToEntity());
-                await _db.SaveChangesAsync();
-                TempData["success"] = "Category updated successfully";
-                return RedirectToAction("Index");
+                _logger.LogError("Failed to update category with ID {Id}.", id);
+                return BadRequest("Error updating category.");
             }
-            catch (Exception e)
-            {
-                return HandleError(e, nameof(Edit), $"Error updating category with ID {id}.");
-            }
+
+            TempData["success"] = "Category updated successfully";
+            return RedirectToAction("Index");
         }
 
-        // Delete category by ID (GET)
         [HttpGet("delete/{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
-            try
+            var category = await _categoryService.GetCategoryByIdAsync(id);
+            if (category == null)
             {
-                var category = await _db.Categories
-                    .AsNoTracking()
-                    .Where(c => c.Id == id)
-                    .Select(c => c.ToDto())
-                    .FirstOrDefaultAsync();
-
-                if (category == null)
-                {
-                    _logger.LogWarning("Category with ID {Id} not found.", id);
-                    return NotFound();
-                }
-
-                return View(category);
+                _logger.LogWarning("Category with ID {Id} not found.", id);
+                return NotFound();
             }
-            catch (Exception e)
-            {
-                return HandleError(e, nameof(Delete), $"Error fetching category with ID {id}.");
-            }
+
+            return View(category);
         }
 
-        // Delete category by ID (POST)
         [HttpPost("delete/{id:int}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            try
+            var result = await _categoryService.DeleteCategoryAsync(id);
+            if (!result)
             {
-                var category = await _db.Categories.FindAsync(id);
-                
-                if (category == null)
-                {
-                    _logger.LogWarning("Category with ID {Id} not found for deletion.", id);
-                    return NotFound();
-                }
+                _logger.LogError("Failed to delete category with ID {Id}.", id);
+                return BadRequest("Error deleting category.");
+            }
 
-                _db.Categories.Remove(category);
-                await _db.SaveChangesAsync();
-                TempData["success"] = "Category deleted successfully";
-                return RedirectToAction("Index");
-            }
-            catch (Exception e)
-            {
-                return HandleError(e, nameof(DeleteConfirmed), $"Error deleting category with ID {id}.");
-            }
+            TempData["success"] = "Category deleted successfully";
+            return RedirectToAction("Index");
         }
     }
 }
