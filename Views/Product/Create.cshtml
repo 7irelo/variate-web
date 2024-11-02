@@ -1,4 +1,4 @@
-@* @model Product
+@model variate.Dtos.ProductDto
 
 @{
     ViewData["Title"] = "Create Product";
@@ -9,8 +9,14 @@
         <div class="card shadow-sm">
             <div class="card-body p-4">
                 <h2 class="text-center mb-4">@ViewData["Title"]</h2>
-                <form id="account" method="post">
+                <form method="post" asp-controller="products" asp-action="create">
                     <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                    
+                    <div class="form-floating mb-3" hidden>
+                        <input asp-for="Id" class="form-control" placeholder="iPad Air"/>
+                        <label asp-for="Id"></label>
+                        <span asp-validation-for="Id" class="text-danger"></span>
+                    </div>
 
                     <div class="form-floating mb-3">
                         <input asp-for="CategoryId" class="form-control" placeholder="iPad Air" />
@@ -43,7 +49,7 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input asp-for="Colour" class="form-control" placeholder="Description..." />
+                        <input asp-for="Colour" class="form-control" placeholder="Description..."/>
                         <label asp-for="Colour"></label>
                         <span asp-validation-for="Colour" class="text-danger"></span>
                     </div>
@@ -61,9 +67,9 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input asp-for="Release" class="form-control" type="date" placeholder="Release Date..." />
-                        <label asp-for="Release"></label>
-                        <span asp-validation-for="Release" class="text-danger"></span>
+                        <input asp-for="ReleaseDate" class="form-control" type="date" placeholder="Release Date..." />
+                        <label asp-for="ReleaseDate"></label>
+                        <span asp-validation-for="ReleaseDate" class="text-danger"></span>
                     </div>
 
                     <div class="form-floating mb-3">
@@ -73,9 +79,9 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input asp-for="SKU" class="form-control" placeholder="" />
-                        <label asp-for="SKU"></label>
-                        <span asp-validation-for="SKU" class="text-danger"></span>
+                        <input asp-for="Sku" class="form-control" placeholder="" />
+                        <label asp-for="Sku"></label>
+                        <span asp-validation-for="Sku" class="text-danger"></span>
                     </div>
 
                     <div class="form-floating mb-3">
@@ -84,7 +90,13 @@
                         <span asp-validation-for="Stock" class="text-danger"></span>
                     </div>
 
-                    <div class="form-floating mb-3">
+                    <div class="form-check mb-3">
+                        <input asp-for="OnSale" class="form-check-input"/>
+                        <label asp-for="OnSale" class="form-check-label"></label>
+                        <span asp-validation-for="OnSale" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-check mb-3">
                         <input asp-for="IsFeatured" class="form-check-input"/>
                         <label asp-for="IsFeatured" class="form-check-label"></label>
                         <span asp-validation-for="IsFeatured" class="text-danger"></span>
@@ -102,4 +114,4 @@
     @{
         <partial name="_ValidationScriptsPartial" />
     }
-} *@
+}

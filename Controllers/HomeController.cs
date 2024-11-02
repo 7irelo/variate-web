@@ -50,11 +50,6 @@ namespace variate.Controllers
         {
             return View();
         }
-        
-        public IActionResult NotFound()
-        {
-            return View("NotFound");
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

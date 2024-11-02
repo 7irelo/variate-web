@@ -8,7 +8,6 @@ namespace variate.Models;
 public class Product
 {
     [Key]
-    [DisplayName("Product ID")]
     public int Id { get; set; }
     
     [DisplayName("Category ID")]
@@ -17,10 +16,10 @@ public class Product
     public Category? Category { get; set; }
     
     [Required, MaxLength(200)]
-    public string Brand { get; set; }
+    public required string Brand { get; set; }
 
     [Required, MaxLength(100)]
-    public string Name { get; set; }
+    public required string Name { get; set; }
     
     [Required, MaxLength(200)]
     public string? Description { get; set; }
@@ -38,27 +37,35 @@ public class Product
     public decimal DiscountedPrice { get; set; }
     
     [DisplayName("Release Date")]
-    public DateOnly Release { get; set; }
+    public DateOnly ReleaseDate { get; set; }
     
-    [Required, MaxLength(200)]
+    [MaxLength(200)]
     [DisplayName("Image URL")]
     public string? ImageUrl { get; set; }
 
     [MaxLength(100)]
     [DisplayName("Stock Keeping Unit")]
-    public string? Sku { get; set; } // Stock Keeping Unit
+    public string? Sku { get; set; }// Stock Keeping Unit
 
-    [Range(0, 10000)] public int Stock { get; set; } = 0;
+    [Range(0, 10000)]
+    public int Stock { get; set; }
 
     [DefaultValue(false)]
     [DisplayName("Is Featured")]
-    public bool IsFeatured { get; set; } = false;
+    public bool IsFeatured { get; set; }
 
     [DefaultValue(false)]
     [DisplayName("On Sale")]
-    public bool OnSale { get; set; } = false;
+    public bool OnSale { get; set; }
 
     // Timestamps
     public DateTime CreatedAt { get; set; } = DateTime.Now;
     public DateTime UpdatedAt { get; set; } = DateTime.Now;
+
+    private ICollection<Review>? _reviews;
+    public ICollection<Review> Reviews 
+    {
+        get => _reviews ??= new List<Review>(); 
+        set => _reviews = value;
+    }
 }

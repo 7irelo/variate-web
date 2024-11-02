@@ -23,6 +23,7 @@ namespace variate.Services
         {
             var cart = await _db.Carts
                 .Include(c => c.CartItems)
+                .ThenInclude(ci => ci.Product)
                 .FirstOrDefaultAsync(c => c.ApplicationUserId == userId && c.Status == "Active");
 
             if (cart == null)
@@ -40,7 +41,7 @@ namespace variate.Services
             return cart;
         }
 
-        public async Task<bool> AddToCartAsync(string userId, int productId, int quantity, string selectedColor, string selectedSize)
+        public async Task<bool> AddToCartAsync(string userId, int productId)
         {
             var userCart = await GetOrCreateUserCartAsync(userId);
             if (userCart == null) return false;
@@ -51,26 +52,21 @@ namespace variate.Services
             if (product == null) return false;
 
             var existingCartItem = userCart.CartItems
-                .FirstOrDefault(ci => ci.Id == productId && ci.Colour == selectedColor && ci.Size == selectedSize);
+                .FirstOrDefault(ci => ci.ProductId == productId);
 
             if (existingCartItem != null)
             {
-                existingCartItem.Quantity += quantity;
+                existingCartItem.Quantity += 1;
             }
             else
             {
                 userCart.CartItems.Add(new CartItem
                 {
+                    ProductId = productId,
                     CartId = userCart.Id,
-                    Name = product.Name,
-                    Price = product.Price,
-                    Brand = product.Brand,
-                    Category = product.Category,
-                    Description = product.Description,
-                    ImageUrl = product.ImageUrl,
-                    Colour = selectedColor,
-                    Size = selectedSize,
-                    Quantity = quantity
+                    Quantity = 1,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now
                 });
             }
 

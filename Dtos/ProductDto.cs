@@ -13,13 +13,14 @@ namespace variate.Dtos
         string Size, 
         decimal Price, 
         decimal DiscountedPrice, 
-        DateOnly Release, 
+        DateOnly ReleaseDate, 
         string ImageUrl, 
         string Sku,
         int Stock,
         bool IsFeatured,
         bool OnSale,
         DateTime CreatedAt,
-        DateTime UpdatedAt
+        DateTime UpdatedAt,
+        ICollection<Review> Reviews
     );
 }

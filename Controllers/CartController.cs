@@ -38,14 +38,14 @@ namespace variate.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> AddToCart(int productId, int quantity, string selectedColor, string selectedSize)
+        public async Task<IActionResult> AddToCart(int productId)
         {
             try
             {
                 var user = await _userManager.GetUserAsync(User);
                 if (user == null) return Unauthorized();
 
-                var success = await _cartService.AddToCartAsync(user.Id, productId, quantity, selectedColor, selectedSize);
+                var success = await _cartService.AddToCartAsync(user.Id, productId);
                 return success ? RedirectToAction("Index") : BadRequest("Failed to add product to cart.");
             }
             catch (Exception e)
@@ -81,7 +81,7 @@ namespace variate.Controllers
                 if (user == null) return Unauthorized();
 
                 var success = await _cartService.DeleteCartItemAsync(user.Id, id);
-                return success ? Json(new { success = true }) : NotFound("Item not found in cart.");
+                return success ? RedirectToAction("Index") : NotFound("Item not found in cart.");
             }
             catch (Exception e)
             {

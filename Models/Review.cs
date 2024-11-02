@@ -19,7 +19,7 @@ public class Review
 
     [Required]
     [DisplayName("User ID")]
-    public string ApplicationUserId { get; set; } = string.Empty;
+    public required string ApplicationUserId { get; set; }
 
     public ApplicationUser? ApplicationUser { get; set; }
 

@@ -1,6 +1,6 @@
 ﻿namespace variate.Dtos
 {
-    public class OrderDto
+    public record class OrderDto
     {
         public int Id { get; set; }
         public string ApplicationUserId { get; set; } = string.Empty;
@@ -10,7 +10,7 @@
         public List<OrderItemDto> OrderItems { get; set; } = new List<OrderItemDto>();
     }
 
-    public class OrderItemDto
+    public record class OrderItemDto
     {
         public int Id { get; set; }
         public int ProductId { get; set; }

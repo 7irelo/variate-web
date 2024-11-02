@@ -29,6 +29,7 @@ namespace variate.Services
         {
             return await _dbContext.Products
                 .AsNoTracking()
+                .Include(p => p.Category)
                 .Where(p => p.CategoryId == categoryId)
                 .Select(p => p.ToDto())
                 .ToListAsync();

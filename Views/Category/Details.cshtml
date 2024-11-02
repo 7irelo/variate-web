@@ -1,7 +1,7 @@
 @model IEnumerable<variate.Dtos.ProductDto>
 @{
     Layout = "_Layout";
-    ViewData["Title"] = Model?.FirstOrDefault().Category.Name ?? "Category Details";
+    ViewData["Title"] = Model?.First().Category.Name ?? "Category Details";
 }
 
 <section class="py-5">
@@ -16,7 +16,7 @@
                 @if (Model != null && Model.Any())
                 {
                     <div class="mb-4">
-                        <h2>Products in @Model.FirstOrDefault().Category.Name</h2>
+                        <h2>Products in @Model.First().Category.Name</h2>
                     </div>
                     <div>
                         @await Html.PartialAsync("_Products")

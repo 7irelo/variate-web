@@ -24,10 +24,10 @@ namespace variate.Mapping
             return new CategoryDto(
                 category.Id, 
                 category.Name, 
-                category.Description, 
-                category.ImageUrl, 
-                category.MetaTitle, 
-                category.MetaDescription, 
+                category.Description ?? string.Empty, 
+                category.ImageUrl ?? string.Empty, 
+                category.MetaTitle ?? string.Empty, 
+                category.MetaDescription ?? string.Empty, 
                 category.Products
             );
         }
