@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using variate.Dtos;
 using variate.Services;
 
@@ -42,6 +43,7 @@ namespace variate.Controllers
             return View(products);
         }
 
+        [Authorize(Policy = "MustBelongToHRDepartment")]
         [HttpGet("create")]
         public IActionResult Create() => View();
 
@@ -62,6 +64,7 @@ namespace variate.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Policy = "AdminOnly")]
         [HttpGet("edit/{id:int}")]
         public async Task<IActionResult> Edit(int id)
         {
@@ -75,6 +78,7 @@ namespace variate.Controllers
             return View(category);
         }
 
+        [Authorize]
         [HttpPost("edit/{id:int}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(CategoryDto categoryDto, int id)
@@ -96,6 +100,7 @@ namespace variate.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         [HttpGet("delete/{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -109,6 +114,7 @@ namespace variate.Controllers
             return View(category);
         }
 
+        [Authorize]
         [HttpPost("delete/{id:int}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

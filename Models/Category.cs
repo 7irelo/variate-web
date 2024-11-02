@@ -10,9 +10,9 @@ public class Category
     public int Id { get; set; }
     
     [Required, MaxLength(100)]
-    public string Name { get; set; }
+    public required string Name { get; set; }
     
-    [MaxLength(500)]
+    [MaxLength(600)]
     public string? Description { get; set; }
     
     [MaxLength(200)]
@@ -24,5 +24,10 @@ public class Category
     [MaxLength(160)]
     public string? MetaDescription { get; set; }
 
-    public ICollection<Product> Products { get; set; } = new List<Product>();
+    private ICollection<Product>? _products;
+    public ICollection<Product> Products 
+    {
+        get => _products ??= new List<Product>(); 
+        set => _products = value;
+    }
 }

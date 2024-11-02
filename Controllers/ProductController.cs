@@ -19,7 +19,7 @@ namespace variate.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
+        [HttpGet("")]
         public async Task<IActionResult> Index(string searchString)
         {
             var products = await _productService.GetAllProductsAsync(searchString);
@@ -33,10 +33,16 @@ namespace variate.Controllers
             if (product == null)
             {
                 _logger.LogWarning("Product with ID {Id} not found.", id);
-                return NotFound(new { Message = "Product not found" });
+                return NotFound();
             }
 
             return View(product.ToDto());
+        }
+
+        [HttpGet("create")]
+        public IActionResult Create()
+        {
+            return View();
         }
 
         [HttpPost("create")]
@@ -54,7 +60,7 @@ namespace variate.Controllers
                 return StatusCode(500, "Internal server error while creating product");
             }
 
-            return CreatedAtAction(nameof(Details), new { id = product.Id }, product);
+            return RedirectToAction("Index");
         }
 
         [HttpGet("edit/{id:int}")]
@@ -70,7 +76,7 @@ namespace variate.Controllers
             return View(product);
         }
 
-        [HttpPost("{id:int}")]
+        [HttpPost("edit/{id:int}")]
         public async Task<IActionResult> Edit(int id, Product product)
         {
             if (!ModelState.IsValid || product.Id != id)
@@ -88,7 +94,20 @@ namespace variate.Controllers
             return RedirectToAction("Details", "Product", new { id = id} );
         }
 
-        [HttpDelete("{id:int}")]
+        [HttpGet("delete/{id:int}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var product = await _productService.GetProductDetailsAsync(id);
+            if (product == null)
+            {
+                _logger.LogWarning("Product with ID {Id} not found.", id);
+                return NotFound(new { Message = "Product not found" });
+            }
+
+            return View(product.ToDto());
+        }
+
+        [HttpPost("delete/{id:int}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
             var result = await _productService.DeleteProductAsync(id);
@@ -98,7 +117,7 @@ namespace variate.Controllers
                 return NotFound();
             }
 
-            return NoContent();
+            return RedirectToAction("Index");
         }
     }
 }

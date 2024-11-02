@@ -1,0 +1,47 @@
+﻿@model variate.Dtos.ProductDto
+
+@{
+    ViewData["Title"] = "Edit Product";
+}
+
+<section class="py-5">
+    <div class="container py-5">
+        <div data-reflow-type="product" data-bss-dynamic-product data-bss-dynamic-product-param="product" data-reflow-shoppingcart-url="shopping-cart.html">
+            <form method="post" asp-action="delete">
+                <div class="form-floating mb-3" hidden>
+                    <input asp-for="Id" class="form-control" placeholder="iPad Air"/>
+                    <label asp-for="Id"></label> 
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>
+            <div class="reflow-product">
+                                                              <div class="ref-media">
+                    <div class="ref-preview"><img class="ref-image active border" src="~/img/products/@Model.ImageUrl" data-reflow-preview-type="image" /></div>
+                    @if (Model.OnSale)
+                    {
+                        <div class="ref-promo-badge">SALE</div>
+                    }
+                </div>
+                <div class="ref-product-data">
+                    <h2 class="ref-name">@Model.Brand @Model.Name</h2>
+                    <div class="ref-categories">
+                        <span class="ref-category">@Model.Category.Name</span>
+                    </div>
+                    @if (Model.OnSale)
+                    {
+                        <strong class="ref-price ref-on-sale">
+                            <s class="ref-original-price">$@Model.Price</s>
+                            $@Model.DiscountedPrice
+                        </strong>
+                    }
+                    else
+                    {
+                        <strong class="ref-price">$@Model.Price</strong>
+                    }
+                    <div class="ref-description">@Model.Description</div>
+                    <div><button class="btn btn-danger" type="submit">Delete</button></div>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</section>

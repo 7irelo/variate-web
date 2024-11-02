@@ -9,7 +9,7 @@
         <div class="card shadow-sm">
             <div class="card-body p-4">
                 <h2 class="text-center mb-4">@ViewData["Title"]</h2>
-                <form method="post" asp-action="Edit">
+                <form method="post" asp-action="edit">
                     <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
                     
                     <div class="form-floating mb-3" hidden>
@@ -67,9 +67,9 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input asp-for="Release" class="form-control" type="date" placeholder="Release Date..." />
-                        <label asp-for="Release"></label>
-                        <span asp-validation-for="Release" class="text-danger"></span>
+                        <input asp-for="ReleaseDate" class="form-control" type="date" placeholder="Release Date..." />
+                        <label asp-for="ReleaseDate"></label>
+                        <span asp-validation-for="ReleaseDate" class="text-danger"></span>
                     </div>
 
                     <div class="form-floating mb-3">

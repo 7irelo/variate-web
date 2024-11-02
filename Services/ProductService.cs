@@ -22,7 +22,7 @@ namespace variate.Services
             _logger = logger;
         }
 
-        public async Task<IEnumerable<ProductDto>> GetAllProductsAsync(string? searchString)
+        public async Task<IEnumerable<ProductDto?>> GetAllProductsAsync(string? searchString)
         {
             try
             {
@@ -33,7 +33,7 @@ namespace variate.Services
                     .Where(p => string.IsNullOrEmpty(searchString) ||
                         p.Name.ToLower().Contains(searchString) ||
                         p.Brand.ToLower().Contains(searchString) ||
-                        p.Category.Name.ToLower().Contains(searchString))
+                        (p.Category != null && p.Category.Name.ToLower().Contains(searchString)))
                     .Select(p => p.ToDto())
                     .ToListAsync();
             }
@@ -44,13 +44,21 @@ namespace variate.Services
             }
         }
 
-        public async Task<Product> GetProductDetailsAsync(int id)
+        public async Task<Product?> GetProductDetailsAsync(int id)
         {
-            return await _db.Products
-                .AsNoTracking()
-                .Include(p => p.Category)
-                
-                .FirstOrDefaultAsync(p => p.Id == id);
+            try
+            {
+                return await _db.Products
+                    .AsNoTracking()
+                    .Include(p => p.Category)
+                    .Include(p => p.Reviews)
+                    .FirstOrDefaultAsync(p => p.Id == id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching product with ID {ProductId}", id);
+                return null;
+            }
         }
 
         public async Task<bool> CreateProductAsync(Product product)
@@ -68,7 +76,7 @@ namespace variate.Services
             }
         }
 
-        public async Task<Product> GetProductForEditAsync(int id)
+        public async Task<Product?> GetProductForEditAsync(int id)
         {
             return await _db.Products.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
         }
