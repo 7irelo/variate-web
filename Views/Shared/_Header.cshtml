@@ -30,7 +30,7 @@
                 <!-- Update the Login and Register buttons -->
                 @if(User.Identity.IsAuthenticated)
                 {
-                    <form method="POST" asp-page="/Account/Logout">
+                    <form method="POST">
                     <button class="btn btn-primary shadow" type="submit" style="color: rgb(55, 99, 244); background: rgb(255, 255, 255); margin: 5px;">
                         Log out
                     </button>

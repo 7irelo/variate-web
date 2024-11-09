@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace variate.Areas.Identity.Pages.Account
 {
+    [Area("Identity")]
+    [Route("/Identity/Account/Logout")]
     public class LogoutModel : PageModel
     {
         public async Task<IActionResult> OnPostAsync()
