@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace variate.Controllers
             _logger = logger;
         }
 
+        [Authorize(Roles = "admin")]
         [HttpGet("")]
         public async Task<IActionResult> Index(string searchString)
         {
