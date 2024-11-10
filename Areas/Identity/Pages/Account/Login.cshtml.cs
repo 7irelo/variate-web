@@ -75,7 +75,6 @@ namespace variate.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
-
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             if (ModelState.IsValid)
@@ -83,7 +82,6 @@ namespace variate.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    await _signInManager.SignInAsync(await _userManager.FindByEmailAsync(Input.Email), Input.RememberMe);
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }
@@ -102,8 +100,8 @@ namespace variate.Areas.Identity.Pages.Account
                     return Page();
                 }
             }
-
             return Page();
         }
+
     }
 }

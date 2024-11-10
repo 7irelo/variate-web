@@ -30,7 +30,7 @@
                 <!-- Update the Login and Register buttons -->
                 @if(User.Identity.IsAuthenticated)
                 {
-                    <form method="POST">
+                    <form method="POST" asp-controller="auth" asp-action="logout">
                     <button class="btn btn-primary shadow" type="submit" style="color: rgb(55, 99, 244); background: rgb(255, 255, 255); margin: 5px;">
                         Log out
                     </button>
@@ -38,11 +38,11 @@
                 }
                 else
                 {
-                    <a class="btn btn-primary shadow" role="button" href="@Url.Page("/Account/Login", new { area = "Identity" })" style="color: rgb(55, 99, 244); background: rgb(255, 255, 255); margin: 5px;">
+                    <a class="btn btn-primary shadow" role="button" asp-controller="auth" asp-action="login" style="color: rgb(55, 99, 244); background: rgb(255, 255, 255); margin: 5px;">
                         Log in
                     </a>
                 }
-                <a class="btn btn-primary shadow" role="button" href="@Url.Page("/Account/Register", new { area = "Identity" })" style="margin: 5px;">
+                <a class="btn btn-primary shadow" role="button" asp-controller="auth" asp-action="register" style="margin: 5px;">
                     Sign up
                 </a>
                 <a asp-controller="cart">
