@@ -15,11 +15,11 @@
                 </div>
             <div class="reflow-product">
                                                               <div class="ref-media">
-                    <div class="ref-preview"><img class="ref-image active border" src="~/img/products/@Model.ImageUrl" data-reflow-preview-type="image" /></div>
-                    @if (Model.OnSale)
-                    {
-                        <div class="ref-promo-badge">SALE</div>
-                    }
+                <div class="ref-preview"><img class="ref-image active border" src="~/img/products/@Model.ImageUrl" data-reflow-preview-type="image" /></div>
+                @if (Model.OnSale)
+                {
+                    <div class="ref-promo-badge">SALE</div>
+                }
                 </div>
                 <div class="ref-product-data">
                     <h2 class="ref-name">@Model.Brand @Model.Name</h2>
@@ -38,7 +38,7 @@
                         <strong class="ref-price">$@Model.Price</strong>
                     }
                     <div class="ref-description">@Model.Description</div>
-                    <div><button class="btn btn-danger" type="submit">Delete</button></div>
+                    <div><button class="btn btn-danger" type="submit">Confirm Delete</button></div>
                 </div>
             </div>
             </form>
