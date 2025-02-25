@@ -1,0 +1,385 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-service
+  namespace: variate
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: auth-service
+  template:
+    metadata:
+      labels:
+        app: auth-service
+    spec:
+      containers:
+        - name: auth-service
+          image: variateacr.azurecr.io/auth-service:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: Jwt__Issuer
+              valueFrom:
+                configMapKeyRef:
+                  name: variate-config
+                  key: jwt-issuer
+            - name: Jwt__Audience
+              valueFrom:
+                configMapKeyRef:
+                  name: variate-config
+                  key: jwt-audience
+            - name: Jwt__SigningKey
+              valueFrom:
+                secretKeyRef:
+                  name: variate-secrets
+                  key: jwt-signing-key
+          readinessProbe:
+            httpGet:
+              path: /api/v1/auth/health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-service
+  namespace: variate
+spec:
+  selector:
+    app: auth-service
+  ports:
+    - port: 8080
+      targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalog-service
+  namespace: variate
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: catalog-service
+  template:
+    metadata:
+      labels:
+        app: catalog-service
+    spec:
+      containers:
+        - name: catalog-service
+          image: variateacr.azurecr.io/catalog-service:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MSSQL_SA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: variate-secrets
+                  key: mssql-sa-password
+            - name: ConnectionStrings__CatalogDb
+              value: Server=sqlserver,1433;Database=variate_catalog;User Id=sa;Password=$(MSSQL_SA_PASSWORD);TrustServerCertificate=True;
+            - name: Jwt__Issuer
+              valueFrom:
+                configMapKeyRef:
+                  name: variate-config
+                  key: jwt-issuer
+            - name: Jwt__Audience
+              valueFrom:
+                configMapKeyRef:
+                  name: variate-config
+                  key: jwt-audience
+            - name: Jwt__SigningKey
+              valueFrom:
+                secretKeyRef:
+                  name: variate-secrets
+                  key: jwt-signing-key
+          readinessProbe:
+            httpGet:
+              path: /api/v1/catalog/health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalog-service
+  namespace: variate
+spec:
+  selector:
+    app: catalog-service
+  ports:
+    - port: 8080
+      targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-service
+  namespace: variate
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: order-service
+  template:
+    metadata:
+      labels:
+        app: order-service
+    spec:
+      containers:
+        - name: order-service
+          image: variateacr.azurecr.io/order-service:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MSSQL_SA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: variate-secrets
+                  key: mssql-sa-password
+            - name: ConnectionStrings__OrderDb
+              value: Server=sqlserver,1433;Database=variate_order;User Id=sa;Password=$(MSSQL_SA_PASSWORD);TrustServerCertificate=True;
+            - name: RabbitMq__HostName
+              valueFrom:
+                configMapKeyRef:
+                  name: variate-config
+                  key: rabbitmq-host
+            - name: RabbitMq__Port
+              valueFrom:
+                configMapKeyRef:
+                  name: variate-config
+                  key: rabbitmq-port
+            - name: RabbitMq__Exchange
+              valueFrom:
+                configMapKeyRef:
+                  name: variate-config
+                  key: rabbitmq-exchange
+            - name: RabbitMq__UserName
+              valueFrom:
+                secretKeyRef:
+                  name: variate-secrets
+                  key: rabbitmq-username
+            - name: RabbitMq__Password
+              valueFrom:
+                secretKeyRef:
+                  name: variate-secrets
+                  key: rabbitmq-password
+            - name: Jwt__Issuer
+              valueFrom:
+                configMapKeyRef:
+                  name: variate-config
+                  key: jwt-issuer
+            - name: Jwt__Audience
+              valueFrom:
+                configMapKeyRef:
+                  name: variate-config
+                  key: jwt-audience
+            - name: Jwt__SigningKey
+              valueFrom:
+                secretKeyRef:
+                  name: variate-secrets
+                  key: jwt-signing-key
+          readinessProbe:
+            httpGet:
+              path: /api/v1/orders/health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-service
+  namespace: variate
+spec:
+  selector:
+    app: order-service
+  ports:
+    - port: 8080
+      targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-service
+  namespace: variate
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: payment-service
+  template:
+    metadata:
+      labels:
+        app: payment-service
+    spec:
+      containers:
+        - name: payment-service
+          image: variateacr.azurecr.io/payment-service:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MSSQL_SA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: variate-secrets
+                  key: mssql-sa-password
+            - name: ConnectionStrings__PaymentDb
+              value: Server=sqlserver,1433;Database=variate_payment;User Id=sa;Password=$(MSSQL_SA_PASSWORD);TrustServerCertificate=True;
+            - name: RabbitMq__HostName
+              valueFrom:
+                configMapKeyRef:
+                  name: variate-config
+                  key: rabbitmq-host
+            - name: RabbitMq__Port
+              valueFrom:
+                configMapKeyRef:
+                  name: variate-config
+                  key: rabbitmq-port
+            - name: RabbitMq__Exchange
+              valueFrom:
+                configMapKeyRef:
+                  name: variate-config
+                  key: rabbitmq-exchange
+            - name: RabbitMq__UserName
+              valueFrom:
+                secretKeyRef:
+                  name: variate-secrets
+                  key: rabbitmq-username
+            - name: RabbitMq__Password
+              valueFrom:
+                secretKeyRef:
+                  name: variate-secrets
+                  key: rabbitmq-password
+            - name: Stripe__SecretKey
+              valueFrom:
+                secretKeyRef:
+                  name: variate-secrets
+                  key: stripe-secret-key
+            - name: Jwt__Issuer
+              valueFrom:
+                configMapKeyRef:
+                  name: variate-config
+                  key: jwt-issuer
+            - name: Jwt__Audience
+              valueFrom:
+                configMapKeyRef:
+                  name: variate-config
+                  key: jwt-audience
+            - name: Jwt__SigningKey
+              valueFrom:
+                secretKeyRef:
+                  name: variate-secrets
+                  key: jwt-signing-key
+          readinessProbe:
+            httpGet:
+              path: /api/v1/payments/health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment-service
+  namespace: variate
+spec:
+  selector:
+    app: payment-service
+  ports:
+    - port: 8080
+      targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notification-service
+  namespace: variate
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notification-service
+  template:
+    metadata:
+      labels:
+        app: notification-service
+    spec:
+      containers:
+        - name: notification-service
+          image: variateacr.azurecr.io/notification-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: RabbitMq__HostName
+              valueFrom:
+                configMapKeyRef:
+                  name: variate-config
+                  key: rabbitmq-host
+            - name: RabbitMq__Port
+              valueFrom:
+                configMapKeyRef:
+                  name: variate-config
+                  key: rabbitmq-port
+            - name: RabbitMq__Exchange
+              valueFrom:
+                configMapKeyRef:
+                  name: variate-config
+                  key: rabbitmq-exchange
+            - name: RabbitMq__UserName
+              valueFrom:
+                secretKeyRef:
+                  name: variate-secrets
+                  key: rabbitmq-username
+            - name: RabbitMq__Password
+              valueFrom:
+                secretKeyRef:
+                  name: variate-secrets
+                  key: rabbitmq-password
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway-service
+  namespace: variate
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: gateway-service
+  template:
+    metadata:
+      labels:
+        app: gateway-service
+    spec:
+      containers:
+        - name: gateway-service
+          image: variateacr.azurecr.io/gateway-service:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway-service
+  namespace: variate
+spec:
+  selector:
+    app: gateway-service
+  ports:
+    - port: 80
+      targetPort: 8080

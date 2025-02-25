@@ -1,0 +1,24 @@
+---
+- name: Build and push container images to ACR
+  hosts: local
+  gather_facts: false
+  tasks:
+    - name: Login to Azure Container Registry
+      ansible.builtin.command: "az acr login --name {{ acr_name }}"
+      changed_when: true
+
+    - name: Build service images
+      ansible.builtin.command: >
+        docker build -t {{ acr_login_server }}/{{ item.name }}:{{ image_tag }} {{ item.context }}
+      loop: "{{ services }}"
+      loop_control:
+        label: "{{ item.name }}"
+      changed_when: true
+
+    - name: Push service images
+      ansible.builtin.command: >
+        docker push {{ acr_login_server }}/{{ item.name }}:{{ image_tag }}
+      loop: "{{ services }}"
+      loop_control:
+        label: "{{ item.name }}"
+      changed_when: true

@@ -1,0 +1,6 @@
+project_name    = "variate"
+environment     = "prod"
+location        = "eastus2"
+aks_node_count  = 3
+aks_node_vm_size = "Standard_D4s_v5"
+acr_sku         = "Standard"
