@@ -1,0 +1,115 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq
+  namespace: variate
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rabbitmq
+  template:
+    metadata:
+      labels:
+        app: rabbitmq
+    spec:
+      containers:
+        - name: rabbitmq
+          image: rabbitmq:3-management
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: RABBITMQ_DEFAULT_USER
+              valueFrom:
+                secretKeyRef:
+                  name: variate-secrets
+                  key: rabbitmq-username
+            - name: RABBITMQ_DEFAULT_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: variate-secrets
+                  key: rabbitmq-password
+          ports:
+            - containerPort: 5672
+            - containerPort: 15672
+          livenessProbe:
+            tcpSocket:
+              port: 5672
+            initialDelaySeconds: 20
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq
+  namespace: variate
+spec:
+  selector:
+    app: rabbitmq
+  ports:
+    - name: amqp
+      port: 5672
+      targetPort: 5672
+    - name: management
+      port: 15672
+      targetPort: 15672
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: sqlserver
+  namespace: variate
+spec:
+  serviceName: sqlserver
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sqlserver
+  template:
+    metadata:
+      labels:
+        app: sqlserver
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: sqlserver
+          image: mcr.microsoft.com/mssql/server:2022-latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: ACCEPT_EULA
+              value: "Y"
+            - name: MSSQL_SA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: variate-secrets
+                  key: mssql-sa-password
+          ports:
+            - containerPort: 1433
+          volumeMounts:
+            - name: sqlserver-data
+              mountPath: /var/opt/mssql
+          livenessProbe:
+            tcpSocket:
+              port: 1433
+            initialDelaySeconds: 20
+            periodSeconds: 10
+  volumeClaimTemplates:
+    - metadata:
+        name: sqlserver-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 20Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sqlserver
+  namespace: variate
+spec:
+  selector:
+    app: sqlserver
+  ports:
+    - name: mssql
+      port: 1433
+      targetPort: 1433

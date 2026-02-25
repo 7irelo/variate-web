@@ -45,6 +45,20 @@ Welcome to **Variate**, a full-featured e-commerce online shopping site built us
 - **Payment Gateway**: [PayPal](https://paypal.com)
 - **Hosting**: [Azure](https://azure.com)
 
+## Microservices Platform (AKS)
+
+This repository now includes a production-style microservices platform under [platform/README.md](platform/README.md) with:
+
+- JWT auth service
+- Catalog, order, payment, and notification services
+- RabbitMQ for async event-driven flows
+- API gateway service
+- Containerized SQL Server
+- Docker Compose for local orchestration
+- Kubernetes manifests for AKS
+- Terraform for Azure AKS/ACR/network infrastructure
+- Ansible playbooks for build/push/deploy automation
+
 ## Getting Started
 
 ### Prerequisites

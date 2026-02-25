@@ -1,0 +1,149 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: variate-sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD:-Your_strong_password123}
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P ${MSSQL_SA_PASSWORD:-Your_strong_password123} -Q 'SELECT 1' -C || exit 1"]
+      interval: 20s
+      timeout: 10s
+      retries: 10
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: variate-rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-guest}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS:-guest}
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_port_connectivity"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+
+  auth-service:
+    build:
+      context: ./src/AuthService
+      dockerfile: Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      Jwt__Issuer: variate.auth
+      Jwt__Audience: variate.services
+      Jwt__SigningKey: ${JWT_SIGNING_KEY:-replace-this-in-real-deployments-with-a-long-secret}
+    ports:
+      - "7001:8080"
+
+  catalog-service:
+    build:
+      context: ./src/CatalogService
+      dockerfile: Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__CatalogDb: "Server=sqlserver,1433;Database=variate_catalog;User Id=sa;Password=${MSSQL_SA_PASSWORD:-Your_strong_password123};TrustServerCertificate=True;"
+      Jwt__Issuer: variate.auth
+      Jwt__Audience: variate.services
+      Jwt__SigningKey: ${JWT_SIGNING_KEY:-replace-this-in-real-deployments-with-a-long-secret}
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    ports:
+      - "7002:8080"
+
+  order-service:
+    build:
+      context: ./src/OrderService
+      dockerfile: Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__OrderDb: "Server=sqlserver,1433;Database=variate_order;User Id=sa;Password=${MSSQL_SA_PASSWORD:-Your_strong_password123};TrustServerCertificate=True;"
+      RabbitMq__HostName: rabbitmq
+      RabbitMq__Port: 5672
+      RabbitMq__UserName: ${RABBITMQ_USER:-guest}
+      RabbitMq__Password: ${RABBITMQ_PASS:-guest}
+      RabbitMq__Exchange: variate.events
+      Jwt__Issuer: variate.auth
+      Jwt__Audience: variate.services
+      Jwt__SigningKey: ${JWT_SIGNING_KEY:-replace-this-in-real-deployments-with-a-long-secret}
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    ports:
+      - "7003:8080"
+
+  payment-service:
+    build:
+      context: ./src/PaymentService
+      dockerfile: Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__PaymentDb: "Server=sqlserver,1433;Database=variate_payment;User Id=sa;Password=${MSSQL_SA_PASSWORD:-Your_strong_password123};TrustServerCertificate=True;"
+      RabbitMq__HostName: rabbitmq
+      RabbitMq__Port: 5672
+      RabbitMq__UserName: ${RABBITMQ_USER:-guest}
+      RabbitMq__Password: ${RABBITMQ_PASS:-guest}
+      RabbitMq__Exchange: variate.events
+      Jwt__Issuer: variate.auth
+      Jwt__Audience: variate.services
+      Jwt__SigningKey: ${JWT_SIGNING_KEY:-replace-this-in-real-deployments-with-a-long-secret}
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    ports:
+      - "7004:8080"
+
+  notification-service:
+    build:
+      context: ./src/NotificationService
+      dockerfile: Dockerfile
+    environment:
+      RabbitMq__HostName: rabbitmq
+      RabbitMq__Port: 5672
+      RabbitMq__UserName: ${RABBITMQ_USER:-guest}
+      RabbitMq__Password: ${RABBITMQ_PASS:-guest}
+      RabbitMq__Exchange: variate.events
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
+  gateway-service:
+    build:
+      context: ./src/GatewayService
+      dockerfile: Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    depends_on:
+      - auth-service
+      - catalog-service
+      - order-service
+      - payment-service
+    ports:
+      - "7000:8080"
+
+  legacy-web:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: "Server=sqlserver,1433;Database=variate_legacy;User Id=sa;Password=${MSSQL_SA_PASSWORD:-Your_strong_password123};TrustServerCertificate=True;"
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    ports:
+      - "7010:8080"
+
+volumes:
+  sqlserver-data:

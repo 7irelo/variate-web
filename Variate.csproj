@@ -42,4 +42,8 @@
     <Folder Include="Views\User\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="platform\**\*.cs" />
+  </ItemGroup>
+
 </Project>

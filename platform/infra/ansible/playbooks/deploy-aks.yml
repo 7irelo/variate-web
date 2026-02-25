@@ -1,0 +1,22 @@
+---
+- name: Deploy Variate platform to AKS
+  hosts: local
+  gather_facts: false
+  tasks:
+    - name: Fetch AKS credentials
+      ansible.builtin.command: >
+        az aks get-credentials
+        --resource-group {{ aks_resource_group }}
+        --name {{ aks_cluster_name }}
+        --overwrite-existing
+      changed_when: true
+
+    - name: Apply base Kubernetes manifests
+      ansible.builtin.command: >
+        kubectl apply -k {{ repo_root }}/platform/k8s/base
+      changed_when: true
+
+    - name: Wait for gateway rollout
+      ansible.builtin.command: >
+        kubectl rollout status deployment/gateway-service -n variate --timeout=180s
+      changed_when: false
