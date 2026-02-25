@@ -1,0 +1,38 @@
+.category-section {
+    margin-bottom: 50px;
+}
+
+.product-card {
+    text-align: center;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.product-image {
+    max-width: 100px;
+    max-height: 100px;
+    margin-bottom: 10px;
+}
+
+.product-info h5 {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.product-info p {
+    color: #007bff;
+    font-weight: bold;
+}
+
+.view-more {
+    text-align: left;
+    margin-top: 15px;
+}
+
+.view-more .btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+}

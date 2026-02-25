@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: variate-config
+  namespace: variate
+data:
+  jwt-issuer: variate.auth
+  jwt-audience: variate.services
+  rabbitmq-host: rabbitmq
+  rabbitmq-port: "5672"
+  rabbitmq-exchange: variate.events
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: variate-secrets
+  namespace: variate
+type: Opaque
+stringData:
+  jwt-signing-key: replace-this-in-real-deployments-with-a-long-secret
+  mssql-sa-password: Your_strong_password123
+  rabbitmq-username: guest
+  rabbitmq-password: guest
+  stripe-secret-key: ""

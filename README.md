@@ -1,7 +1,13 @@
 # Variate
 
-Welcome to **Variate**, a full-featured e-commerce online shopping site built using the ASP.NET Core framework, Razor pages, and a PostgreSQL database. Variate offers a wide range of product categories to provide a comprehensive online shopping experience.
+Welcome to **Variate**, a full-featured e-commerce online shopping site built using the ASP.NET Core framework, Razor pages, and a SQL Server database. Variate offers a wide range of product categories to provide a comprehensive online shopping experience.
 
+![variate_home](https://github.com/user-attachments/assets/baf442f2-db0e-40a8-a34b-94c522966dd7)
+![variate_electronics](https://github.com/user-attachments/assets/81f1ae15-f118-4612-aa9d-a7bcaeacc8f8)
+![variate_product](https://github.com/user-attachments/assets/bec81fcc-4979-4911-89c2-26737f847026)
+![variate_reviews](https://github.com/user-attachments/assets/bfa0190b-5c48-4b96-a47c-d29eac3bd9a7)
+![variate_cart](https://github.com/user-attachments/assets/b8338bb9-543c-4147-a317-a6b6a4956a2c)
+![variate_register](https://github.com/user-attachments/assets/935dcea1-7312-4d5f-8fe6-faf470020e0b)
 ## Features
 
 - **User Authentication**: Secure login and registration functionality.
@@ -16,35 +22,42 @@ Welcome to **Variate**, a full-featured e-commerce online shopping site built us
 - **Electronics**
 - **Home and Kitchen**
 - **Fashion and Beauty**
-- **Toys and Beauty Products**
-- **Outdoor and Sports**
-- **Health and Wellness**
-- **Musical Instruments and Equipment**
+- **Musical Instruments**
 - **Art and Crafts**
 - **Baby and Toddler**
 - **Bed and Bath**
 - **Decor and Furniture**
-- **DIY and Tools**
-- **Haircare**
 - **Health and Beauty**
 - **Home and Garden**
 - **Jewellery and Watches**
-- **Kitchen and Dining**
 - **Luggage and Travel**
-- **Musical Instruments**
 - **Office and Stationery**
 - **Pet Products**
 - **Sports and Outdoor**
-- **Tools and DIY**
-- **Toys and Games**
+- **Tools and DIY"**
+- **Toys and Games"**
 
 ## Technology Stack
 
 - **Backend**: ASP.NET Core
 - **Frontend**: Razor Pages
-- **Database**: PostgreSQL
-- **Payment Gateway**: [Stripe, PayPal]
-- **Hosting**: [Azure, AWS]
+- **Database**: SQL Server
+- **Payment Gateway**: [PayPal](https://paypal.com)
+- **Hosting**: [Azure](https://azure.com)
+
+## Microservices Platform (AKS)
+
+This repository now includes a production-style microservices platform under [platform/README.md](platform/README.md) with:
+
+- JWT auth service
+- Catalog, order, payment, and notification services
+- RabbitMQ for async event-driven flows
+- API gateway service
+- Containerized SQL Server
+- Docker Compose for local orchestration
+- Kubernetes manifests for AKS
+- Terraform for Azure AKS/ACR/network infrastructure
+- Ansible playbooks for build/push/deploy automation
 
 ## Getting Started
 
@@ -57,12 +70,12 @@ Welcome to **Variate**, a full-featured e-commerce online shopping site built us
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/7irelo/variate.git
-   cd variate
+   git clone https://github.com/7irelo/variate-web.git
+   cd variate-web
    ```
 
 2. **Configure the database:**
-   - Update the connection string in `appsettings.json` to match your PostgreSQL setup.
+   - Update the connection string in `appsettings.json` to match your SQL Server setup.
 
 3. **Apply database migrations:**
    ```bash
@@ -75,7 +88,7 @@ Welcome to **Variate**, a full-featured e-commerce online shopping site built us
    ```
 
 5. **Visit the application:**
-   Open your browser and navigate to `http://localhost:5000`
+   Open your browser and navigate to `http://localhost:5263`
 
 ## Contributing
 
@@ -105,10 +118,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 For any inquiries or feedback, feel free to reach out:
 
 - Email: [tirelo.eric@gmail.com](mailto:tirelo.eric@gmail.com)
-- Website: [www.variate.com](http://www.7irelo.com)
+- Website: [www.variate.com](http://www.variate.com)
 
 Thank you for using Variate! Happy shopping!
-
----
-
-This README.md is a template and may need adjustments based on your project's specifics. Make sure to update sections like the payment gateway, hosting service, and contact information accordingly.

@@ -1,0 +1,32 @@
+@model variate.Dtos.CategoryDto
+@{
+    ViewData["Title"] = "Edit Category";
+}
+
+<h1>Edit Category</h1>
+<div class="form-container">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <input asp-for="Id" hidden />
+    <form method="POST" asp-action="Edit">
+        <div class="form-group">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description" class="form-label"></label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ImageUrl" class="form-label"></label>
+            <input asp-for="ImageUrl" class="form-control"></input>
+            <span asp-validation-for="ImageUrl" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <button type="submit" value="Create" class="btn btn-primary">Update</button>
+            <a asp-controller="Category" asp-action="Index"></a>
+        </div>
+    </form>
+</div>
+<a asp-controller="Category" asp-action="Index">Go Back</a>

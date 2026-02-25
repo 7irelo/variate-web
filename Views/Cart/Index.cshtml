@@ -1,0 +1,127 @@
+@model Cart
+@{
+    ViewData["Title"] = "Your Cart";
+}
+
+<section class="py-5 container">
+    <div data-reflow-type="shopping-cart">
+        <div class="reflow-shopping-cart" style="display: block;">
+            <div class="ref-loading-overlay"></div>
+            <div class="ref-message" style="display: none;">Unable to load shopping cart.</div>
+            <div class="ref-cart" style="display: block;">
+                <div class="ref-heading">Shopping Cart</div>
+                <div class="ref-th">
+                    <div class="ref-product-col">Product</div>
+                    <div class="ref-price-col">Price</div>
+                    <div class="ref-quantity-col">Quantity</div>
+                    <div class="ref-total-col">Total</div>
+                </div>
+                <div class="ref-cart-table">
+                    @foreach (var product in Model.CartItems)
+                    {
+                        <div class="ref-product" data-id="@product.Id" data-quantity="@product.Quantity">
+                            <div class="ref-product-col">
+                                <div class="ref-product-wrapper">
+                                    <img class="ref-product-photo" src="~/img/products/@(product.Product?.ImageUrl ?? new string("default.jpg"))" alt="@product.Product?.Name" />
+                                    <div class="ref-product-data">
+                                        <div class="ref-product-info">
+                                            <div>
+                                                <div class="ref-product-name">@product.Product?.Name</div>
+                                                <div class="ref-product-category">@product.Product?.Category?.Name</div>
+                                            </div>
+                                            <div class="ref-product-price ref-mobile-product-price">
+                                                $@string.Format("{0:0.00}", product.Product?.Price)
+                                            </div>
+                                        </div>
+                                        <div class="ref-product-controls ref-mobile-product-controls">
+                                            <div class="ref-product-quantity">
+                                                <div class="ref-quantity-widget">
+                                                    <div class="ref-decrease"><span></span></div>
+                                                    <input type="text" value="@product.Quantity" />
+                                                    <div class="ref-increase"><span></span></div>
+                                                </div>
+                                            </div>
+                                            <div class="ref-product-remove">Remove</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="ref-price-col">
+                                <div class="ref-product-price">
+                                    $@string.Format("{0:0.00}", product.Product?.Price)
+                                </div>
+                            </div>
+                            <div class="ref-quantity-col">
+                                <div class="ref-product-quantity">
+                                    <div class="ref-quantity-container">
+                                        <div class="ref-quantity-widget">
+                                            <div class="ref-decrease" onclick="updateQuantity(@product.Id, -1)"><span></span></div><input type="text" value="@product.Quantity" />
+                                            <div class="ref-increase" onclick="updateQuantity(@product.Id, 1)"><span></span></div>
+                                        </div>
+                                    </div>
+                                    <div class="ref-product-qty-message"></div>
+                                    <form asp-controller="cart" asp-action="delete" asp-route-id="@product.Id" method="POST">
+                                        <button class="ref-product-remove" type="submit" style="border: none; background-color: white;">Remove</button>
+                                        </form>
+                                </div>
+                            </div>
+                            <div class="ref-total-col">
+                                <div class="ref-product-total">
+                                    <div class="ref-product-total-sum">
+                                        $@string.Format("{0:0.00}", product.Product?.Price * product.Quantity)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="ref-footer">
+                    <div class="ref-totals">
+                        <div class="ref-subtotal">
+                            Subtotal: $@string.Format("{0:0.00}", Model.CartItems.Sum(item => item.Product?.Price * item.Quantity))
+                        </div>
+                    </div>
+                    <form class="ref-accept-terms" style="display: block;">
+                        <label>
+                            <input id="ref-terms-agreement" type="checkbox" required />
+                            <span class="ref-terms-agreement-text">
+                                I agree to the <a href="https://google.com">Terms &amp; Conditions</a>,
+                                <a href="https://google.com">Privacy Policy</a> and 
+                                <a href="https://google.com">Refund Policy</a>
+                            </span>
+                        </label>
+                    </form>
+                    <div class="ref-row ref-checkout-buttons">
+                        <button class="ref-button ref-standard-checkout-button">Checkout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function updateQuantity(productId, delta) {
+        fetch(`/cart/updateQuantity?productId=${productId}&delta=${delta}`, { method: 'POST' })
+            .then(response => response.json())
+            .then(data => location.reload())
+            .catch(error => console.error('Error updating quantity:', error));
+    }
+
+    function deleteProduct(productId) {
+        fetch(`cart/delete?productId=${productId}`, {method: `POST`})
+            .then(response => {
+                if (response.ok) location.reload() {
+                    response.json()
+                }
+                else if (response.status === 204) {
+                    location.reload()
+                }
+                else{
+                    throw new Error(`HTTP error! status: ${response.status}`)
+                }
+            })
+            .catch(error => console.error('Error deleting product:', error));
+    }
+</script>

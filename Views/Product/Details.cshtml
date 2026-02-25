@@ -1,0 +1,80 @@
+@model variate.Dtos.ProductDto
+@{
+    ViewData["Title"] = "Product";
+    var colorList = ViewData["ColorList"] as List<string>;
+    var sizeList = ViewData["SizeList"] as List<string>;
+}
+
+<section class="py-5">
+    <div class="container py-5">
+        <div data-reflow-type="product" data-bss-dynamic-product data-bss-dynamic-product-param="product" data-reflow-shoppingcart-url="shopping-cart.html">
+            <div class="reflow-product">
+                <div class="ref-media">
+                    <div class="ref-preview"><img class="ref-image active border" src="~/img/products/@Model.ImageUrl" data-reflow-preview-type="image" /></div>
+                    @if (Model.OnSale)
+                    {
+                        <div class="ref-promo-badge">SALE</div>
+                    }
+                </div>
+                <div class="ref-product-data">
+                    <h2 class="ref-name">@Model.Brand @Model.Name</h2>
+                    <div class="ref-categories">
+                        <span class="ref-category">@Model.Category.Name</span>
+                    </div>
+                    @if (Model.OnSale)
+                    {
+                        <strong class="ref-price ref-on-sale">
+                            <s class="ref-original-price">$@Model.Price</s>
+                            $@Model.DiscountedPrice
+                        </strong>
+                    }
+                    else
+                    {
+                        <strong class="ref-price">$@Model.Price</strong>
+                    }
+
+                    <form asp-controller="cart" asp-action="create" method="post" class="reflow-add-to-cart ref-product-controls">
+                        <input type="hidden" name="productId" value="@Model.Id" />
+                        <input type="hidden" name="quantity" value="1" />
+
+                        @if (colorList != null && colorList.Any())
+                        {
+                            <div class="ref-variant">
+                                <label><span>Color</span>
+                                    <select class="ref-form-control ref-field-variants" name="selectedColor" required>
+                                        @foreach (var color in colorList)
+                                        {
+                                            <option value="@color">@color</option>
+                                        }
+                                    </select>
+                                </label>
+                            </div>
+                        }
+                                
+                        @if (sizeList != null && sizeList.Any())
+                        {
+                            <div class="ref-variant">
+                                <label><span>Size</span>
+                                    <select class="ref-form-control ref-field-variants" name="selectedSize" required>
+                                        @foreach (var size in sizeList)
+                                        {
+                                            <option value="@size">@size</option>
+                                        }
+                                    </select>
+                                </label>
+                            </div>
+                        }
+
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    </form>
+
+                    <div class="ref-description">@Model.Description</div>
+                    <div><a class="btn btn-dark mb-4 px-5 mx-1" asp-controller="products" asp-action="edit" asp-route-id="@Model.Id">Edit</a><a class="btn btn-danger mb-4 px-5 mx-1" asp-controller="products" asp-action="editz" asp-route-id="@Model.Id">Delete</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container review-wrapper" data-customer-id="8DCFD3C1-F06A-2DF5-AC70-EF4FCEA97E0F" data-company-name="Company A" data-show-review-dates="true" data-sort-review-dates="descending">
+    @await Html.PartialAsync("_Reviews")
+</div>

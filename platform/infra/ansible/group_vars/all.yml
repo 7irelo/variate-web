@@ -1,0 +1,20 @@
+repo_root: "{{ playbook_dir }}/../../.."
+acr_name: variateprodacr
+acr_login_server: "{{ acr_name }}.azurecr.io"
+image_tag: latest
+aks_resource_group: variate-prod-rg
+aks_cluster_name: variate-prod-aks
+
+services:
+  - name: auth-service
+    context: "{{ repo_root }}/platform/src/AuthService"
+  - name: catalog-service
+    context: "{{ repo_root }}/platform/src/CatalogService"
+  - name: order-service
+    context: "{{ repo_root }}/platform/src/OrderService"
+  - name: payment-service
+    context: "{{ repo_root }}/platform/src/PaymentService"
+  - name: notification-service
+    context: "{{ repo_root }}/platform/src/NotificationService"
+  - name: gateway-service
+    context: "{{ repo_root }}/platform/src/GatewayService"
