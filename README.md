@@ -2,6 +2,8 @@
 
 Welcome to **Variate**, a full-featured e-commerce online shopping site built using the ASP.NET Core framework, Razor pages, and a SQL Server database. Variate offers a wide range of product categories to provide a comprehensive online shopping experience.
 
+![Variate - landing, product listing, product detail, cart and checkout, Identity auth, admin dashboard, health endpoint, project layout and orders management](docs/screenshots/variate-ui.png)
+
 ![variate_home](https://github.com/user-attachments/assets/baf442f2-db0e-40a8-a34b-94c522966dd7)
 ![variate_electronics](https://github.com/user-attachments/assets/81f1ae15-f118-4612-aa9d-a7bcaeacc8f8)
 ![variate_product](https://github.com/user-attachments/assets/bec81fcc-4979-4911-89c2-26737f847026)
