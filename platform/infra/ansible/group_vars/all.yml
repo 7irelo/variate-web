@@ -12,10 +12,13 @@ services:
     context: "{{ repo_root }}/platform/src/CatalogService"
   - name: order-service
     context: "{{ repo_root }}/platform/src/OrderService"
+    build_context: "{{ repo_root }}/platform/src"
   - name: payment-service
     context: "{{ repo_root }}/platform/src/PaymentService"
+    build_context: "{{ repo_root }}/platform/src"
   - name: notification-service
     context: "{{ repo_root }}/platform/src/NotificationService"
+    build_context: "{{ repo_root }}/platform/src"
   - name: assistant-service
     context: "{{ repo_root }}/platform/src/AssistantService"
   - name: gateway-service

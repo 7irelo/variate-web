@@ -1,7 +1,9 @@
+# Build context is platform/src so the shared BuildingBlocks project is available.
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY . .
-RUN dotnet publish ./PaymentService.csproj -c Release -o /app/publish /p:UseAppHost=false
+COPY BuildingBlocks/ BuildingBlocks/
+COPY PaymentService/ PaymentService/
+RUN dotnet publish ./PaymentService/PaymentService.csproj -c Release -o /app/publish /p:UseAppHost=false
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app

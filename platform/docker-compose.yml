@@ -60,8 +60,8 @@ services:
 
   order-service:
     build:
-      context: ./src/OrderService
-      dockerfile: Dockerfile
+      context: ./src
+      dockerfile: OrderService/Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__OrderDb: "Server=sqlserver,1433;Database=variate_order;User Id=sa;Password=${MSSQL_SA_PASSWORD:-Your_strong_password123};TrustServerCertificate=True;"
@@ -83,8 +83,8 @@ services:
 
   payment-service:
     build:
-      context: ./src/PaymentService
-      dockerfile: Dockerfile
+      context: ./src
+      dockerfile: PaymentService/Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__PaymentDb: "Server=sqlserver,1433;Database=variate_payment;User Id=sa;Password=${MSSQL_SA_PASSWORD:-Your_strong_password123};TrustServerCertificate=True;"
@@ -106,8 +106,8 @@ services:
 
   notification-service:
     build:
-      context: ./src/NotificationService
-      dockerfile: Dockerfile
+      context: ./src
+      dockerfile: NotificationService/Dockerfile
     environment:
       RabbitMq__HostName: rabbitmq
       RabbitMq__Port: 5672

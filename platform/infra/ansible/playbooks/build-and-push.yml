@@ -9,7 +9,7 @@
 
     - name: Build service images
       ansible.builtin.command: >
-        docker build -t {{ acr_login_server }}/{{ item.name }}:{{ image_tag }} {{ item.context }}
+        docker build -t {{ acr_login_server }}/{{ item.name }}:{{ image_tag }} -f {{ item.dockerfile | default(item.context ~ '/Dockerfile') }} {{ item.build_context | default(item.context) }}
       loop: "{{ services }}"
       loop_control:
         label: "{{ item.name }}"
