@@ -1,0 +1,50 @@
+{"query": "garmin watch", "relevant": ["Garmin Fenix 7", "Garmin Forerunner 955"], "kind": "lexical"}
+{"query": "acrylic paint", "relevant": ["Liquitex Professional Acrylic Paints", "Golden Heavy Body Acrylics"], "kind": "lexical"}
+{"query": "drum kit", "relevant": ["Pearl Export EXX Drum Set", "DW Collector's Series Drum Kit"], "kind": "lexical"}
+{"query": "electric guitar", "relevant": ["Fender American Professional II Stratocaster", "Gibson Les Paul Standard"], "kind": "lexical"}
+{"query": "carry-on luggage", "relevant": ["Tumi Alpha 3 Carry-On", "Away The Bigger Carry-On"], "kind": "lexical"}
+{"query": "dyson airwrap", "relevant": ["Dyson Airwrap"], "kind": "lexical"}
+{"query": "laptop", "relevant": ["HP Envy 13", "Apple MacBook Air M2"], "kind": "lexical"}
+{"query": "colored pencils", "relevant": ["Prismacolor Premier Colored Pencils", "Albrecht Dürer Watercolor Pencils"], "kind": "lexical"}
+{"query": "cordless drill", "relevant": ["Milwaukee M18 Fuel Cordless Drill", "DeWalt DCK1020D2 20V MAX Combo Kit"], "kind": "lexical"}
+{"query": "dog toy", "relevant": ["KONG Classic Dog Toy"], "kind": "lexical"}
+{"query": "facial cleansing brush", "relevant": ["Clarisonic Mia Smart", "Foreo Luna 3"], "kind": "lexical"}
+{"query": "bracelet", "relevant": ["Cartier Love Bracelet", "Pandora Charm Bracelet"], "kind": "lexical"}
+{"query": "playstation", "relevant": ["PlayStation 5 Console"], "kind": "lexical"}
+{"query": "sheets", "relevant": ["Brooklinen Luxe Core Sheet Set"], "kind": "lexical"}
+{"query": "board game", "relevant": ["Ravensburger Disney Villainous Board Game"], "kind": "lexical"}
+{"query": "something to keep my beers cold at a braai", "relevant": ["YETI Tundra 45 Cooler"], "kind": "semantic"}
+{"query": "help my back while working from home", "relevant": ["Herman Miller Aeron Chair", "Ergotron WorkFit-TL Standing Desk Converter", "Logitech MX Master 3S Mouse"], "kind": "semantic"}
+{"query": "keep an eye on my baby while she sleeps", "relevant": ["Owlet Smart Sock"], "kind": "semantic"}
+{"query": "watch my dog while I'm at the office", "relevant": ["Furbo Dog Camera", "PetSafe Automatic Pet Feeder"], "kind": "semantic"}
+{"query": "my cat's litter box is a chore", "relevant": ["Whisker Litter-Robot"], "kind": "semantic"}
+{"query": "cut my grass without me doing anything", "relevant": ["Husqvarna Automower"], "kind": "semantic"}
+{"query": "proposal ring", "relevant": ["Tiffany & Co. Engagement Ring"], "kind": "semantic"}
+{"query": "make homemade gelato", "relevant": ["Cuisinart Ice Cream Maker"], "kind": "semantic"}
+{"query": "slow cook a stew", "relevant": ["Le Creuset Dutch Oven", "Anova Sous Vide Precision Cooker"], "kind": "semantic"}
+{"query": "learn to play keys", "relevant": ["Yamaha YDP-144 Digital Piano"], "kind": "semantic"}
+{"query": "draw digitally on my computer", "relevant": ["Wacom Intuos Pro Tablet"], "kind": "semantic"}
+{"query": "stay warm on a cold hike", "relevant": ["Patagonia Nano Puff Jacket"], "kind": "semantic"}
+{"query": "sleep outdoors on a camping trip", "relevant": ["REI Co-op Half Dome Tent"], "kind": "semantic"}
+{"query": "carry my toddler hands-free", "relevant": ["Ergobaby Omni 360 Carrier"], "kind": "semantic"}
+{"query": "keep my child safe in the car", "relevant": ["Graco 4Ever Car Seat"], "kind": "semantic"}
+{"query": "clean my patio and driveway", "relevant": ["Sun Joe Electric Pressure Washer"], "kind": "semantic"}
+{"query": "save on my electricity bill heating the house", "relevant": ["Nest Learning Thermostat"], "kind": "semantic"}
+{"query": "brush teeth better", "relevant": ["Philips Sonicare DiamondClean"], "kind": "semantic"}
+{"query": "track my heart rate and steps", "relevant": ["Fitbit Charge 5", "Garmin Fenix 7", "Garmin Forerunner 955"], "kind": "semantic"}
+{"query": "film my mountain biking", "relevant": ["GoPro Hero 10"], "kind": "semantic"}
+{"query": "backpacking around Europe bag", "relevant": ["Osprey Farpoint 40 Backpack"], "kind": "semantic"}
+{"query": "build furniture with screws hidden", "relevant": ["Kreg K5 Pocket-Hole Jig"], "kind": "semantic"}
+{"query": "hang pictures straight", "relevant": ["Bosch GLL 3-80 Laser Level"], "kind": "semantic"}
+{"query": "flea treatment for my dog", "relevant": ["Seresto Flea and Tick Collar"], "kind": "semantic"}
+{"query": "dry and style my hair at once", "relevant": ["Revlon One-Step Hair Dryer", "Dyson Airwrap"], "kind": "semantic"}
+{"query": "luxury dive watch", "relevant": ["Rolex Submariner", "Omega Seamaster Watch"], "kind": "semantic"}
+{"query": "a place to put my books", "relevant": ["IKEA Billy Bookcase"], "kind": "semantic"}
+{"query": "toys under R1000", "relevant": ["NERF Ultra One Blaster", "Ravensburger Disney Villainous Board Game", "KONG Classic Dog Toy"], "kind": "constraint"}
+{"query": "watch under R5000", "relevant": ["Garmin Forerunner 955"], "kind": "constraint"}
+{"query": "kitchen appliances on sale", "relevant": ["Vitamix E310 Blender", "Le Creuset Dutch Oven"], "kind": "constraint"}
+{"query": "guitar under R20000", "relevant": ["Fender American Professional II Stratocaster"], "kind": "constraint"}
+{"query": "luggage below R4000", "relevant": ["Osprey Farpoint 40 Backpack", "Away The Bigger Carry-On"], "kind": "constraint"}
+{"query": "jewellery on sale", "relevant": ["Cartier Love Bracelet", "TAG Heuer Monaco"], "kind": "constraint"}
+{"query": "drum set under R30000", "relevant": ["Pearl Export EXX Drum Set"], "kind": "constraint"}
+{"query": "laptop less than R15000", "relevant": ["Apple MacBook Air M2"], "kind": "constraint"}

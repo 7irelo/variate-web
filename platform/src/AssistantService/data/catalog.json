@@ -1,0 +1,1010 @@
+{
+  "currency": "ZAR",
+  "categories": [
+    {
+      "id": 1,
+      "name": "Electronics"
+    },
+    {
+      "id": 2,
+      "name": "Home and Kitchen"
+    },
+    {
+      "id": 3,
+      "name": "Fashion and Beauty"
+    },
+    {
+      "id": 4,
+      "name": "Musical Instruments"
+    },
+    {
+      "id": 5,
+      "name": "Art and Crafts"
+    },
+    {
+      "id": 6,
+      "name": "Baby and Toddler"
+    },
+    {
+      "id": 7,
+      "name": "Bed and Bath"
+    },
+    {
+      "id": 8,
+      "name": "Decor and Furniture"
+    },
+    {
+      "id": 9,
+      "name": "Health and Beauty"
+    },
+    {
+      "id": 10,
+      "name": "Home and Garden"
+    },
+    {
+      "id": 11,
+      "name": "Jewellery and Watches"
+    },
+    {
+      "id": 12,
+      "name": "Luggage and Travel"
+    },
+    {
+      "id": 13,
+      "name": "Office and Stationery"
+    },
+    {
+      "id": 14,
+      "name": "Pet Products"
+    },
+    {
+      "id": 15,
+      "name": "Sports and Outdoor"
+    },
+    {
+      "id": 16,
+      "name": "Tools and DIY"
+    },
+    {
+      "id": 17,
+      "name": "Toys and Games"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "category_id": 1,
+      "name": "HP Envy 13",
+      "description": "A slim and powerful laptop with a vibrant display.",
+      "price": 15999,
+      "release_date": "2024-06-01",
+      "image_url": "hp_envy_13.jpg",
+      "on_sale": true,
+      "category": "Electronics"
+    },
+    {
+      "id": 2,
+      "category_id": 1,
+      "name": "Bose SoundLink Revolve",
+      "description": "Portable Bluetooth speaker with 360-degree sound.",
+      "price": 2499,
+      "release_date": "2024-07-01",
+      "image_url": "bose_soundlink_revolve.jpg",
+      "on_sale": false,
+      "category": "Electronics"
+    },
+    {
+      "id": 3,
+      "category_id": 1,
+      "name": "Amazon Echo Show 10",
+      "description": "Smart display with Alexa and a rotating screen.",
+      "price": 8999,
+      "release_date": "2024-08-01",
+      "image_url": "amazon_echo_show_10.jpg",
+      "on_sale": false,
+      "category": "Electronics"
+    },
+    {
+      "id": 4,
+      "category_id": 1,
+      "name": "GoPro Hero 10",
+      "description": "Action camera with 5K video and HyperSmooth stabilization.",
+      "price": 15999,
+      "release_date": "2024-09-01",
+      "image_url": "gopro_hero_10.jpg",
+      "on_sale": false,
+      "category": "Electronics"
+    },
+    {
+      "id": 5,
+      "category_id": 1,
+      "name": "Garmin Fenix 7",
+      "description": "Multisport GPS watch with advanced fitness tracking.",
+      "price": 25999,
+      "release_date": "2024-10-01",
+      "image_url": "garmin_fenix_7.jpg",
+      "on_sale": true,
+      "category": "Electronics"
+    },
+    {
+      "id": 6,
+      "category_id": 2,
+      "name": "Breville Smart Oven",
+      "description": "Countertop oven with Element IQ technology.",
+      "price": 5999,
+      "release_date": "2024-06-01",
+      "image_url": "breville_smart_oven.jpg",
+      "on_sale": false,
+      "category": "Home and Kitchen"
+    },
+    {
+      "id": 7,
+      "category_id": 2,
+      "name": "Vitamix E310 Blender",
+      "description": "High-performance blender for smoothies and more.",
+      "price": 4799,
+      "release_date": "2024-07-01",
+      "image_url": "vitamix_e310_blender.jpg",
+      "on_sale": true,
+      "category": "Home and Kitchen"
+    },
+    {
+      "id": 8,
+      "category_id": 2,
+      "name": "Anova Sous Vide Precision Cooker",
+      "description": "Precision cooker for restaurant-quality meals at home.",
+      "price": 2999,
+      "release_date": "2024-08-01",
+      "image_url": "anova_sous_vide.jpg",
+      "on_sale": false,
+      "category": "Home and Kitchen"
+    },
+    {
+      "id": 9,
+      "category_id": 2,
+      "name": "Le Creuset Dutch Oven",
+      "description": "Iconic enameled cast iron for all your cooking needs.",
+      "price": 3299,
+      "release_date": "2024-09-01",
+      "image_url": "le_creuset_dutch_oven.jpg",
+      "on_sale": true,
+      "category": "Home and Kitchen"
+    },
+    {
+      "id": 10,
+      "category_id": 2,
+      "name": "Cuisinart Ice Cream Maker",
+      "description": "Easy-to-use ice cream maker for homemade treats.",
+      "price": 999,
+      "release_date": "2024-10-01",
+      "image_url": "cuisinart_ice_cream_maker.jpg",
+      "on_sale": false,
+      "category": "Home and Kitchen"
+    },
+    {
+      "id": 11,
+      "category_id": 3,
+      "name": "Hermès Birkin Bag",
+      "description": "Luxury leather handbag for a statement of elegance.",
+      "price": 129999,
+      "release_date": "2024-06-01",
+      "image_url": "hermes_birkin.jpg",
+      "on_sale": true,
+      "category": "Fashion and Beauty"
+    },
+    {
+      "id": 12,
+      "category_id": 3,
+      "name": "Tom Ford Sunglasses",
+      "description": "Stylish sunglasses with UV protection.",
+      "price": 4999,
+      "release_date": "2024-07-01",
+      "image_url": "tom_ford_sunglasses.jpg",
+      "on_sale": false,
+      "category": "Fashion and Beauty"
+    },
+    {
+      "id": 13,
+      "category_id": 3,
+      "name": "Omega Seamaster Watch",
+      "description": "Classic luxury watch for any occasion.",
+      "price": 35999,
+      "release_date": "2024-08-01",
+      "image_url": "omega_seamaster.jpg",
+      "on_sale": true,
+      "category": "Fashion and Beauty"
+    },
+    {
+      "id": 14,
+      "category_id": 3,
+      "name": "Lululemon Align Leggings",
+      "description": "Comfortable and versatile leggings for everyday wear.",
+      "price": 999,
+      "release_date": "2024-09-01",
+      "image_url": "lululemon_align_leggings.jpg",
+      "on_sale": false,
+      "category": "Fashion and Beauty"
+    },
+    {
+      "id": 15,
+      "category_id": 3,
+      "name": "Dyson Airwrap",
+      "description": "Versatile hair styling tool with multiple attachments.",
+      "price": 5999,
+      "release_date": "2024-10-01",
+      "image_url": "dyson_airwrap.jpg",
+      "on_sale": true,
+      "category": "Fashion and Beauty"
+    },
+    {
+      "id": 16,
+      "category_id": 4,
+      "name": "Fender American Professional II Stratocaster",
+      "description": "Iconic electric guitar with a modern twist.",
+      "price": 15999,
+      "release_date": "2024-06-01",
+      "image_url": "fender_stratocaster.jpg",
+      "on_sale": false,
+      "category": "Musical Instruments"
+    },
+    {
+      "id": 17,
+      "category_id": 4,
+      "name": "Yamaha YDP-144 Digital Piano",
+      "description": "Realistic piano experience with GHS action.",
+      "price": 49999,
+      "release_date": "2024-07-01",
+      "image_url": "yamaha_ydp144.jpg",
+      "on_sale": true,
+      "category": "Musical Instruments"
+    },
+    {
+      "id": 18,
+      "category_id": 4,
+      "name": "Pearl Export EXX Drum Set",
+      "description": "Complete drum set for beginners and intermediate players.",
+      "price": 29999,
+      "release_date": "2024-08-01",
+      "image_url": "pearl_export_exx.jpg",
+      "on_sale": false,
+      "category": "Musical Instruments"
+    },
+    {
+      "id": 19,
+      "category_id": 4,
+      "name": "DW Collector's Series Drum Kit",
+      "description": "High-end drum kit with a custom finish.",
+      "price": 79999,
+      "release_date": "2024-09-01",
+      "image_url": "dw_collectors_drum_kit.jpg",
+      "on_sale": true,
+      "category": "Musical Instruments"
+    },
+    {
+      "id": 20,
+      "category_id": 4,
+      "name": "Gibson Les Paul Standard",
+      "description": "Classic electric guitar with a solid body.",
+      "price": 24999,
+      "release_date": "2024-10-01",
+      "image_url": "gibson_les_paul.jpg",
+      "on_sale": false,
+      "category": "Musical Instruments"
+    },
+    {
+      "id": 21,
+      "category_id": 5,
+      "name": "Prismacolor Premier Colored Pencils",
+      "description": "Soft core colored pencils for smooth, rich color.",
+      "price": 1999,
+      "release_date": "2024-06-01",
+      "image_url": "prismacolor_premier.jpg",
+      "on_sale": true,
+      "category": "Art and Crafts"
+    },
+    {
+      "id": 22,
+      "category_id": 5,
+      "name": "Liquitex Professional Acrylic Paints",
+      "description": "High-quality acrylic paints for artists.",
+      "price": 2499,
+      "release_date": "2024-07-01",
+      "image_url": "liquitex_acrylic_paints.jpg",
+      "on_sale": false,
+      "category": "Art and Crafts"
+    },
+    {
+      "id": 23,
+      "category_id": 5,
+      "name": "Wacom Intuos Pro Tablet",
+      "description": "Pen tablet for digital art and design.",
+      "price": 12999,
+      "release_date": "2024-08-01",
+      "image_url": "wacom_intuos_pro.jpg",
+      "on_sale": true,
+      "category": "Art and Crafts"
+    },
+    {
+      "id": 24,
+      "category_id": 5,
+      "name": "Golden Heavy Body Acrylics",
+      "description": "Thick, richly pigmented acrylic paint for professional artists.",
+      "price": 3999,
+      "release_date": "2024-09-01",
+      "image_url": "golden_acrylics.jpg",
+      "on_sale": false,
+      "category": "Art and Crafts"
+    },
+    {
+      "id": 25,
+      "category_id": 5,
+      "name": "Albrecht Dürer Watercolor Pencils",
+      "description": "High-quality watercolor pencils for detailed work.",
+      "price": 2999,
+      "release_date": "2024-10-01",
+      "image_url": "albrecht_durer_watercolor_pencils.jpg",
+      "on_sale": true,
+      "category": "Art and Crafts"
+    },
+    {
+      "id": 26,
+      "category_id": 6,
+      "name": "Graco 4Ever Car Seat",
+      "description": "Convertible car seat that grows with your child.",
+      "price": 4999,
+      "release_date": "2024-06-01",
+      "image_url": "graco_4ever_car_seat.jpg",
+      "on_sale": true,
+      "category": "Baby and Toddler"
+    },
+    {
+      "id": 27,
+      "category_id": 6,
+      "name": "Fisher-Price Jumperoo",
+      "description": "Interactive jumper for active playtime.",
+      "price": 2999,
+      "release_date": "2024-07-01",
+      "image_url": "fisher_price_jumperoo.jpg",
+      "on_sale": false,
+      "category": "Baby and Toddler"
+    },
+    {
+      "id": 28,
+      "category_id": 6,
+      "name": "Nuna Mixx Stroller",
+      "description": "Luxury stroller with all-terrain wheels and sleek design.",
+      "price": 8999,
+      "release_date": "2024-08-01",
+      "image_url": "nuna_mixx_stroller.jpg",
+      "on_sale": true,
+      "category": "Baby and Toddler"
+    },
+    {
+      "id": 29,
+      "category_id": 6,
+      "name": "Owlet Smart Sock",
+      "description": "Monitor your baby's heart rate and oxygen levels.",
+      "price": 3999,
+      "release_date": "2024-09-01",
+      "image_url": "owlet_smart_sock.jpg",
+      "on_sale": false,
+      "category": "Baby and Toddler"
+    },
+    {
+      "id": 30,
+      "category_id": 6,
+      "name": "Ergobaby Omni 360 Carrier",
+      "description": "Comfortable and versatile baby carrier for all positions.",
+      "price": 2999,
+      "release_date": "2024-10-01",
+      "image_url": "ergobaby_omni_360.jpg",
+      "on_sale": true,
+      "category": "Baby and Toddler"
+    },
+    {
+      "id": 31,
+      "category_id": 7,
+      "name": "Tempur-Pedic Memory Foam Pillow",
+      "description": "Contour pillow for restful sleep.",
+      "price": 2999,
+      "release_date": "2024-06-01",
+      "image_url": "tempur_pedic_pillow.jpg",
+      "on_sale": true,
+      "category": "Bed and Bath"
+    },
+    {
+      "id": 32,
+      "category_id": 7,
+      "name": "Brooklinen Luxe Core Sheet Set",
+      "description": "Soft and durable cotton sheets for a luxurious sleep experience.",
+      "price": 4999,
+      "release_date": "2024-07-01",
+      "image_url": "brooklinen_luxe_core.jpg",
+      "on_sale": false,
+      "category": "Bed and Bath"
+    },
+    {
+      "id": 33,
+      "category_id": 7,
+      "name": "Parachute Home Classic Towels",
+      "description": "Absorbent and plush towels for everyday use.",
+      "price": 1999,
+      "release_date": "2024-08-01",
+      "image_url": "parachute_classic_towels.jpg",
+      "on_sale": true,
+      "category": "Bed and Bath"
+    },
+    {
+      "id": 34,
+      "category_id": 7,
+      "name": "Boll & Branch Down Comforter",
+      "description": "Fluffy and warm down comforter for chilly nights.",
+      "price": 8999,
+      "release_date": "2024-09-01",
+      "image_url": "boll_branch_down_comforter.jpg",
+      "on_sale": false,
+      "category": "Bed and Bath"
+    },
+    {
+      "id": 35,
+      "category_id": 7,
+      "name": "Ugg Blissful Throw Blanket",
+      "description": "Cozy and soft throw blanket for lounging.",
+      "price": 1999,
+      "release_date": "2024-10-01",
+      "image_url": "ugg_blissful_throw.jpg",
+      "on_sale": true,
+      "category": "Bed and Bath"
+    },
+    {
+      "id": 36,
+      "category_id": 8,
+      "name": "West Elm Andes Sofa",
+      "description": "Modern and elegant sofa with customizable fabrics.",
+      "price": 32999,
+      "release_date": "2024-06-01",
+      "image_url": "west_elm_andes_sofa.jpg",
+      "on_sale": false,
+      "category": "Decor and Furniture"
+    },
+    {
+      "id": 37,
+      "category_id": 8,
+      "name": "IKEA Billy Bookcase",
+      "description": "Affordable and versatile bookcase for any room.",
+      "price": 1999,
+      "release_date": "2024-07-01",
+      "image_url": "ikea_billy_bookcase.jpg",
+      "on_sale": true,
+      "category": "Decor and Furniture"
+    },
+    {
+      "id": 38,
+      "category_id": 8,
+      "name": "Herman Miller Aeron Chair",
+      "description": "Ergonomic office chair with adjustable features.",
+      "price": 12999,
+      "release_date": "2024-08-01",
+      "image_url": "herman_miller_aeron.jpg",
+      "on_sale": false,
+      "category": "Decor and Furniture"
+    },
+    {
+      "id": 39,
+      "category_id": 8,
+      "name": "CB2 Peekaboo Acrylic Coffee Table",
+      "description": "Stylish and minimalist coffee table.",
+      "price": 2999,
+      "release_date": "2024-09-01",
+      "image_url": "cb2_peekaboo_coffee_table.jpg",
+      "on_sale": true,
+      "category": "Decor and Furniture"
+    },
+    {
+      "id": 40,
+      "category_id": 8,
+      "name": "Article Seno Dining Table",
+      "description": "Mid-century modern dining table with walnut finish.",
+      "price": 4999,
+      "release_date": "2024-10-01",
+      "image_url": "article_seno_dining_table.jpg",
+      "on_sale": false,
+      "category": "Decor and Furniture"
+    },
+    {
+      "id": 41,
+      "category_id": 9,
+      "name": "Fitbit Charge 5",
+      "description": "Advanced fitness and health tracker with built-in GPS.",
+      "price": 2999,
+      "release_date": "2024-06-01",
+      "image_url": "fitbit_charge_5.jpg",
+      "on_sale": true,
+      "category": "Health and Beauty"
+    },
+    {
+      "id": 42,
+      "category_id": 9,
+      "name": "Philips Sonicare DiamondClean",
+      "description": "Electric toothbrush with advanced cleaning technology.",
+      "price": 2499,
+      "release_date": "2024-07-01",
+      "image_url": "philips_sonicare_diamondclean.jpg",
+      "on_sale": false,
+      "category": "Health and Beauty"
+    },
+    {
+      "id": 43,
+      "category_id": 9,
+      "name": "Clarisonic Mia Smart",
+      "description": "Facial cleansing brush with multiple attachments.",
+      "price": 1999,
+      "release_date": "2024-08-01",
+      "image_url": "clarisonic_mia_smart.jpg",
+      "on_sale": true,
+      "category": "Health and Beauty"
+    },
+    {
+      "id": 44,
+      "category_id": 9,
+      "name": "Revlon One-Step Hair Dryer",
+      "description": "Hot air brush for styling and drying hair in one step.",
+      "price": 999,
+      "release_date": "2024-09-01",
+      "image_url": "revlon_one_step.jpg",
+      "on_sale": false,
+      "category": "Health and Beauty"
+    },
+    {
+      "id": 45,
+      "category_id": 9,
+      "name": "Foreo Luna 3",
+      "description": "Smart facial cleansing device with T-Sonic pulsations.",
+      "price": 3999,
+      "release_date": "2024-10-01",
+      "image_url": "foreo_luna_3.jpg",
+      "on_sale": true,
+      "category": "Health and Beauty"
+    },
+    {
+      "id": 46,
+      "category_id": 10,
+      "name": "Weber Genesis II Grill",
+      "description": "High-performance gas grill for outdoor cooking.",
+      "price": 8999,
+      "release_date": "2024-06-01",
+      "image_url": "weber_genesis_ii_grill.jpg",
+      "on_sale": true,
+      "category": "Home and Garden"
+    },
+    {
+      "id": 47,
+      "category_id": 10,
+      "name": "Husqvarna Automower",
+      "description": "Robotic lawn mower for a perfectly manicured lawn.",
+      "price": 15999,
+      "release_date": "2024-07-01",
+      "image_url": "husqvarna_automower.jpg",
+      "on_sale": false,
+      "category": "Home and Garden"
+    },
+    {
+      "id": 48,
+      "category_id": 10,
+      "name": "Sun Joe Electric Pressure Washer",
+      "description": "Powerful pressure washer for cleaning outdoors.",
+      "price": 2999,
+      "release_date": "2024-08-01",
+      "image_url": "sun_joe_pressure_washer.jpg",
+      "on_sale": true,
+      "category": "Home and Garden"
+    },
+    {
+      "id": 49,
+      "category_id": 10,
+      "name": "Nest Learning Thermostat",
+      "description": "Smart thermostat that learns your schedule and saves energy.",
+      "price": 2499,
+      "release_date": "2024-09-01",
+      "image_url": "nest_learning_thermostat.jpg",
+      "on_sale": false,
+      "category": "Home and Garden"
+    },
+    {
+      "id": 50,
+      "category_id": 10,
+      "name": "Philips Hue Outdoor Lightstrip",
+      "description": "Weatherproof LED light strip for outdoor ambiance.",
+      "price": 1999,
+      "release_date": "2024-10-01",
+      "image_url": "philips_hue_outdoor_lightstrip.jpg",
+      "on_sale": true,
+      "category": "Home and Garden"
+    },
+    {
+      "id": 51,
+      "category_id": 11,
+      "name": "Rolex Submariner",
+      "description": "Luxury dive watch with impeccable craftsmanship.",
+      "price": 89999,
+      "release_date": "2024-06-01",
+      "image_url": "rolex_submariner.jpg",
+      "on_sale": false,
+      "category": "Jewellery and Watches"
+    },
+    {
+      "id": 52,
+      "category_id": 11,
+      "name": "Cartier Love Bracelet",
+      "description": "Iconic bracelet symbolizing eternal love.",
+      "price": 59999,
+      "release_date": "2024-07-01",
+      "image_url": "cartier_love_bracelet.jpg",
+      "on_sale": true,
+      "category": "Jewellery and Watches"
+    },
+    {
+      "id": 53,
+      "category_id": 11,
+      "name": "Pandora Charm Bracelet",
+      "description": "Customizable charm bracelet with endless possibilities.",
+      "price": 3999,
+      "release_date": "2024-08-01",
+      "image_url": "pandora_charm_bracelet.jpg",
+      "on_sale": false,
+      "category": "Jewellery and Watches"
+    },
+    {
+      "id": 54,
+      "category_id": 11,
+      "name": "Tiffany & Co. Engagement Ring",
+      "description": "Timeless diamond ring for your special moment.",
+      "price": 199999,
+      "release_date": "2024-09-01",
+      "image_url": "tiffany_engagement_ring.jpg",
+      "on_sale": false,
+      "category": "Jewellery and Watches"
+    },
+    {
+      "id": 55,
+      "category_id": 11,
+      "name": "TAG Heuer Monaco",
+      "description": "Square-faced chronograph watch with a racing heritage.",
+      "price": 64999,
+      "release_date": "2024-10-01",
+      "image_url": "tag_heuer_monaco.jpg",
+      "on_sale": true,
+      "category": "Jewellery and Watches"
+    },
+    {
+      "id": 56,
+      "category_id": 12,
+      "name": "Samsonite Winfield 3 Luggage",
+      "description": "Durable and stylish hardside suitcase.",
+      "price": 4999,
+      "release_date": "2024-06-01",
+      "image_url": "samsonite_winfield_3.jpg",
+      "on_sale": true,
+      "category": "Luggage and Travel"
+    },
+    {
+      "id": 57,
+      "category_id": 12,
+      "name": "Tumi Alpha 3 Carry-On",
+      "description": "Premium carry-on luggage with smart features.",
+      "price": 8999,
+      "release_date": "2024-07-01",
+      "image_url": "tumi_alpha_3_carryon.jpg",
+      "on_sale": false,
+      "category": "Luggage and Travel"
+    },
+    {
+      "id": 58,
+      "category_id": 12,
+      "name": "Osprey Farpoint 40 Backpack",
+      "description": "Lightweight and versatile travel backpack.",
+      "price": 2499,
+      "release_date": "2024-08-01",
+      "image_url": "osprey_farpoint_40.jpg",
+      "on_sale": true,
+      "category": "Luggage and Travel"
+    },
+    {
+      "id": 59,
+      "category_id": 12,
+      "name": "Away The Bigger Carry-On",
+      "description": "Expandable carry-on luggage with a built-in charger.",
+      "price": 3999,
+      "release_date": "2024-09-01",
+      "image_url": "away_bigger_carryon.jpg",
+      "on_sale": false,
+      "category": "Luggage and Travel"
+    },
+    {
+      "id": 60,
+      "category_id": 12,
+      "name": "Delsey Paris Chatelet Luggage",
+      "description": "Elegant luggage with a vintage design.",
+      "price": 5999,
+      "release_date": "2024-10-01",
+      "image_url": "delsey_chatelet_luggage.jpg",
+      "on_sale": true,
+      "category": "Luggage and Travel"
+    },
+    {
+      "id": 61,
+      "category_id": 13,
+      "name": "Apple MacBook Air M2",
+      "description": "Thin and lightweight laptop with powerful M2 chip.",
+      "price": 14999,
+      "release_date": "2024-06-01",
+      "image_url": "macbook_air_m2.jpg",
+      "on_sale": true,
+      "category": "Office and Stationery"
+    },
+    {
+      "id": 62,
+      "category_id": 13,
+      "name": "Montblanc Meisterstück Fountain Pen",
+      "description": "Luxury fountain pen with a timeless design.",
+      "price": 7499,
+      "release_date": "2024-07-01",
+      "image_url": "montblanc_meisterstuck.jpg",
+      "on_sale": false,
+      "category": "Office and Stationery"
+    },
+    {
+      "id": 63,
+      "category_id": 13,
+      "name": "Moleskine Classic Notebook",
+      "description": "Iconic notebook for journaling and note-taking.",
+      "price": 1999,
+      "release_date": "2024-08-01",
+      "image_url": "moleskine_classic_notebook.jpg",
+      "on_sale": true,
+      "category": "Office and Stationery"
+    },
+    {
+      "id": 64,
+      "category_id": 13,
+      "name": "Logitech MX Master 3S Mouse",
+      "description": "Advanced ergonomic mouse for productivity.",
+      "price": 2999,
+      "release_date": "2024-09-01",
+      "image_url": "logitech_mx_master_3s.jpg",
+      "on_sale": true,
+      "category": "Office and Stationery"
+    },
+    {
+      "id": 65,
+      "category_id": 13,
+      "name": "Ergotron WorkFit-TL Standing Desk Converter",
+      "description": "Sit-stand desk converter for a healthier workspace.",
+      "price": 4999,
+      "release_date": "2024-10-01",
+      "image_url": "ergotron_workfit_tl.jpg",
+      "on_sale": false,
+      "category": "Office and Stationery"
+    },
+    {
+      "id": 66,
+      "category_id": 14,
+      "name": "Furbo Dog Camera",
+      "description": "Interactive camera that lets you see, talk, and toss treats to your pet.",
+      "price": 3999,
+      "release_date": "2024-06-01",
+      "image_url": "furbo_dog_camera.jpg",
+      "on_sale": true,
+      "category": "Pet Products"
+    },
+    {
+      "id": 67,
+      "category_id": 14,
+      "name": "KONG Classic Dog Toy",
+      "description": "Durable and bouncy toy for dogs of all sizes.",
+      "price": 999,
+      "release_date": "2024-07-01",
+      "image_url": "kong_classic.jpg",
+      "on_sale": false,
+      "category": "Pet Products"
+    },
+    {
+      "id": 68,
+      "category_id": 14,
+      "name": "Whisker Litter-Robot",
+      "description": "Self-cleaning litter box for cats.",
+      "price": 5999,
+      "release_date": "2024-08-01",
+      "image_url": "whisker_litter_robot.jpg",
+      "on_sale": true,
+      "category": "Pet Products"
+    },
+    {
+      "id": 69,
+      "category_id": 14,
+      "name": "PetSafe Automatic Pet Feeder",
+      "description": "Programmable feeder for consistent meals.",
+      "price": 2999,
+      "release_date": "2024-09-01",
+      "image_url": "petsafe_automatic_feeder.jpg",
+      "on_sale": false,
+      "category": "Pet Products"
+    },
+    {
+      "id": 70,
+      "category_id": 14,
+      "name": "Seresto Flea and Tick Collar",
+      "description": "Long-lasting flea and tick prevention for dogs.",
+      "price": 1999,
+      "release_date": "2024-10-01",
+      "image_url": "seresto_flea_tick_collar.jpg",
+      "on_sale": true,
+      "category": "Pet Products"
+    },
+    {
+      "id": 71,
+      "category_id": 15,
+      "name": "Trek Domane SL 7",
+      "description": "Performance road bike with endurance geometry.",
+      "price": 59999,
+      "release_date": "2024-06-01",
+      "image_url": "trek_domane_sl7.jpg",
+      "on_sale": true,
+      "category": "Sports and Outdoor"
+    },
+    {
+      "id": 72,
+      "category_id": 15,
+      "name": "YETI Tundra 45 Cooler",
+      "description": "Heavy-duty cooler with unmatched ice retention.",
+      "price": 3999,
+      "release_date": "2024-07-01",
+      "image_url": "yeti_tundra_45.jpg",
+      "on_sale": false,
+      "category": "Sports and Outdoor"
+    },
+    {
+      "id": 73,
+      "category_id": 15,
+      "name": "Garmin Forerunner 955",
+      "description": "Advanced GPS smartwatch for runners and triathletes.",
+      "price": 3999,
+      "release_date": "2024-08-01",
+      "image_url": "garmin_forerunner_955.jpg",
+      "on_sale": true,
+      "category": "Sports and Outdoor"
+    },
+    {
+      "id": 74,
+      "category_id": 15,
+      "name": "REI Co-op Half Dome Tent",
+      "description": "Versatile and durable tent for outdoor adventures.",
+      "price": 2499,
+      "release_date": "2024-09-01",
+      "image_url": "rei_half_dome_tent.jpg",
+      "on_sale": false,
+      "category": "Sports and Outdoor"
+    },
+    {
+      "id": 75,
+      "category_id": 15,
+      "name": "Patagonia Nano Puff Jacket",
+      "description": "Lightweight insulated jacket for cold weather.",
+      "price": 2499,
+      "release_date": "2024-10-01",
+      "image_url": "patagonia_nano_puff.jpg",
+      "on_sale": true,
+      "category": "Sports and Outdoor"
+    },
+    {
+      "id": 76,
+      "category_id": 16,
+      "name": "DeWalt DCK1020D2 20V MAX Combo Kit",
+      "description": "Complete set of tools for home improvement projects.",
+      "price": 7499,
+      "release_date": "2024-06-01",
+      "image_url": "dewalt_dck1020d2.jpg",
+      "on_sale": false,
+      "category": "Tools and DIY"
+    },
+    {
+      "id": 77,
+      "category_id": 16,
+      "name": "Bosch GLL 3-80 Laser Level",
+      "description": "360-degree laser level for precise measurements.",
+      "price": 3999,
+      "release_date": "2024-07-01",
+      "image_url": "bosch_gll_3_80.jpg",
+      "on_sale": true,
+      "category": "Tools and DIY"
+    },
+    {
+      "id": 78,
+      "category_id": 16,
+      "name": "Milwaukee M18 Fuel Cordless Drill",
+      "description": "High-performance drill with a brushless motor.",
+      "price": 2999,
+      "release_date": "2024-08-01",
+      "image_url": "milwaukee_m18_drill.jpg",
+      "on_sale": false,
+      "category": "Tools and DIY"
+    },
+    {
+      "id": 79,
+      "category_id": 16,
+      "name": "Makita 18V LXT Circular Saw",
+      "description": "Powerful cordless saw for cutting wood and other materials.",
+      "price": 4999,
+      "release_date": "2024-09-01",
+      "image_url": "makita_lxt_circular_saw.jpg",
+      "on_sale": true,
+      "category": "Tools and DIY"
+    },
+    {
+      "id": 80,
+      "category_id": 16,
+      "name": "Kreg K5 Pocket-Hole Jig",
+      "description": "Versatile pocket-hole jig for woodworking projects.",
+      "price": 1499,
+      "release_date": "2024-10-01",
+      "image_url": "kreg_k5_jig.jpg",
+      "on_sale": false,
+      "category": "Tools and DIY"
+    },
+    {
+      "id": 81,
+      "category_id": 17,
+      "name": "LEGO Creator Expert Roller Coaster",
+      "description": "Intricate LEGO set with a fully functional roller coaster.",
+      "price": 3999,
+      "release_date": "2024-06-01",
+      "image_url": "lego_creator_roller_coaster.jpg",
+      "on_sale": true,
+      "category": "Toys and Games"
+    },
+    {
+      "id": 82,
+      "category_id": 17,
+      "name": "PlayStation 5 Console",
+      "description": "Next-gen gaming console with ultra-fast SSD.",
+      "price": 4999,
+      "release_date": "2024-07-01",
+      "image_url": "playstation_5.jpg",
+      "on_sale": true,
+      "category": "Toys and Games"
+    },
+    {
+      "id": 83,
+      "category_id": 17,
+      "name": "NERF Ultra One Blaster",
+      "description": "High-capacity motorized blaster for intense battles.",
+      "price": 999,
+      "release_date": "2024-08-01",
+      "image_url": "nerf_ultra_one.jpg",
+      "on_sale": false,
+      "category": "Toys and Games"
+    },
+    {
+      "id": 84,
+      "category_id": 17,
+      "name": "Ravensburger Disney Villainous Board Game",
+      "description": "Strategy board game where you play as Disney villains.",
+      "price": 499,
+      "release_date": "2024-09-01",
+      "image_url": "ravensburger_disney_villainous.jpg",
+      "on_sale": true,
+      "category": "Toys and Games"
+    },
+    {
+      "id": 85,
+      "category_id": 17,
+      "name": "Barbie Dreamhouse",
+      "description": "Three-story dollhouse with furniture and accessories.",
+      "price": 4999,
+      "release_date": "2024-10-01",
+      "image_url": "barbie_dreamhouse.jpg",
+      "on_sale": false,
+      "category": "Toys and Games"
+    }
+  ]
+}

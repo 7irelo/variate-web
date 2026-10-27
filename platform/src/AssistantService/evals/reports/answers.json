@@ -1,0 +1,20 @@
+{
+  "suite": "answers",
+  "environment": {
+    "run_at": "2026-10-27T15:13:40+00:00",
+    "anthropic": false,
+    "openai": false,
+    "router_model": null,
+    "rerank_model": null,
+    "answer_model": null,
+    "dense_backend": "lsa-local",
+    "cascade_threshold": 0.55
+  },
+  "variants": {},
+  "skipped": [
+    {
+      "variant": "answers",
+      "reason": "ANTHROPIC_API_KEY not set"
+    }
+  ]
+}

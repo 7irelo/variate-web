@@ -1,0 +1,228 @@
+{"text": "I'm looking for a gift for my dad who loves braaiing", "intent": "product_search", "split": "train"}
+{"text": "show me laptops", "intent": "product_search", "split": "test"}
+{"text": "any good bluetooth speakers?", "intent": "product_search", "split": "train"}
+{"text": "need a stroller for a newborn", "intent": "product_search", "split": "test"}
+{"text": "what headphones or speakers do you have under R3000", "intent": "product_search", "split": "train"}
+{"text": "recommend something for a 10 year old who likes building things", "intent": "product_search", "split": "train"}
+{"text": "I want a new office chair, my back is killing me", "intent": "product_search", "split": "test"}
+{"text": "do you sell camping gear", "intent": "product_search", "split": "train"}
+{"text": "cheap birthday present ideas for a teenager", "intent": "product_search", "split": "test"}
+{"text": "looking for a nice watch for my husband", "intent": "product_search", "split": "train"}
+{"text": "anything for cats?", "intent": "product_search", "split": "train"}
+{"text": "best tools for a beginner woodworker", "intent": "product_search", "split": "test"}
+{"text": "I need luggage for a 2 week trip to Europe", "intent": "product_search", "split": "train"}
+{"text": "what's on sale in kitchen appliances", "intent": "product_search", "split": "test"}
+{"text": "gift ideas for someone who just bought a house", "intent": "product_search", "split": "train"}
+{"text": "do you have electric guitars", "intent": "product_search", "split": "train"}
+{"text": "show me something to help me sleep better", "intent": "product_search", "split": "test"}
+{"text": "i wanna get into drawing, what should i buy", "intent": "product_search", "split": "train"}
+{"text": "smart home stuff", "intent": "product_search", "split": "test"}
+{"text": "need a carry-on that fits overhead bins", "intent": "product_search", "split": "train"}
+{"text": "what can I get my wife for our anniversary, budget around R60k", "intent": "product_search", "split": "train"}
+{"text": "something to keep drinks cold on a fishing trip", "intent": "product_search", "split": "test"}
+{"text": "running watch with gps", "intent": "product_search", "split": "train"}
+{"text": "toys for a 5 year old girl", "intent": "product_search", "split": "test"}
+{"text": "looking for a decent blender for smoothies", "intent": "product_search", "split": "train"}
+{"text": "do you have any gaming consoles in stock", "intent": "product_search", "split": "train"}
+{"text": "skincare devices", "intent": "product_search", "split": "test"}
+{"text": "I'd like to furnish my lounge, sofas and coffee tables please", "intent": "product_search", "split": "train"}
+{"text": "what drum kits do you carry", "intent": "product_search", "split": "test"}
+{"text": "pet feeders that work while I'm at work", "intent": "product_search", "split": "train"}
+{"text": "mountain or road bikes?", "intent": "product_search", "split": "train"}
+{"text": "help me find a present for a new mom", "intent": "product_search", "split": "test"}
+{"text": "does the GoPro Hero 10 shoot in 5K?", "intent": "product_question", "split": "train"}
+{"text": "is the Vitamix E310 dishwasher safe", "intent": "product_question", "split": "test"}
+{"text": "how much is the Herman Miller Aeron", "intent": "product_question", "split": "train"}
+{"text": "can the Furbo camera throw treats?", "intent": "product_question", "split": "test"}
+{"text": "is the Garmin Fenix 7 waterproof", "intent": "product_question", "split": "train"}
+{"text": "what's the difference between the Fender Strat and the Gibson Les Paul", "intent": "product_question", "split": "train"}
+{"text": "does the Nest thermostat work with Google Home", "intent": "product_question", "split": "test"}
+{"text": "is the Owlet sock safe for premature babies", "intent": "product_question", "split": "train"}
+{"text": "how many people fit in the REI Half Dome tent", "intent": "product_question", "split": "test"}
+{"text": "is the Tumi Alpha 3 allowed as cabin luggage on most airlines", "intent": "product_question", "split": "train"}
+{"text": "what attachments come with the Dyson Airwrap", "intent": "product_question", "split": "train"}
+{"text": "the PS5 - does it have a disc drive?", "intent": "product_question", "split": "test"}
+{"text": "is the Litter-Robot okay for big cats", "intent": "product_question", "split": "train"}
+{"text": "what size is the Le Creuset dutch oven", "intent": "product_question", "split": "test"}
+{"text": "is the Rolex Submariner on special right now", "intent": "product_question", "split": "train"}
+{"text": "does the MacBook Air M2 come with a charger", "intent": "product_question", "split": "train"}
+{"text": "how long does the Seresto collar last", "intent": "product_question", "split": "test"}
+{"text": "can the Husqvarna Automower handle slopes", "intent": "product_question", "split": "train"}
+{"text": "is the LEGO roller coaster suitable for kids or adults", "intent": "product_question", "split": "test"}
+{"text": "what's the price of the Yamaha digital piano", "intent": "product_question", "split": "train"}
+{"text": "does the Breville smart oven have an air fry setting", "intent": "product_question", "split": "train"}
+{"text": "the Osprey Farpoint 40, is it comfortable for long walks", "intent": "product_question", "split": "test"}
+{"text": "is the Boll & Branch comforter real down", "intent": "product_question", "split": "train"}
+{"text": "how loud is the Bose SoundLink Revolve", "intent": "product_question", "split": "test"}
+{"text": "can I use the Wacom Intuos Pro with an iPad", "intent": "product_question", "split": "train"}
+{"text": "does the Milwaukee M18 drill include a battery", "intent": "product_question", "split": "train"}
+{"text": "is the Cartier Love bracelet real gold", "intent": "product_question", "split": "test"}
+{"text": "what colours does the West Elm Andes sofa come in", "intent": "product_question", "split": "train"}
+{"text": "how accurate is the Bosch laser level", "intent": "product_question", "split": "test"}
+{"text": "is the Fitbit Charge 5 good for swimming", "intent": "product_question", "split": "train"}
+{"text": "where is my order", "intent": "order_status", "split": "train"}
+{"text": "when will my parcel arrive", "intent": "order_status", "split": "test"}
+{"text": "has my order shipped yet?", "intent": "order_status", "split": "train"}
+{"text": "can I get a tracking number for my delivery", "intent": "order_status", "split": "test"}
+{"text": "my order still says processing after 4 days", "intent": "order_status", "split": "train"}
+{"text": "what's the status of my last purchase", "intent": "order_status", "split": "train"}
+{"text": "the courier hasn't arrived yet, any update?", "intent": "order_status", "split": "test"}
+{"text": "I ordered a PS5 on Monday, when does it get here", "intent": "order_status", "split": "train"}
+{"text": "show me my order history", "intent": "order_status", "split": "test"}
+{"text": "is my order out for delivery today", "intent": "order_status", "split": "train"}
+{"text": "how long does delivery to Durban take for my order", "intent": "order_status", "split": "train"}
+{"text": "i placed an order yesterday did it go through", "intent": "order_status", "split": "test"}
+{"text": "my package was supposed to arrive friday", "intent": "order_status", "split": "train"}
+{"text": "can you check on order 7f3a2c1b", "intent": "order_status", "split": "test"}
+{"text": "what did I order last month", "intent": "order_status", "split": "train"}
+{"text": "has the drum kit I bought been dispatched", "intent": "order_status", "split": "train"}
+{"text": "the tracking link isn't updating", "intent": "order_status", "split": "test"}
+{"text": "is my delivery delayed?", "intent": "order_status", "split": "train"}
+{"text": "how do I know when my stuff will come", "intent": "order_status", "split": "test"}
+{"text": "did my order get confirmed", "intent": "order_status", "split": "train"}
+{"text": "estimated delivery date for my order please", "intent": "order_status", "split": "train"}
+{"text": "my order is late", "intent": "order_status", "split": "test"}
+{"text": "where's my stuff", "intent": "order_status", "split": "train"}
+{"text": "track my parcel", "intent": "order_status", "split": "test"}
+{"text": "it's been a week and nothing has come", "intent": "order_status", "split": "train"}
+{"text": "have you sent my order to the courier", "intent": "order_status", "split": "train"}
+{"text": "what orders do I have open", "intent": "order_status", "split": "test"}
+{"text": "when is my sofa being delivered", "intent": "order_status", "split": "train"}
+{"text": "I want to return the blender I bought", "intent": "returns_refunds", "split": "train"}
+{"text": "how do I get a refund", "intent": "returns_refunds", "split": "test"}
+{"text": "the speaker arrived broken", "intent": "returns_refunds", "split": "train"}
+{"text": "can I exchange these leggings for a bigger size", "intent": "returns_refunds", "split": "test"}
+{"text": "you sent me the wrong item", "intent": "returns_refunds", "split": "train"}
+{"text": "cancel my order please", "intent": "returns_refunds", "split": "train"}
+{"text": "how long do refunds take", "intent": "returns_refunds", "split": "test"}
+{"text": "I changed my mind about the sunglasses, can I send them back", "intent": "returns_refunds", "split": "train"}
+{"text": "the box was damaged and the watch face is scratched", "intent": "returns_refunds", "split": "test"}
+{"text": "what is your return policy", "intent": "returns_refunds", "split": "train"}
+{"text": "i'd like to cancel the order i placed this morning", "intent": "returns_refunds", "split": "train"}
+{"text": "can I return something I bought on sale", "intent": "returns_refunds", "split": "test"}
+{"text": "still waiting for my refund from two weeks ago", "intent": "returns_refunds", "split": "train"}
+{"text": "the drill doesn't work out of the box", "intent": "returns_refunds", "split": "test"}
+{"text": "is there a fee for returns", "intent": "returns_refunds", "split": "train"}
+{"text": "my item is missing parts, I want my money back", "intent": "returns_refunds", "split": "train"}
+{"text": "can I swap the stroller for a different colour", "intent": "returns_refunds", "split": "test"}
+{"text": "returned my parcel last week, when do I get my money", "intent": "returns_refunds", "split": "train"}
+{"text": "please refund me for the missing pillow", "intent": "returns_refunds", "split": "test"}
+{"text": "do you collect returns or do I drop them off", "intent": "returns_refunds", "split": "train"}
+{"text": "the comforter smells weird, I want to send it back", "intent": "returns_refunds", "split": "train"}
+{"text": "how many days do I have to return a laptop", "intent": "returns_refunds", "split": "test"}
+{"text": "I received two of the same item, how do I return one", "intent": "returns_refunds", "split": "train"}
+{"text": "stop my order, I don't want it anymore", "intent": "returns_refunds", "split": "test"}
+{"text": "the jacket doesn't fit, what now", "intent": "returns_refunds", "split": "train"}
+{"text": "want my money back", "intent": "returns_refunds", "split": "train"}
+{"text": "refund status", "intent": "returns_refunds", "split": "test"}
+{"text": "the chair I received has a crack in the base", "intent": "returns_refunds", "split": "train"}
+{"text": "my card was declined", "intent": "payment_issue", "split": "train"}
+{"text": "I was charged twice for the same order", "intent": "payment_issue", "split": "test"}
+{"text": "can I pay with EFT?", "intent": "payment_issue", "split": "train"}
+{"text": "do you accept PayPal", "intent": "payment_issue", "split": "test"}
+{"text": "payment failed but money left my account", "intent": "payment_issue", "split": "train"}
+{"text": "checkout keeps giving me an error when I pay", "intent": "payment_issue", "split": "train"}
+{"text": "how do I get a tax invoice for my purchase", "intent": "payment_issue", "split": "test"}
+{"text": "can I pay in instalments", "intent": "payment_issue", "split": "train"}
+{"text": "why is there a pending charge on my card", "intent": "payment_issue", "split": "test"}
+{"text": "I need to update my billing address", "intent": "payment_issue", "split": "train"}
+{"text": "the 3D secure OTP never arrives", "intent": "payment_issue", "split": "train"}
+{"text": "do you take Amex", "intent": "payment_issue", "split": "test"}
+{"text": "my bank says the transaction was reversed but the order shows paid", "intent": "payment_issue", "split": "train"}
+{"text": "can I use two cards for one order", "intent": "payment_issue", "split": "test"}
+{"text": "why was I charged more than the listed price", "intent": "payment_issue", "split": "train"}
+{"text": "I paid but got no confirmation email", "intent": "payment_issue", "split": "train"}
+{"text": "is it safe to save my card details on your site", "intent": "payment_issue", "split": "test"}
+{"text": "voucher code won't apply at checkout", "intent": "payment_issue", "split": "train"}
+{"text": "can I pay cash on delivery", "intent": "payment_issue", "split": "test"}
+{"text": "there's a charge from Variate I don't recognise", "intent": "payment_issue", "split": "train"}
+{"text": "my company needs a VAT invoice", "intent": "payment_issue", "split": "train"}
+{"text": "card got debited but order failed", "intent": "payment_issue", "split": "test"}
+{"text": "how do I change the card on my order", "intent": "payment_issue", "split": "train"}
+{"text": "instant EFT keeps timing out", "intent": "payment_issue", "split": "test"}
+{"text": "can I pay with SnapScan or Zapper", "intent": "payment_issue", "split": "train"}
+{"text": "double charged!!", "intent": "payment_issue", "split": "train"}
+{"text": "payment page won't load", "intent": "payment_issue", "split": "test"}
+{"text": "why does it say insufficient funds when I have money", "intent": "payment_issue", "split": "train"}
+{"text": "I forgot my password", "intent": "account_help", "split": "train"}
+{"text": "how do I reset my password", "intent": "account_help", "split": "test"}
+{"text": "can't log in to my account", "intent": "account_help", "split": "train"}
+{"text": "how do I change my email address", "intent": "account_help", "split": "test"}
+{"text": "I want to delete my account", "intent": "account_help", "split": "train"}
+{"text": "never got the verification email after registering", "intent": "account_help", "split": "train"}
+{"text": "how do I update my delivery address on my profile", "intent": "account_help", "split": "test"}
+{"text": "my account is locked", "intent": "account_help", "split": "train"}
+{"text": "can I change the name on my account", "intent": "account_help", "split": "test"}
+{"text": "how do I sign up", "intent": "account_help", "split": "train"}
+{"text": "the reset link says it expired", "intent": "account_help", "split": "train"}
+{"text": "I have two accounts, can you merge them", "intent": "account_help", "split": "test"}
+{"text": "how do I stop marketing emails", "intent": "account_help", "split": "train"}
+{"text": "someone else might be using my account", "intent": "account_help", "split": "test"}
+{"text": "update my phone number", "intent": "account_help", "split": "train"}
+{"text": "can I have an account without giving my birthday", "intent": "account_help", "split": "train"}
+{"text": "login page keeps refreshing", "intent": "account_help", "split": "test"}
+{"text": "where do I see my saved addresses", "intent": "account_help", "split": "train"}
+{"text": "change password", "intent": "account_help", "split": "test"}
+{"text": "I signed up with the wrong email", "intent": "account_help", "split": "train"}
+{"text": "how do I enable two factor authentication", "intent": "account_help", "split": "train"}
+{"text": "my profile picture won't upload", "intent": "account_help", "split": "test"}
+{"text": "close my account please", "intent": "account_help", "split": "train"}
+{"text": "can't remember which email I used to register", "intent": "account_help", "split": "test"}
+{"text": "it says my email is already registered but I never signed up", "intent": "account_help", "split": "train"}
+{"text": "how do I log out on all devices", "intent": "account_help", "split": "train"}
+{"text": "sign in not working on my phone", "intent": "account_help", "split": "test"}
+{"text": "how to edit my profile details", "intent": "account_help", "split": "train"}
+{"text": "can I speak to a real person", "intent": "human_handoff", "split": "train"}
+{"text": "let me talk to a human", "intent": "human_handoff", "split": "test"}
+{"text": "I want to speak to a manager", "intent": "human_handoff", "split": "train"}
+{"text": "transfer me to an agent please", "intent": "human_handoff", "split": "test"}
+{"text": "this bot is useless, get me someone", "intent": "human_handoff", "split": "train"}
+{"text": "I'd like to escalate this complaint", "intent": "human_handoff", "split": "train"}
+{"text": "is there a person I can chat to", "intent": "human_handoff", "split": "test"}
+{"text": "connect me with customer service", "intent": "human_handoff", "split": "train"}
+{"text": "call me back please", "intent": "human_handoff", "split": "test"}
+{"text": "I need a human to sort this out", "intent": "human_handoff", "split": "train"}
+{"text": "agent", "intent": "human_handoff", "split": "train"}
+{"text": "can someone from your team phone me", "intent": "human_handoff", "split": "test"}
+{"text": "put me through to support", "intent": "human_handoff", "split": "train"}
+{"text": "I want to make a formal complaint to a supervisor", "intent": "human_handoff", "split": "test"}
+{"text": "stop the bot, real human please", "intent": "human_handoff", "split": "train"}
+{"text": "who can I talk to about this", "intent": "human_handoff", "split": "train"}
+{"text": "speak to someone", "intent": "human_handoff", "split": "test"}
+{"text": "can I get a live agent", "intent": "human_handoff", "split": "train"}
+{"text": "I've asked three times, please escalate", "intent": "human_handoff", "split": "test"}
+{"text": "operator", "intent": "human_handoff", "split": "train"}
+{"text": "need to talk to someone in person about a big order", "intent": "human_handoff", "split": "train"}
+{"text": "get me a supervisor now", "intent": "human_handoff", "split": "test"}
+{"text": "can a staff member help me instead", "intent": "human_handoff", "split": "train"}
+{"text": "I'd rather deal with a person", "intent": "human_handoff", "split": "test"}
+{"text": "representative please", "intent": "human_handoff", "split": "train"}
+{"text": "please hand me over to your support team", "intent": "human_handoff", "split": "train"}
+{"text": "what's the weather in Cape Town tomorrow", "intent": "out_of_scope", "split": "train"}
+{"text": "write me a poem about the sea", "intent": "out_of_scope", "split": "test"}
+{"text": "who won the rugby world cup", "intent": "out_of_scope", "split": "train"}
+{"text": "can you help with my maths homework", "intent": "out_of_scope", "split": "test"}
+{"text": "what's the capital of Australia", "intent": "out_of_scope", "split": "train"}
+{"text": "tell me a joke", "intent": "out_of_scope", "split": "train"}
+{"text": "how do I cook pap", "intent": "out_of_scope", "split": "test"}
+{"text": "what's the exchange rate for dollars", "intent": "out_of_scope", "split": "train"}
+{"text": "is load shedding on today", "intent": "out_of_scope", "split": "test"}
+{"text": "translate hello into Zulu", "intent": "out_of_scope", "split": "train"}
+{"text": "what is the meaning of life", "intent": "out_of_scope", "split": "train"}
+{"text": "how old are you", "intent": "out_of_scope", "split": "test"}
+{"text": "who is the president of South Africa", "intent": "out_of_scope", "split": "train"}
+{"text": "recommend a good movie", "intent": "out_of_scope", "split": "test"}
+{"text": "write my CV for me", "intent": "out_of_scope", "split": "train"}
+{"text": "explain quantum computing", "intent": "out_of_scope", "split": "train"}
+{"text": "what time is it in London", "intent": "out_of_scope", "split": "test"}
+{"text": "how do I fix my car's aircon", "intent": "out_of_scope", "split": "train"}
+{"text": "can you book me a flight", "intent": "out_of_scope", "split": "test"}
+{"text": "hi", "intent": "out_of_scope", "split": "train"}
+{"text": "what are takealot's opening hours", "intent": "out_of_scope", "split": "train"}
+{"text": "give me investment advice", "intent": "out_of_scope", "split": "test"}
+{"text": "help me write an email to my landlord", "intent": "out_of_scope", "split": "train"}
+{"text": "how many calories in a banana", "intent": "out_of_scope", "split": "test"}
+{"text": "what's 15% of 340", "intent": "out_of_scope", "split": "train"}
+{"text": "who made you", "intent": "out_of_scope", "split": "train"}
+{"text": "play some music", "intent": "out_of_scope", "split": "test"}
+{"text": "how do I change a tyre", "intent": "out_of_scope", "split": "train"}

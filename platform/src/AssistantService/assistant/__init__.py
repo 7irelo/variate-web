@@ -1,0 +1,1 @@
+"""Variate shopping assistant service."""

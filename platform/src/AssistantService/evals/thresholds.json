@@ -1,0 +1,14 @@
+{
+  "routing": {
+    "distilled": {"accuracy": 0.55, "macro_f1": 0.52},
+    "cascade": {"accuracy": 0.85},
+    "llm": {"accuracy": 0.85}
+  },
+  "retrieval": {
+    "hybrid+filters": {"recall@5": 0.78, "mrr": 0.72},
+    "hybrid+filters+rerank": {"recall@5": 0.80}
+  },
+  "answers": {
+    "answer": {"grounded_rate": 0.95}
+  }
+}

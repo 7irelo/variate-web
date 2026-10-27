@@ -1,0 +1,7 @@
+{
+  "returns_refunds": "You can return most items within 30 days of delivery if they are unused and in their original packaging. Start a return from Orders > Return item, or reply with your order number and we will start it for you. Refunds go back to the original payment method within 5-10 working days of the item reaching our warehouse. Damaged or incorrect items are collected free of charge.",
+  "payment_issue": "We accept Visa, Mastercard, Instant EFT and PayPal. If a card was declined, check the billing address matches the card and that 3-D Secure was approved in your banking app. A failed payment can show as a pending authorisation for up to 7 days before your bank releases it. If you were charged twice, reply with your order number and a payments agent will reverse the duplicate.",
+  "account_help": "To reset your password, choose 'Forgot password' on the sign-in page and follow the link we email you; it expires after 30 minutes. You can change your email address and delivery details under Account > Profile. To close your account, ask us here and an agent will confirm by email.",
+  "human_handoff": "I'm passing this conversation to one of our support agents now. They can see everything you've told me, so you won't need to repeat yourself. Our team is available Monday to Saturday, 08:00-18:00 SAST.",
+  "out_of_scope": "I can help with shopping at Variate: finding products, questions about items, orders, returns, payments and your account. I can't help with that request, but I'm happy to help with anything shop-related."
+}

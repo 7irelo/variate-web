@@ -1,0 +1,167 @@
+{
+  "suite": "retrieval",
+  "examples": 50,
+  "catalog_size": 85,
+  "environment": {
+    "run_at": "2026-10-27T15:13:40+00:00",
+    "anthropic": false,
+    "openai": false,
+    "router_model": null,
+    "rerank_model": null,
+    "answer_model": null,
+    "dense_backend": "lsa-local",
+    "cascade_threshold": 0.55
+  },
+  "variants": {
+    "bm25": {
+      "recall@5": 0.6433,
+      "recall@10": 0.68,
+      "hit@1": 0.54,
+      "mrr": 0.5979,
+      "ndcg@5": 0.5943,
+      "by_kind": {
+        "constraint": {
+          "recall@5": 0.8333,
+          "recall@10": 0.875,
+          "hit@1": 0.25,
+          "mrr": 0.5417,
+          "ndcg@5": 0.594,
+          "n": 8
+        },
+        "lexical": {
+          "recall@5": 0.9667,
+          "recall@10": 0.9667,
+          "hit@1": 1.0,
+          "mrr": 1.0,
+          "ndcg@5": 0.9689,
+          "n": 15
+        },
+        "semantic": {
+          "recall@5": 0.4074,
+          "recall@10": 0.463,
+          "hit@1": 0.3704,
+          "mrr": 0.3911,
+          "ndcg@5": 0.3863,
+          "n": 27
+        }
+      },
+      "latency_ms_p50": 0.027,
+      "latency_ms_p95": 0.045,
+      "cost_usd_per_1k_queries": 0.0
+    },
+    "dense": {
+      "recall@5": 0.7967,
+      "recall@10": 0.84,
+      "hit@1": 0.58,
+      "mrr": 0.6798,
+      "ndcg@5": 0.6963,
+      "by_kind": {
+        "constraint": {
+          "recall@5": 0.9583,
+          "recall@10": 1.0,
+          "hit@1": 0.375,
+          "mrr": 0.6188,
+          "ndcg@5": 0.6926,
+          "n": 8
+        },
+        "lexical": {
+          "recall@5": 0.9667,
+          "recall@10": 0.9667,
+          "hit@1": 1.0,
+          "mrr": 1.0,
+          "ndcg@5": 0.9742,
+          "n": 15
+        },
+        "semantic": {
+          "recall@5": 0.6543,
+          "recall@10": 0.7222,
+          "hit@1": 0.4074,
+          "mrr": 0.5201,
+          "ndcg@5": 0.5429,
+          "n": 27
+        }
+      },
+      "latency_ms_p50": 2.229,
+      "latency_ms_p95": 3.458,
+      "cost_usd_per_1k_queries": 0.0
+    },
+    "hybrid": {
+      "recall@5": 0.7967,
+      "recall@10": 0.84,
+      "hit@1": 0.6,
+      "mrr": 0.6957,
+      "ndcg@5": 0.7071,
+      "by_kind": {
+        "constraint": {
+          "recall@5": 0.9583,
+          "recall@10": 1.0,
+          "hit@1": 0.25,
+          "mrr": 0.5667,
+          "ndcg@5": 0.6517,
+          "n": 8
+        },
+        "lexical": {
+          "recall@5": 0.9667,
+          "recall@10": 0.9667,
+          "hit@1": 1.0,
+          "mrr": 1.0,
+          "ndcg@5": 0.9742,
+          "n": 15
+        },
+        "semantic": {
+          "recall@5": 0.6543,
+          "recall@10": 0.7222,
+          "hit@1": 0.4815,
+          "mrr": 0.5648,
+          "ndcg@5": 0.5751,
+          "n": 27
+        }
+      },
+      "latency_ms_p50": 2.304,
+      "latency_ms_p95": 2.903,
+      "cost_usd_per_1k_queries": 0.0
+    },
+    "hybrid+filters": {
+      "recall@5": 0.8033,
+      "recall@10": 0.84,
+      "hit@1": 0.72,
+      "mrr": 0.765,
+      "ndcg@5": 0.7628,
+      "by_kind": {
+        "constraint": {
+          "recall@5": 1.0,
+          "recall@10": 1.0,
+          "hit@1": 1.0,
+          "mrr": 1.0,
+          "ndcg@5": 1.0,
+          "n": 8
+        },
+        "lexical": {
+          "recall@5": 0.9667,
+          "recall@10": 0.9667,
+          "hit@1": 1.0,
+          "mrr": 1.0,
+          "ndcg@5": 0.9742,
+          "n": 15
+        },
+        "semantic": {
+          "recall@5": 0.6543,
+          "recall@10": 0.7222,
+          "hit@1": 0.4815,
+          "mrr": 0.5648,
+          "ndcg@5": 0.5751,
+          "n": 27
+        }
+      },
+      "latency_ms_p50": 2.453,
+      "latency_ms_p95": 3.221,
+      "cost_usd_per_1k_queries": 0.0
+    }
+  },
+  "skipped": [
+    {
+      "variant": "hybrid+filters+rerank",
+      "reason": "ANTHROPIC_API_KEY not set"
+    }
+  ]
+}
