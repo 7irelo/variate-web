@@ -26,7 +26,7 @@ from assistant.datasets import load_retrieval, load_routing
 from assistant.llm import LlmUnavailable
 from assistant.main import Components, build_components
 from assistant.observability import finish_trace, start_trace
-from assistant.pipeline import Assistant
+from assistant.pipeline import Assistant, product_facts
 from assistant.routing import CascadeRouter
 from assistant.schemas import Intent
 
@@ -135,6 +135,8 @@ def eval_retrieval(c: Components) -> dict:
         ("hybrid", dict(mode="hybrid", rerank=False, use_filters=False)),
         ("hybrid+filters", dict(mode="hybrid", rerank=False, use_filters=True)),
         ("hybrid+filters+rerank", dict(mode="hybrid", rerank=True, use_filters=True)),
+        ("dense+filters", dict(mode="dense", rerank=False, use_filters=True)),
+        ("dense+filters+rerank", dict(mode="dense", rerank=True, use_filters=True)),
     ]
     variants, skipped = {}, []
     for name, kwargs in configs:
@@ -227,7 +229,7 @@ def eval_answers(c: Components) -> dict:
             return assistant._product_question(forced, example.text, allow_llm=True)
 
         reply, latency, record = _timed(run)
-        facts = "\n".join(f"{h.product.name}: {h.product.description} ({h.product.price} ZAR)" for h in reply.products)
+        facts = product_facts(reply.products)
         judgement = c.llm.parse(
             model=c.settings.judge_model,
             purpose="judge",

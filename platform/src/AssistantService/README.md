@@ -2,7 +2,7 @@
 
 Python (FastAPI + Pydantic) shopping assistant for Variate. It routes customer messages to an intent, searches the catalog with hybrid retrieval, answers product questions from catalog facts, and looks up the signed-in customer's orders. Every request is traced, costed and counted.
 
-The design write-up with measured results is in [docs/assistant-writeup.md](../../../docs/assistant-writeup.md).
+Measured results: Haiku routing at 0.989 accuracy, dense + filter search at recall@5 1.000 and hit@1 0.96, and 100% grounded product answers. The design write-up with all results is in [docs/assistant-writeup.md](../../../docs/assistant-writeup.md).
 
 ## Endpoints
 
@@ -20,8 +20,8 @@ All `/api/v1/assistant/*` calls need an `X-Tenant-Id` header. Behind the gateway
 
 | Job | Model | Why |
 |---|---|---|
-| Intent routing (cascade escalation) | `claude-haiku-5-5`, thinking off, low effort | Runs on every unsure message, so it needs to be the cheapest and fastest model. Structured output keeps it to a valid intent. |
-| Search reranking | `claude-haiku-5-5` | Short list-ranking calls; output limited to candidate ids. |
+| Intent routing | `claude-haiku-5-5`, thinking off, low effort | Measured at 0.989 accuracy for $0.084 per 1k messages. Structured output keeps it to a valid intent. The distilled-classifier cascade is available but not on by default until the student improves. |
+| Search reranking | `claude-haiku-5-5` | Only on the local-index fallback, where it lifts hit@1 from 0.72 to 0.86. On top of OpenAI embeddings it added 0.02 for about 1 s, so `rerank=auto` leaves it off there. |
 | Product answers | `claude-sonnet-5-5`, low effort, server-side refusal fallback | Customer-facing text has to stay grounded and well phrased. |
 | Eval judge | `claude-opus-5-5` | Runs offline only, where the grader's reliability matters more than its cost. |
 | Embeddings | OpenAI `text-embedding-3-small` | Anthropic has no embeddings endpoint. |

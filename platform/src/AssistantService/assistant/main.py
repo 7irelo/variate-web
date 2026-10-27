@@ -13,7 +13,7 @@ from .auth import customer_from_header
 from .catalog import Catalog
 from .config import Settings, get_settings
 from .datasets import ROUTING_PATH
-from .llm import LlmClient
+from .llm import LlmClient, LlmUnavailable
 from .observability import BUDGET_DEGRADATIONS, REGISTRY, Trace, finish_trace, start_trace
 from .orders import OrderClient
 from .pipeline import Assistant
@@ -57,7 +57,13 @@ def build_components(
         OpenAIEmbedder(llm, settings.embedding_cache_path) if llm.has_openai else LsaEmbedder()
     )
     reranker = LlmReranker(llm, settings.rerank_model) if llm.has_anthropic else None
-    retriever = Retriever(catalog, embedder, reranker, settings.rrf_k, settings.rerank_candidates)
+    try:
+        retriever = Retriever(catalog, embedder, reranker, settings.rrf_k, settings.rerank_candidates)
+    except LlmUnavailable as exc:
+        # An embeddings outage or exhausted quota must not stop the service
+        # from starting; serve with the local dense index instead.
+        logger.warning(json.dumps({"event": "dense_fallback", "reason": str(exc)[:200]}))
+        retriever = Retriever(catalog, LsaEmbedder(), reranker, settings.rrf_k, settings.rerank_candidates)
 
     student = DistilledRouter.load(settings.router_model_path, fallback_dataset=ROUTING_PATH)
     teacher = LlmRouter(llm, settings.router_model) if llm.has_anthropic else None
@@ -68,6 +74,8 @@ def build_components(
     }
     if teacher is not None:
         routers["llm"] = teacher
+    # Without an Anthropic key there is no "llm" router; the cascade then
+    # degrades to the distilled classifier on its own.
     strategy = settings.router_strategy if settings.router_strategy in routers else "cascade"
 
     policies = json.loads(settings.policies_path.read_text(encoding="utf-8"))
@@ -142,6 +150,7 @@ def create_app(components: Components | None = None) -> FastAPI:
             "service": "assistant-service",
             "status": "ok",
             "dense_backend": c.assistant.retriever.dense_backend,
+            "retrieval_mode": c.assistant.retrieval_mode,
             "router": c.assistant.router.name,
         }
 

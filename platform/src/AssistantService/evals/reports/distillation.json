@@ -1,7 +1,11 @@
 {
-  "labels": "gold",
+  "labels": "teacher",
   "train_examples": 138,
-  "train_seconds": 0.342,
+  "teacher_model": "claude-haiku-5-5",
+  "labelling_cost_usd": 0.011608,
+  "teacher_failures": 0,
+  "teacher_gold_agreement": 0.9855,
+  "train_seconds": 0.135,
   "test": {
     "accuracy": 0.5889,
     "accuracy_ci95": [

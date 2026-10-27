@@ -35,14 +35,22 @@ class Settings(BaseSettings):
 
     # Router cascade: the distilled classifier answers when it is confident,
     # otherwise the request escalates to the LLM router.
-    router_strategy: str = "cascade"  # rules | distilled | llm | cascade
+    # The evals show the LLM router at 0.989 accuracy for $0.084 per 1k calls,
+    # while the cascade escalates 71% of messages with today's small student.
+    # Switch to "cascade" once the student is distilled from more traffic.
+    router_strategy: str = "llm"  # rules | distilled | llm | cascade
     cascade_threshold: float = 0.55
 
-    # Retrieval
+    # Retrieval. "auto" picks what the evals measured as best for the active
+    # dense backend (docs/assistant-writeup.md):
+    #  - OpenAI embeddings: dense + filters, no rerank (hit@1 0.96; rerank adds
+    #    0.02 for ~1 s and $0.11 per 1k searches);
+    #  - local LSA fallback: hybrid + filters + rerank (rerank lifts hit@1 0.72 -> 0.86).
+    retrieval_mode: str = "auto"  # auto | bm25 | dense | hybrid
     retrieval_top_k: int = 5
     rerank_candidates: int = 12
     rrf_k: int = 60
-    enable_rerank: bool = True
+    rerank: str = "auto"  # auto | on | off
 
     # "production" turns on startup checks that refuse insecure defaults.
     environment: str = "development"

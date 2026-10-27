@@ -28,7 +28,26 @@ logger = logging.getLogger(__name__)
 ANSWER_SYSTEM = """You are Variate's shopping assistant. Answer the customer's question using only the
 product facts provided. If the facts don't answer the question, say so plainly and suggest what
 they could check instead; never invent specifications, stock levels or delivery promises.
+Don't add general knowledge about a brand, product line or model, even if you believe it is true:
+the customer may act on anything you say as a promise from Variate.
 Prices are in South African rand. Reply in at most three sentences."""
+
+
+def product_facts(hits: list[SearchHit]) -> str:
+    """The exact facts an answer may use; the eval judge grades against the same string."""
+    return json.dumps(
+        [
+            {
+                "name": h.product.name,
+                "description": h.product.description,
+                "category": h.product.category,
+                "price": format_price(h.product.price),
+                "on_sale": h.product.on_sale,
+            }
+            for h in hits
+        ],
+        ensure_ascii=False,
+    )
 
 
 @dataclass
@@ -72,9 +91,24 @@ class Assistant:
             return self._order_status(decision, customer)
         return Reply(decision, self.policies[intent.value], [], handoff=intent == Intent.human_handoff)
 
+    @property
+    def _strong_embeddings(self) -> bool:
+        return self.retriever.dense_backend.startswith("openai:")
+
+    @property
+    def retrieval_mode(self) -> str:
+        if self.settings.retrieval_mode != "auto":
+            return self.settings.retrieval_mode
+        return "dense" if self._strong_embeddings else "hybrid"
+
+    def _rerank_enabled(self) -> bool:
+        if self.settings.rerank != "auto":
+            return self.settings.rerank == "on"
+        return not self._strong_embeddings
+
     def search(self, query: str, top_k: int, rerank: bool, allow_llm: bool) -> list[SearchHit]:
-        use_rerank = rerank and allow_llm and self.settings.enable_rerank
-        return self.retriever.search(query, top_k=top_k, rerank=use_rerank)
+        use_rerank = rerank and allow_llm and self._rerank_enabled()
+        return self.retriever.search(query, top_k=top_k, mode=self.retrieval_mode, rerank=use_rerank)
 
     def _product_search(self, decision: RouteDecision, message: str, allow_llm: bool) -> Reply:
         hits = self.search(message, self.settings.retrieval_top_k, rerank=True, allow_llm=allow_llm)
@@ -86,23 +120,14 @@ class Assistant:
         return Reply(decision, "Here's what I found:\n" + "\n".join(lines), hits)
 
     def _product_question(self, decision: RouteDecision, message: str, allow_llm: bool) -> Reply:
-        hits = self.retriever.search(message, top_k=3, rerank=False)
+        # Filters are for shopping constraints; "is X on special?" must still find X.
+        hits = self.retriever.search(
+            message, top_k=3, mode=self.retrieval_mode, rerank=False, use_filters=False
+        )
         if not hits:
             return Reply(decision, "I couldn't tell which product you mean. Could you give me its name?", [])
         if allow_llm:
-            facts = json.dumps(
-                [
-                    {
-                        "name": h.product.name,
-                        "description": h.product.description,
-                        "category": h.product.category,
-                        "price": format_price(h.product.price),
-                        "on_sale": h.product.on_sale,
-                    }
-                    for h in hits
-                ],
-                ensure_ascii=False,
-            )
+            facts = product_facts(hits)
             try:
                 with span("answer", model=self.settings.answer_model):
                     text = self.llm.answer(

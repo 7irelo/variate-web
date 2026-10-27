@@ -1,5 +1,7 @@
 # Answer quality eval (LLM judge)
 
+Judge: `claude-opus-5-5`, answers: `claude-sonnet-5-5`
 
-Not run in this report:
-- `answers`: ANTHROPIC_API_KEY not set
+| Grounded | Answers question | p50 ms | p95 ms | $/answer (excl. judge) |
+|---|---|---|---|---|
+| 1.000 | 1.000 | 3118.8 | 4420.8 | 0.001967 |

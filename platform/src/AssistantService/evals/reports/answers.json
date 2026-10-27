@@ -1,20 +1,236 @@
 {
   "suite": "answers",
   "environment": {
-    "run_at": "2026-10-27T15:13:40+00:00",
-    "anthropic": false,
-    "openai": false,
-    "router_model": null,
-    "rerank_model": null,
-    "answer_model": null,
-    "dense_backend": "lsa-local",
-    "cascade_threshold": 0.55
+    "run_at": "2026-10-27T16:36:08+00:00",
+    "anthropic": true,
+    "openai": true,
+    "router_model": "claude-haiku-5-5",
+    "rerank_model": "claude-haiku-5-5",
+    "answer_model": "claude-sonnet-5-5",
+    "dense_backend": "openai:text-embedding-3-small",
+    "cascade_threshold": 0.55,
+    "judge_model": "claude-opus-5-5"
   },
-  "variants": {},
-  "skipped": [
-    {
-      "variant": "answers",
-      "reason": "ANTHROPIC_API_KEY not set"
+  "variants": {
+    "answer": {
+      "grounded_rate": 1.0,
+      "answers_question_rate": 1.0,
+      "latency_ms_p50": 3118.8,
+      "latency_ms_p95": 4420.8,
+      "cost_usd_per_answer": 0.001967
     }
-  ]
+  },
+  "rows": [
+    {
+      "question": "does the GoPro Hero 10 shoot in 5K?",
+      "answer": "Yes, according to the product description, the GoPro Hero 10 is an action camera with 5K video and HyperSmooth stabilization. It's priced at R15 999 and is not currently on sale. For details like frame rates at 5K, I'd suggest checking the full specifications on the product page.",
+      "grounded": true,
+      "answers_question": true,
+      "reason": "The answer confirms 5K video, which matches the product description. The price (R15 999) and the not-on-sale status also match the facts. The answer correctly notes that frame rate details aren't provided rather than inventing them."
+    },
+    {
+      "question": "is the Vitamix E310 dishwasher safe",
+      "answer": "The product details I have for the Vitamix E310 Blender don't say whether it's dishwasher safe. It's listed as a high-performance blender for smoothies and more, priced at R4 799 and currently on sale. To be sure, check the care instructions in the manufacturer's manual or product packaging before putting any parts in the dishwasher.",
+      "grounded": true,
+      "answers_question": true,
+      "reason": "The answer correctly says the facts don't cover whether the blender is dishwasher safe. The details it does give (high-performance blender for smoothies, R4 799, on sale) all match the facts. Suggesting the manual is general advice, not an invented specification."
+    },
+    {
+      "question": "how much is the Herman Miller Aeron",
+      "answer": "The Herman Miller Aeron Chair is R12 999, and it isn't currently on sale.",
+      "grounded": true,
+      "answers_question": true,
+      "reason": "Every claim checks out: the facts list the Herman Miller Aeron Chair at R12 999 with on_sale false. The answer directly gives the price that was asked for."
+    },
+    {
+      "question": "can the Furbo camera throw treats?",
+      "answer": "Yes. The Furbo Dog Camera is described as an interactive camera that lets you see, talk, and toss treats to your pet. It's priced at R3 999 and is currently on sale. The product details don't say how the treat-tossing works or how many treats it holds, so check the full product page for specifics.",
+      "grounded": true,
+      "answers_question": true,
+      "reason": "Every claim in the answer comes from the facts: the description says the camera lets you toss treats, the price is R3 999, and it is on sale. The answer correctly notes that the facts don't explain how the tossing works or how many treats it holds. It directly answers the yes/no question."
+    },
+    {
+      "question": "is the Garmin Fenix 7 waterproof",
+      "answer": "The product information I have for the Garmin Fenix 7 doesn't mention waterproofing or a water resistance rating. It only describes it as a multisport GPS watch with advanced fitness tracking, currently on sale for R25 999. To be sure, I'd suggest checking the manufacturer's specifications or the full product page for a water resistance rating before you buy.",
+      "grounded": true,
+      "answers_question": true,
+      "reason": "Every claim in the answer matches the facts: the description, the R25 999 price and the on-sale status. The facts say nothing about water resistance, and the answer correctly states that, which addresses the question without inventing a specification."
+    },
+    {
+      "question": "what's the difference between the Fender Strat and the Gibson Les Paul",
+      "answer": "From the details I have, the Gibson Les Paul Standard is described as a classic electric guitar with a solid body and costs R24 999. The Fender American Professional II Stratocaster is described as an iconic electric guitar with a modern twist and costs R15 999. Neither is on sale. The listings don't cover things like pickups, tonewoods or neck specs, so for those details I'd suggest checking the full specifications on each product page or with the manufacturer.",
+      "grounded": true,
+      "answers_question": true,
+      "reason": "Every claim in the answer matches the facts. The descriptions, the prices (R24 999 and R15 999) and the not-on-sale status are all correct. The answer adds no invented specifications and openly says the listings don't cover pickups, tonewoods or neck specs. It addresses the question by comparing the two guitars on the information available."
+    },
+    {
+      "question": "does the Nest thermostat work with Google Home",
+      "answer": "The product details I have for the Nest Learning Thermostat (R2 499) only say it's a smart thermostat that learns your schedule and saves energy. They don't mention Google Home compatibility, so I can't confirm it either way. I'd suggest checking the manufacturer's compatibility information or contacting Variate's support team before you buy.",
+      "grounded": true,
+      "answers_question": true,
+      "reason": "The answer restates only what the facts contain: the R2 499 price and the description of a smart thermostat that learns your schedule and saves energy. It correctly says Google Home compatibility is not covered rather than inventing an answer. That addresses the question appropriately."
+    },
+    {
+      "question": "is the Owlet sock safe for premature babies",
+      "answer": "The product details I have for the Owlet Smart Sock only say that it monitors your baby's heart rate and oxygen levels, so I can't say whether it's safe or suitable for premature babies. Please check with your baby's doctor or paediatrician, and look at the manufacturer's guidance on age and weight suitability before buying. It's priced at R3 999 and isn't currently on sale.",
+      "grounded": true,
+      "answers_question": true,
+      "reason": "Every factual claim in the answer matches the facts: the sock monitors heart rate and oxygen levels, costs R3 999, and is not on sale. The facts say nothing about safety for premature babies, and the answer correctly says it can't confirm this and refers the user to their doctor and the manufacturer's guidance."
+    },
+    {
+      "question": "how many people fit in the REI Half Dome tent",
+      "answer": "The product details I have for the REI Co-op Half Dome Tent (R2 499) only describe it as a \"versatile and durable tent for outdoor adventures\", so I can't say how many people it sleeps. I'd suggest checking the full specifications on the product page or the manufacturer's listing for the sleeping capacity before you buy.",
+      "grounded": true,
+      "answers_question": true,
+      "reason": "Every claim in the answer comes from the facts: the tent's name, its R2 499 price, and its description quoted word for word. The facts give no sleeping capacity, and the answer correctly says it can't state how many people the tent holds rather than inventing a number. Pointing the user to the product page or manufacturer for this detail is reasonable and adds no unsupported specification."
+    },
+    {
+      "question": "is the Tumi Alpha 3 allowed as cabin luggage on most airlines",
+      "answer": "The product details I have only describe the Tumi Alpha 3 as a \"premium carry-on luggage with smart features\" at R8 999, and they don't give its dimensions or weight. So I can't confirm whether it meets cabin size limits on most airlines. Please check the exact measurements on the product page or with the manufacturer, and compare them to your airline's cabin baggage rules before buying.",
+      "grounded": true,
+      "answers_question": true,
+      "reason": "Every claim matches the facts: the description quoted is accurate, the price is R8 999, and the facts indeed give no dimensions or weight. The answer correctly says airline cabin compliance can't be confirmed from the information available and suggests a sensible next step."
+    },
+    {
+      "question": "what attachments come with the Dyson Airwrap",
+      "answer": "The product details I have only say that the Dyson Airwrap is a versatile hair styling tool with multiple attachments. They don't list which attachments are included, so I can't say what comes in the box. To find out exactly what's included, check the full product specifications on the product page or ask Variate's customer support before you buy. The Airwrap is currently on sale at R5 999.",
+      "grounded": true,
+      "answers_question": true,
+      "reason": "Every claim in the answer matches the facts: the Airwrap is a versatile styling tool with multiple attachments, it is on sale, and it costs R5 999. The answer invents no specific attachments. It correctly says the facts don't list which attachments are included and points the user to where they can find out."
+    },
+    {
+      "question": "the PS5 - does it have a disc drive?",
+      "answer": "The product details I have for the PlayStation 5 Console don't say whether it has a disc drive. It's described only as a next-gen gaming console with an ultra-fast SSD, priced at R4 999 and currently on sale. To confirm, I'd suggest checking the full product listing or packaging details for the exact edition before you buy.",
+      "grounded": true,
+      "answers_question": true,
+      "reason": "Every claim matches the facts: the description (next-gen console with ultra-fast SSD), the R4 999 price and the on-sale status. The answer correctly says the facts don't mention a disc drive, and it doesn't invent one."
+    },
+    {
+      "question": "is the Litter-Robot okay for big cats",
+      "answer": "I can't confirm that from the product details I have. The Whisker Litter-Robot is listed as a self-cleaning litter box for cats at R5 999 (currently on sale), but there's no information on size limits, weight capacity or interior dimensions. Please check the manufacturer's specifications for the maximum cat weight and internal size before buying.",
+      "grounded": true,
+      "answers_question": true,
+      "reason": "Every claim checks out against the facts: the Litter-Robot is a self-cleaning litter box for cats, priced at R5 999, and currently on sale. No size or weight specifications are invented. The answer correctly says the facts don't cover suitability for big cats and points the user to the manufacturer's specifications."
+    },
+    {
+      "question": "what size is the Le Creuset dutch oven",
+      "answer": "The product details I have for the Le Creuset Dutch Oven don't include its size or capacity. It's described as enameled cast iron, priced at R3 299 and currently on sale. To find the size, I'd suggest checking the full product page or the packaging details, or asking Variate customer support before you buy.",
+      "grounded": true,
+      "answers_question": true,
+      "reason": "The facts include no size or capacity for the Le Creuset Dutch Oven, and the answer correctly says so. Its other claims (enameled cast iron, R3 299, currently on sale) all match the facts. Suggesting the user check the product page or contact support adds no invented specifications."
+    },
+    {
+      "question": "is the Rolex Submariner on special right now",
+      "answer": "No, the Rolex Submariner isn't on special right now. It's listed at its regular price of R89 999. If you're after a watch that is on sale, the Omega Seamaster Watch (R35 999) and the TAG Heuer Monaco (R64 999) are both currently marked as on special.",
+      "grounded": true,
+      "answers_question": true,
+      "reason": "Every claim checks out against the facts: the Rolex Submariner has on_sale false at R89 999, and the Omega Seamaster (R35 999) and TAG Heuer Monaco (R64 999) are both on_sale true at the prices stated. The answer directly says the Rolex is not on special, which is what was asked."
+    },
+    {
+      "question": "does the MacBook Air M2 come with a charger",
+      "answer": "The product details I have for the Apple MacBook Air M2 (R14 999, currently on sale) don't say whether a charger is included in the box. To be sure, check the full \"what's in the box\" section on the product page or contact Variate before buying.",
+      "grounded": true,
+      "answers_question": true,
+      "reason": "Every claim in the answer is supported by the facts: the MacBook Air M2 is priced at R14 999 and is on sale. The facts say nothing about whether a charger is included, and the answer correctly says this information isn't available and suggests how to find out. It does not invent any specifications."
+    },
+    {
+      "question": "how long does the Seresto collar last",
+      "answer": "The product information describes the Seresto Flea and Tick Collar as \"long-lasting\" flea and tick prevention for dogs, but it doesn't say how many months it lasts. It's currently on sale for R1 999. For the exact duration, please check the product packaging or ask your vet before buying.",
+      "grounded": true,
+      "answers_question": true,
+      "reason": "Every claim in the answer matches the facts. The facts call the collar \"long-lasting\" but give no specific duration, and the answer says so openly rather than inventing a number of months. The price of R1 999 and the on-sale status are both correct. The answer handles the question properly by stating that the exact duration isn't available."
+    },
+    {
+      "question": "can the Husqvarna Automower handle slopes",
+      "answer": "The product information I have for the Husqvarna Automower (R15 999) only describes it as a robotic lawn mower for a perfectly manicured lawn. It doesn't say anything about slope handling or maximum incline. I'd suggest checking the full technical specifications on the product page or the manufacturer's manual before buying, especially if your lawn has steep areas.",
+      "grounded": true,
+      "answers_question": true,
+      "reason": "The answer repeats only the given facts (robotic lawn mower for a manicured lawn, R15 999). It correctly states that slope handling and maximum incline are not covered, invents no specifications, and directly addresses the question by explaining the information isn't available."
+    },
+    {
+      "question": "is the LEGO roller coaster suitable for kids or adults",
+      "answer": "The product details don't give an age rating or recommended age range for the LEGO Creator Expert Roller Coaster, so I can't say whether it suits kids or adults. It's described as an intricate set with a fully functional roller coaster, and it's priced at R3 999 and currently on sale. For the recommended age, check the box or the manufacturer's listing before buying.",
+      "grounded": true,
+      "answers_question": true,
+      "reason": "Every claim in the answer comes from the facts: the 'intricate set with a fully functional roller coaster' description, the R3 999 price, and the on-sale status. The answer correctly notes that the facts give no age rating, so it does not invent one. It addresses the question by explaining that this information isn't available and pointing the user to the box or manufacturer's listing."
+    },
+    {
+      "question": "what's the price of the Yamaha digital piano",
+      "answer": "The Yamaha YDP-144 Digital Piano is priced at R49 999, and it's currently on sale. The listing doesn't show the original price or how much the discount is, so I can't say how much you're saving.",
+      "grounded": true,
+      "answers_question": true,
+      "reason": "The answer gives the price as R49 999 and says the piano is on sale, both of which match the facts. It correctly notes that the original price and discount amount are not provided, without inventing them."
+    },
+    {
+      "question": "does the Breville smart oven have an air fry setting",
+      "answer": "The product details I have for the Breville Smart Oven don't say whether it has an air fry setting. They only describe it as a countertop oven with Element IQ technology, priced at R5 999. To be sure, check the full specifications or the user manual for the cooking functions, or ask Variate's support team before you buy.",
+      "grounded": true,
+      "answers_question": true,
+      "reason": "The answer correctly states that the facts do not mention an air fry setting. It accurately restates the given description and price, R5 999, and invents no specifications."
+    },
+    {
+      "question": "the Osprey Farpoint 40, is it comfortable for long walks",
+      "answer": "The product details I have describe the Osprey Farpoint 40 as a lightweight and versatile travel backpack, priced at R2 499 and currently on sale. They don't say anything about its harness, padding or how it carries over long distances, so I can't confirm how comfortable it is for long walks. For that, I'd suggest checking the full specifications or customer reviews, or trying it on in store if possible.",
+      "grounded": true,
+      "answers_question": true,
+      "reason": "Every claim in the answer comes from the facts: the Farpoint 40 is described as lightweight and versatile, priced at R2 499 and on sale. The facts say nothing about comfort over long distances, and the answer correctly states it can't confirm this, then suggests reasonable next steps without inventing specifications."
+    },
+    {
+      "question": "is the Boll & Branch comforter real down",
+      "answer": "The product listing describes the Boll & Branch Down Comforter as \"fluffy and warm down comforter for chilly nights,\" but it doesn't say what the fill is made of, its fill power, or any certification. To confirm it's real down, I'd suggest checking the product's label or full specification sheet, or asking Variate's customer support before you buy. It's priced at R8 999 and isn't currently on sale.",
+      "grounded": true,
+      "answers_question": true,
+      "reason": "The answer accurately quotes the description and correctly gives the price (R8 999) and that the comforter is not on sale. It rightly notes that the facts give no fill composition details, fill power or certification, and it invents no specifications. It addresses the question by pointing out that the listing calls the product down, explaining that nothing further is confirmed, and suggesting how to verify. One small inconsistency: saying the fill isn't specified sits a little awkwardly with the product being called a down comforter."
+    },
+    {
+      "question": "how loud is the Bose SoundLink Revolve",
+      "answer": "The product details I have for the Bose SoundLink Revolve don't include any information about its volume or loudness. All I can confirm is that it's a portable Bluetooth speaker with 360-degree sound, priced at R2 499. For volume specifications, I'd suggest checking the manufacturer's spec sheet or customer reviews.",
+      "grounded": true,
+      "answers_question": true,
+      "reason": "The answer correctly says the facts contain no volume or loudness data. The details it does repeat (portable Bluetooth speaker, 360-degree sound, R2 499) all match the facts, and no specifications are invented."
+    },
+    {
+      "question": "can I use the Wacom Intuos Pro with an iPad",
+      "answer": "The product details I have for the Wacom Intuos Pro Tablet only say it's a pen tablet for digital art and design, priced at R12 999 and currently on sale. They don't say whether it works with an iPad, so I can't confirm compatibility. I'd suggest checking the full specifications or the manufacturer's compatibility information before buying.",
+      "grounded": true,
+      "answers_question": true,
+      "reason": "Every claim in the answer (pen tablet for digital art and design, R12 999, on sale) matches the facts. The facts say nothing about iPad compatibility, and the answer correctly says it can't confirm this rather than inventing a spec. That properly addresses the question."
+    },
+    {
+      "question": "does the Milwaukee M18 drill include a battery",
+      "answer": "The product details I have for the Milwaukee M18 Fuel Cordless Drill (R2 999) only describe it as a high-performance drill with a brushless motor. They don't say whether a battery or charger is included. Please check the full product listing or contact Variate before ordering to confirm what's in the box.",
+      "grounded": true,
+      "answers_question": true,
+      "reason": "Every claim in the answer comes from the facts: the price of R2 999 and the description as a high-performance drill with a brushless motor. The facts do not say whether a battery is included, and the answer correctly reports that gap rather than inventing an answer. Pointing the user to the listing to confirm is appropriate."
+    },
+    {
+      "question": "is the Cartier Love bracelet real gold",
+      "answer": "The product details for the Cartier Love Bracelet don't say what material it's made from, so I can't confirm whether it's real gold. The listing only describes it as an \"iconic bracelet symbolizing eternal love\" and shows it at R59 999, currently on sale. To find out the metal type and any authenticity details, I'd suggest checking the full product page or contacting Variate directly before you buy.",
+      "grounded": true,
+      "answers_question": true,
+      "reason": "The answer correctly notes that the facts give no material information. The description, the R59 999 price and the on-sale status it cites all match the facts, and it adds no invented specifications. It addresses the question by saying the information isn't available."
+    },
+    {
+      "question": "what colours does the West Elm Andes sofa come in",
+      "answer": "The product details for the West Elm Andes Sofa don't list specific colours. They only say it has \"customizable fabrics,\" so I can't tell you which colours or fabrics are available. I'd suggest checking the full product page or contacting Variate to confirm the options before ordering. The sofa is priced at R32 999 and is not currently on sale.",
+      "grounded": true,
+      "answers_question": true,
+      "reason": "Every claim in the answer comes from the facts: customizable fabrics, the price of R32 999, and that the sofa is not on sale. The facts list no colours, and the answer says so plainly instead of inventing options. Suggesting a check of the product page is reasonable advice, not a factual claim."
+    },
+    {
+      "question": "how accurate is the Bosch laser level",
+      "answer": "The product details for the Bosch GLL 3-80 Laser Level don't include an accuracy rating. All I can confirm is that it's described as a 360-degree laser level for precise measurements, and it's currently on sale for R3 999. For the exact accuracy figure, I'd suggest checking the product's specification sheet or the manufacturer's documentation.",
+      "grounded": true,
+      "answers_question": true,
+      "reason": "The facts give no accuracy rating, and the answer says so plainly. Everything it does state is supported by the facts: the 360-degree description, 'precise measurements', the on-sale status and the R3 999 price."
+    },
+    {
+      "question": "is the Fitbit Charge 5 good for swimming",
+      "answer": "The product details I have for the Fitbit Charge 5 only describe it as an advanced fitness and health tracker with built-in GPS, priced at R2 999 and currently on sale. They don't say whether it's water-resistant or suitable for swimming, so I can't confirm that. I'd suggest checking the full product specifications or the manufacturer's water-resistance rating before buying.",
+      "grounded": true,
+      "answers_question": true,
+      "reason": "Every claim in the answer (fitness tracker with built-in GPS, R2 999, on sale) matches the facts given. The facts say nothing about water resistance or swimming, and the answer correctly says it can't confirm this rather than inventing a spec."
+    }
+  ],
+  "skipped": []
 }

@@ -233,3 +233,17 @@ def test_production_refuses_placeholder_signing_key():
 def test_docs_are_off_by_default(client):
     assert client.get("/docs").status_code == 404
     assert client.get("/openapi.json").status_code == 404
+
+
+def test_startup_falls_back_to_local_index_when_embeddings_fail(tmp_path):
+    class BrokenEmbeddings(LlmClient):
+        @property
+        def has_openai(self) -> bool:
+            return True
+
+        def embed(self, texts, purpose="embedding"):
+            raise LlmUnavailable("quota exhausted")
+
+    settings = offline_settings(embedding_cache_path=tmp_path / "embeddings.npz")
+    components = build_components(settings, llm=BrokenEmbeddings(settings))
+    assert components.assistant.retriever.dense_backend == "lsa-local"

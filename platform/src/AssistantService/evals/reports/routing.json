@@ -2,12 +2,12 @@
   "suite": "routing",
   "examples": 90,
   "environment": {
-    "run_at": "2026-10-27T15:13:40+00:00",
-    "anthropic": false,
+    "run_at": "2026-10-27T16:10:30+00:00",
+    "anthropic": true,
     "openai": false,
-    "router_model": null,
-    "rerank_model": null,
-    "answer_model": null,
+    "router_model": "claude-haiku-5-5",
+    "rerank_model": "claude-haiku-5-5",
+    "answer_model": "claude-sonnet-5-5",
     "dense_backend": "lsa-local",
     "cascade_threshold": 0.55
   },
@@ -108,8 +108,8 @@
           "order_status": 1
         }
       },
-      "latency_ms_p50": 0.007,
-      "latency_ms_p95": 0.014,
+      "latency_ms_p50": 0.017,
+      "latency_ms_p95": 0.034,
       "cost_usd_per_call": 0.0,
       "cost_usd_per_1k_calls": 0.0,
       "errors": 0
@@ -220,21 +220,195 @@
           "order_status": 2
         }
       },
-      "latency_ms_p50": 0.929,
-      "latency_ms_p95": 1.629,
+      "latency_ms_p50": 2.046,
+      "latency_ms_p95": 4.545,
       "cost_usd_per_call": 0.0,
       "cost_usd_per_1k_calls": 0.0,
       "errors": 0
+    },
+    "cascade": {
+      "accuracy": 0.9667,
+      "accuracy_ci95": [
+        0.9222,
+        1.0
+      ],
+      "macro_f1": 0.9672,
+      "per_label": {
+        "account_help": {
+          "precision": 0.9167,
+          "recall": 1.0,
+          "f1": 0.9565,
+          "support": 11
+        },
+        "human_handoff": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 10
+        },
+        "order_status": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 11
+        },
+        "out_of_scope": {
+          "precision": 1.0,
+          "recall": 0.9091,
+          "f1": 0.9524,
+          "support": 11
+        },
+        "payment_issue": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 11
+        },
+        "product_question": {
+          "precision": 0.9231,
+          "recall": 1.0,
+          "f1": 0.96,
+          "support": 12
+        },
+        "product_search": {
+          "precision": 1.0,
+          "recall": 0.9231,
+          "f1": 0.96,
+          "support": 13
+        },
+        "returns_refunds": {
+          "precision": 0.9091,
+          "recall": 0.9091,
+          "f1": 0.9091,
+          "support": 11
+        }
+      },
+      "confusion": {
+        "account_help": {
+          "account_help": 11
+        },
+        "human_handoff": {
+          "human_handoff": 10
+        },
+        "order_status": {
+          "order_status": 11
+        },
+        "out_of_scope": {
+          "out_of_scope": 10,
+          "account_help": 1
+        },
+        "payment_issue": {
+          "payment_issue": 11
+        },
+        "product_question": {
+          "product_question": 12
+        },
+        "product_search": {
+          "product_search": 12,
+          "returns_refunds": 1
+        },
+        "returns_refunds": {
+          "returns_refunds": 10,
+          "product_question": 1
+        }
+      },
+      "latency_ms_p50": 957.235,
+      "latency_ms_p95": 2254.684,
+      "cost_usd_per_call": 5.977e-05,
+      "cost_usd_per_1k_calls": 0.05977,
+      "errors": 0,
+      "escalation_rate": 0.7111
+    },
+    "llm": {
+      "accuracy": 0.9889,
+      "accuracy_ci95": [
+        0.9667,
+        1.0
+      ],
+      "macro_f1": 0.989,
+      "per_label": {
+        "account_help": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 11
+        },
+        "human_handoff": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 10
+        },
+        "order_status": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 11
+        },
+        "out_of_scope": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 11
+        },
+        "payment_issue": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 11
+        },
+        "product_question": {
+          "precision": 0.9231,
+          "recall": 1.0,
+          "f1": 0.96,
+          "support": 12
+        },
+        "product_search": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 13
+        },
+        "returns_refunds": {
+          "precision": 1.0,
+          "recall": 0.9091,
+          "f1": 0.9524,
+          "support": 11
+        }
+      },
+      "confusion": {
+        "account_help": {
+          "account_help": 11
+        },
+        "human_handoff": {
+          "human_handoff": 10
+        },
+        "order_status": {
+          "order_status": 11
+        },
+        "out_of_scope": {
+          "out_of_scope": 11
+        },
+        "payment_issue": {
+          "payment_issue": 11
+        },
+        "product_question": {
+          "product_question": 12
+        },
+        "product_search": {
+          "product_search": 13
+        },
+        "returns_refunds": {
+          "returns_refunds": 10,
+          "product_question": 1
+        }
+      },
+      "latency_ms_p50": 1089.825,
+      "latency_ms_p95": 1661.964,
+      "cost_usd_per_call": 8.4e-05,
+      "cost_usd_per_1k_calls": 0.084,
+      "errors": 0
     }
   },
-  "skipped": [
-    {
-      "variant": "cascade",
-      "reason": "no LLM teacher configured; identical to distilled"
-    },
-    {
-      "variant": "llm",
-      "reason": "ANTHROPIC_API_KEY not set"
-    }
-  ]
+  "skipped": []
 }
