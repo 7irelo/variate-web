@@ -2,8 +2,6 @@
 
 **Variate** is an e-commerce platform: an ASP.NET Core MVC storefront on SQL Server, a set of .NET microservices for Azure Kubernetes Service, and a Python shopping assistant that uses Claude and OpenAI and comes with its own evals, observability and security controls.
 
-![Variate - landing, product listing, product detail, cart and checkout, Identity auth, admin dashboard, health endpoint, project layout and orders management](docs/screenshots/variate-ui.png)
-
 ![variate_home](https://github.com/user-attachments/assets/baf442f2-db0e-40a8-a34b-94c522966dd7)
 ![variate_electronics](https://github.com/user-attachments/assets/81f1ae15-f118-4612-aa9d-a7bcaeacc8f8)
 ![variate_product](https://github.com/user-attachments/assets/bec81fcc-4979-4911-89c2-26737f847026)
