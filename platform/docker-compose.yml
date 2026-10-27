@@ -118,6 +118,21 @@ services:
       rabbitmq:
         condition: service_healthy
 
+  assistant-service:
+    build:
+      context: ./src/AssistantService
+      dockerfile: Dockerfile
+    environment:
+      ASSISTANT_ENVIRONMENT: development
+      ASSISTANT_ORDER_SERVICE_URL: http://order-service:8080
+      ASSISTANT_JWT_SIGNING_KEY: ${JWT_SIGNING_KEY:-replace-this-in-real-deployments-with-a-long-secret}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+    depends_on:
+      - order-service
+    ports:
+      - "7005:8080"
+
   gateway-service:
     build:
       context: ./src/GatewayService
@@ -129,6 +144,7 @@ services:
       - catalog-service
       - order-service
       - payment-service
+      - assistant-service
     ports:
       - "7000:8080"
 

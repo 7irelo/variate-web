@@ -6,4 +6,5 @@ resources:
   - config.yaml
   - infra.yaml
   - apps.yaml
+  - assistant.yaml
   - ingress-hpa.yaml

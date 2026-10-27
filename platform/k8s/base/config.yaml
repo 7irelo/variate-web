@@ -22,3 +22,5 @@ stringData:
   rabbitmq-username: guest
   rabbitmq-password: guest
   stripe-secret-key: ""
+  anthropic-api-key: ""
+  openai-api-key: ""

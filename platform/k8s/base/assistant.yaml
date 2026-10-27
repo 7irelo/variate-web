@@ -1,0 +1,141 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: assistant-service
+  namespace: variate
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: assistant-service
+  template:
+    metadata:
+      labels:
+        app: assistant-service
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+        prometheus.io/path: /metrics
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: assistant-service
+          image: variateacr.azurecr.io/assistant-service:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: ASSISTANT_ENVIRONMENT
+              value: production
+            - name: ASSISTANT_ORDER_SERVICE_URL
+              value: http://order-service:8080
+            - name: ASSISTANT_JWT_ISSUER
+              valueFrom:
+                configMapKeyRef:
+                  name: variate-config
+                  key: jwt-issuer
+            - name: ASSISTANT_JWT_AUDIENCE
+              valueFrom:
+                configMapKeyRef:
+                  name: variate-config
+                  key: jwt-audience
+            - name: ASSISTANT_JWT_SIGNING_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: variate-secrets
+                  key: jwt-signing-key
+            - name: ANTHROPIC_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: variate-secrets
+                  key: anthropic-api-key
+            - name: OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: variate-secrets
+                  key: openai-api-key
+            # The embedding cache is written once at startup; keep it off the
+            # read-only root filesystem.
+            - name: ASSISTANT_EMBEDDING_CACHE_PATH
+              value: /cache/embeddings.npz
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: "1"
+              memory: 512Mi
+          volumeMounts:
+            - name: cache
+              mountPath: /cache
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+      volumes:
+        - name: cache
+          emptyDir:
+            sizeLimit: 64Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: assistant-service
+  namespace: variate
+spec:
+  selector:
+    app: assistant-service
+  ports:
+    - port: 8080
+      targetPort: 8080
+---
+# Only the gateway may call the assistant, so every request carries the
+# tenant header the gateway sets. Egress is limited to DNS, the order service
+# and HTTPS to the model providers.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: assistant-service
+  namespace: variate
+spec:
+  podSelector:
+    matchLabels:
+      app: assistant-service
+  policyTypes: ["Ingress", "Egress"]
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: gateway-service
+      ports:
+        - port: 8080
+  egress:
+    - ports:
+        - port: 53
+          protocol: UDP
+        - port: 53
+          protocol: TCP
+    - to:
+        - podSelector:
+            matchLabels:
+              app: order-service
+      ports:
+        - port: 8080
+    - to:
+        - ipBlock:
+            cidr: 0.0.0.0/0
+            except: ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16", "169.254.169.254/32"]
+      ports:
+        - port: 443

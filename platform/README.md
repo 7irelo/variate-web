@@ -7,6 +7,7 @@ This folder contains a decoupled e-commerce platform for AKS deployment with:
 - `order-service` for checkout and order lifecycle
 - `payment-service` for payment processing and webhooks
 - `notification-service` for event-driven notifications
+- `assistant-service` (Python/FastAPI) for intent routing, hybrid product search and order lookups, with evals and tracing ([README](src/AssistantService/README.md))
 - `gateway-service` as an API edge for all services
 - `rabbitmq` for asynchronous communication
 - containerized SQL Server for persistent data
@@ -62,6 +63,7 @@ docker compose up --build
 3. Access services:
 
 - Gateway: `http://localhost:7000`
+- Assistant (direct): `http://localhost:7005` (send `X-Tenant-Id: variate`; through the gateway it is set for you)
 - RabbitMQ UI: `http://localhost:15672`
 - Legacy monolith container: `http://localhost:7010`
 
