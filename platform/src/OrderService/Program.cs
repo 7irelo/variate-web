@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -132,18 +133,24 @@ order.MapPost("/checkout", async (
     });
 }).RequireAuthorization();
 
-order.MapGet("/{id:guid}", async (OrderDbContext db, Guid id) =>
+order.MapGet("/{id:guid}", async (OrderDbContext db, Guid id, ClaimsPrincipal user) =>
 {
     var entity = await db.Orders
         .AsNoTracking()
         .Include(o => o.Items)
         .FirstOrDefaultAsync(o => o.Id == id);
 
-    return entity is null ? Results.NotFound() : Results.Ok(ToResponse(entity));
+    // Another customer's order is reported as missing, not forbidden, so ids can't be probed.
+    return entity is null || !CanAccess(user, entity.UserId) ? Results.NotFound() : Results.Ok(ToResponse(entity));
 }).RequireAuthorization();
 
-order.MapGet("/user/{userId}", async (OrderDbContext db, string userId) =>
+order.MapGet("/user/{userId}", async (OrderDbContext db, string userId, ClaimsPrincipal user) =>
 {
+    if (!CanAccess(user, userId))
+    {
+        return Results.Forbid();
+    }
+
     var entities = await db.Orders
         .AsNoTracking()
         .Where(o => o.UserId == userId)
@@ -167,12 +174,12 @@ order.MapPatch("/{id:guid}/status", async (OrderDbContext db, Guid id, UpdateSta
     entity.UpdatedAtUtc = DateTime.UtcNow;
     await db.SaveChangesAsync();
     return Results.Ok(new { entity.Id, entity.Status });
-}).RequireAuthorization();
+}).RequireAuthorization(policy => policy.RequireRole("admin"));
 
-order.MapPost("/{id:guid}/cancel", async (OrderDbContext db, Guid id, RabbitMqPublisher publisher) =>
+order.MapPost("/{id:guid}/cancel", async (OrderDbContext db, Guid id, RabbitMqPublisher publisher, ClaimsPrincipal user) =>
 {
     var entity = await db.Orders.Include(o => o.Items).FirstOrDefaultAsync(o => o.Id == id);
-    if (entity is null)
+    if (entity is null || !CanAccess(user, entity.UserId))
     {
         return Results.NotFound();
     }
@@ -201,6 +208,12 @@ order.MapPost("/{id:guid}/cancel", async (OrderDbContext db, Guid id, RabbitMqPu
 order.MapGet("/health", () => Results.Ok(new { service = "order-service", status = "ok" }));
 
 app.Run();
+
+static bool CanAccess(ClaimsPrincipal user, string ownerId)
+{
+    var callerId = user.FindFirstValue(ClaimTypes.NameIdentifier) ?? user.FindFirstValue("sub");
+    return user.IsInRole("admin") || (callerId is not null && string.Equals(callerId, ownerId, StringComparison.Ordinal));
+}
 
 static OrderResponse ToResponse(OrderEntity entity)
 {
