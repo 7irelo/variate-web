@@ -1,0 +1,47 @@
+@{
+    // Overrides the stock Identity "Manage" layout so account pages sit inside
+    // the site's own layout and grid.
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<section class="py-5">
+    <div class="container" style="max-width: 1040px;">
+        <div class="mb-4">
+            <h1 class="fw-bold mb-1">My account</h1>
+            <p class="text-muted mb-0">@User.Identity?.Name</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4 col-lg-3">
+                <div class="card shadow-sm account-nav">
+                    <div class="card-body p-2">
+                        <partial name="_ManageNav" />
+                        <hr class="my-2" />
+                        <ul class="nav nav-pills flex-column">
+                            <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Order" asp-action="Index">Orders</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Cart" asp-action="Index">Cart</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-lg-9">
+                <div class="card shadow-sm">
+                    <div class="card-body p-4 account-content">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .account-nav .nav-link { border-radius: .5rem; padding: .55rem .9rem; color: inherit; }
+    .account-nav .nav-link.active { color: #fff; }
+    .account-content h3 { font-size: 1.35rem; font-weight: 700; margin-bottom: 1.25rem; }
+    .account-content h4 { font-size: 1.1rem; font-weight: 600; }
+    .account-content .row > .col-md-6 { flex: 0 0 100%; max-width: 32rem; }
+</style>
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}

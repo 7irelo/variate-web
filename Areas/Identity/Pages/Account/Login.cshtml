@@ -44,15 +44,10 @@ ViewData["Title"] = "Log in";
                 </div>
             </div>
 
-            <div class="text-center mt-4">
-                <h4>Use another service to log in:</h4>
-                <hr />
-                @if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                <div class="alert alert-info">No external authentication services configured.</div>
-                }
-                else
-                {
+            @if ((Model.ExternalLogins?.Count ?? 0) > 0)
+            {
+                <div class="text-center mt-4">
+                    <h4>Or log in with</h4>
                 <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="d-flex justify-content-center">
                     @foreach (var provider in Model.ExternalLogins!)
                     {
@@ -61,8 +56,8 @@ ViewData["Title"] = "Log in";
                     </button>
                     }
                 </form>
-                }
-            </div>
+                </div>
+            }
         </div>
     </div>
 </div>

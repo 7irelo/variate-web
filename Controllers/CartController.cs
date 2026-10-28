@@ -56,15 +56,17 @@ namespace variate.Controllers
         }
 
         [HttpPost("updateQuantity")]
-        public async Task<IActionResult> UpdateQuantity(int productId, int delta)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateQuantity(int itemId, int delta)
         {
             try
             {
                 var user = await _userManager.GetUserAsync(User);
                 if (user == null) return Unauthorized();
 
-                var success = await _cartService.UpdateQuantityAsync(user.Id, productId, delta);
-                return success ? Json(new { success = true }) : BadRequest("Failed to update product quantity.");
+                // One step at a time; the service keeps the quantity at 1 or more.
+                var success = await _cartService.UpdateQuantityAsync(user.Id, itemId, Math.Clamp(delta, -1, 1));
+                return success ? RedirectToAction("Index") : NotFound("Item not found in cart.");
             }
             catch (Exception e)
             {

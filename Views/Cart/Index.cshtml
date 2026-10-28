@@ -40,12 +40,18 @@
                                         <div class="ref-product-controls ref-mobile-product-controls">
                                             <div class="ref-product-quantity">
                                                 <div class="ref-quantity-widget">
-                                                    <div class="ref-decrease"><span></span></div>
-                                                    <input type="text" value="@product.Quantity" />
-                                                    <div class="ref-increase"><span></span></div>
+                                                    <form asp-controller="Cart" asp-action="UpdateQuantity" asp-route-itemId="@product.Id" asp-route-delta="-1" method="post" class="d-contents">
+                                                        <button type="submit" class="ref-decrease" aria-label="Decrease quantity" @(product.Quantity <= 1 ? "disabled" : "")><span></span></button>
+                                                    </form>
+                                                    <input type="text" value="@product.Quantity" aria-label="Quantity" readonly />
+                                                    <form asp-controller="Cart" asp-action="UpdateQuantity" asp-route-itemId="@product.Id" asp-route-delta="1" method="post" class="d-contents">
+                                                        <button type="submit" class="ref-increase" aria-label="Increase quantity"><span></span></button>
+                                                    </form>
                                                 </div>
                                             </div>
-                                            <div class="ref-product-remove">Remove</div>
+                                            <form asp-controller="Cart" asp-action="Delete" asp-route-id="@product.Id" method="post">
+                                                <button class="ref-product-remove" type="submit" style="border: none; background-color: white;">Remove</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -60,8 +66,13 @@
                                 <div class="ref-product-quantity">
                                     <div class="ref-quantity-container">
                                         <div class="ref-quantity-widget">
-                                            <div class="ref-decrease" onclick="updateQuantity(@product.Id, -1)"><span></span></div><input type="text" value="@product.Quantity" />
-                                            <div class="ref-increase" onclick="updateQuantity(@product.Id, 1)"><span></span></div>
+                                            <form asp-controller="Cart" asp-action="UpdateQuantity" asp-route-itemId="@product.Id" asp-route-delta="-1" method="post" class="d-contents">
+                                                <button type="submit" class="ref-decrease" aria-label="Decrease quantity" @(product.Quantity <= 1 ? "disabled" : "")><span></span></button>
+                                            </form>
+                                            <input type="text" value="@product.Quantity" aria-label="Quantity" readonly />
+                                            <form asp-controller="Cart" asp-action="UpdateQuantity" asp-route-itemId="@product.Id" asp-route-delta="1" method="post" class="d-contents">
+                                                <button type="submit" class="ref-increase" aria-label="Increase quantity"><span></span></button>
+                                            </form>
                                         </div>
                                     </div>
                                     <div class="ref-product-qty-message"></div>
@@ -107,27 +118,9 @@
     </div>
 </section>
 
-<script>
-    function updateQuantity(productId, delta) {
-        fetch(`/cart/updateQuantity?productId=${productId}&delta=${delta}`, { method: 'POST' })
-            .then(response => response.json())
-            .then(data => location.reload())
-            .catch(error => console.error('Error updating quantity:', error));
-    }
 
-    function deleteProduct(productId) {
-        fetch(`cart/delete?productId=${productId}`, {method: `POST`})
-            .then(response => {
-                if (response.ok) location.reload() {
-                    response.json()
-                }
-                else if (response.status === 204) {
-                    location.reload()
-                }
-                else{
-                    throw new Error(`HTTP error! status: ${response.status}`)
-                }
-            })
-            .catch(error => console.error('Error deleting product:', error));
-    }
-</script>
+<style>
+    .d-contents { display: contents; }
+    .ref-quantity-widget button { border: none; background: none; padding: 0; }
+    .ref-quantity-widget button:disabled { opacity: .4; cursor: default; }
+</style>
