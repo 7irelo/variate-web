@@ -27,6 +27,12 @@ namespace variate.Controllers
             return RedirectToAction("Error", "Home");
         }
 
+        private bool WantsJson() =>
+            Request.Headers.Accept.Any(value => value?.Contains("application/json", StringComparison.OrdinalIgnoreCase) == true);
+
+        // Matches the formatting in Views/Cart/Index.cshtml.
+        private static string FormatRand(decimal amount) => "R" + string.Format("{0:0.00}", amount);
+
         [HttpGet("")]
         public async Task<IActionResult> Index()
         {
@@ -66,7 +72,19 @@ namespace variate.Controllers
 
                 // One step at a time; the service keeps the quantity at 1 or more.
                 var success = await _cartService.UpdateQuantityAsync(user.Id, itemId, Math.Clamp(delta, -1, 1));
-                return success ? RedirectToAction("Index") : NotFound("Item not found in cart.");
+                if (!success) return NotFound("Item not found in cart.");
+                if (!WantsJson()) return RedirectToAction("Index");
+
+                // The cart page updates in place from this instead of reloading.
+                var cart = await _cartService.GetOrCreateUserCartAsync(user.Id);
+                var item = cart.CartItems.First(ci => ci.Id == itemId);
+                return Json(new
+                {
+                    quantity = item.Quantity,
+                    lineTotal = FormatRand((item.Product?.EffectivePrice ?? 0) * item.Quantity),
+                    subtotal = FormatRand(cart.CartItems.Sum(ci => (ci.Product?.EffectivePrice ?? 0) * ci.Quantity)),
+                    itemCount = cart.CartItems.Sum(ci => ci.Quantity)
+                });
             }
             catch (Exception e)
             {

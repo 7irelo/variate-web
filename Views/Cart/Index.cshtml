@@ -24,6 +24,8 @@
                     @foreach (var product in Model.CartItems)
                     {
                         <div class="ref-product" data-id="@product.Id" data-quantity="@product.Quantity">
+                            @* Both quantity widgets (mobile and desktop) submit through this form. *@
+                            <form id="qty-@product.Id" class="js-quantity-form" asp-controller="Cart" asp-action="UpdateQuantity" asp-route-itemId="@product.Id" method="post" hidden></form>
                             <div class="ref-product-col">
                                 <div class="ref-product-wrapper">
                                     <img class="ref-product-photo" src="~/img/products/@(product.Product?.ImageUrl ?? new string("default.jpg"))" alt="@product.Product?.Name" />
@@ -40,13 +42,9 @@
                                         <div class="ref-product-controls ref-mobile-product-controls">
                                             <div class="ref-product-quantity">
                                                 <div class="ref-quantity-widget">
-                                                    <form asp-controller="Cart" asp-action="UpdateQuantity" asp-route-itemId="@product.Id" asp-route-delta="-1" method="post" class="d-contents">
-                                                        <button type="submit" class="ref-decrease" aria-label="Decrease quantity" @(product.Quantity <= 1 ? "disabled" : "")><span></span></button>
-                                                    </form>
+                                                    <button type="submit" form="qty-@product.Id" name="delta" value="-1" class="ref-decrease" aria-label="Decrease quantity" @(product.Quantity <= 1 ? "disabled" : "")><span></span></button>
                                                     <input type="text" value="@product.Quantity" aria-label="Quantity" readonly />
-                                                    <form asp-controller="Cart" asp-action="UpdateQuantity" asp-route-itemId="@product.Id" asp-route-delta="1" method="post" class="d-contents">
-                                                        <button type="submit" class="ref-increase" aria-label="Increase quantity"><span></span></button>
-                                                    </form>
+                                                    <button type="submit" form="qty-@product.Id" name="delta" value="1" class="ref-increase" aria-label="Increase quantity"><span></span></button>
                                                 </div>
                                             </div>
                                             <form asp-controller="Cart" asp-action="Delete" asp-route-id="@product.Id" method="post">
@@ -66,13 +64,9 @@
                                 <div class="ref-product-quantity">
                                     <div class="ref-quantity-container">
                                         <div class="ref-quantity-widget">
-                                            <form asp-controller="Cart" asp-action="UpdateQuantity" asp-route-itemId="@product.Id" asp-route-delta="-1" method="post" class="d-contents">
-                                                <button type="submit" class="ref-decrease" aria-label="Decrease quantity" @(product.Quantity <= 1 ? "disabled" : "")><span></span></button>
-                                            </form>
+                                            <button type="submit" form="qty-@product.Id" name="delta" value="-1" class="ref-decrease" aria-label="Decrease quantity" @(product.Quantity <= 1 ? "disabled" : "")><span></span></button>
                                             <input type="text" value="@product.Quantity" aria-label="Quantity" readonly />
-                                            <form asp-controller="Cart" asp-action="UpdateQuantity" asp-route-itemId="@product.Id" asp-route-delta="1" method="post" class="d-contents">
-                                                <button type="submit" class="ref-increase" aria-label="Increase quantity"><span></span></button>
-                                            </form>
+                                            <button type="submit" form="qty-@product.Id" name="delta" value="1" class="ref-increase" aria-label="Increase quantity"><span></span></button>
                                         </div>
                                     </div>
                                     <div class="ref-product-qty-message"></div>
@@ -94,7 +88,7 @@
                 <div class="ref-footer">
                     <div class="ref-totals">
                         <div class="ref-subtotal">
-                            Subtotal: R@(string.Format("{0:0.00}", Model.CartItems.Sum(item => item.Product?.EffectivePrice * item.Quantity)))
+                            Subtotal: <span id="cart-subtotal">R@(string.Format("{0:0.00}", Model.CartItems.Sum(item => item.Product?.EffectivePrice * item.Quantity)))</span>
                         </div>
                     </div>
                     <form asp-controller="Checkout" asp-action="Start" method="post">
@@ -120,7 +114,67 @@
 
 
 <style>
-    .d-contents { display: contents; }
-    .ref-quantity-widget button { border: none; background: none; padding: 0; }
-    .ref-quantity-widget button:disabled { opacity: .4; cursor: default; }
+    /* The reflow toolkit only styles div children (.ref-quantity-widget > div); give the buttons the same box. */
+    .ref-quantity-widget > button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        border: 0 solid;
+        border-color: inherit;
+        border-radius: 0;
+        background: none;
+        color: inherit;
+        cursor: pointer;
+        font-size: 1.1em;
+        line-height: 1.5em;
+        width: 1.6em;
+        min-width: 32px;
+        padding: var(--ref-input-padding);
+    }
+    .ref-quantity-widget > button:active { background-color: #979ca01a; }
+    .ref-quantity-widget > button:disabled { opacity: .4; cursor: default; background: none; }
 </style>
+
+@section Scripts {
+    <script>
+        // Update quantities in place. Without JavaScript the form posts normally.
+        // If the request fails, reload so the page shows what the server has
+        // (resubmitting could apply the change twice).
+        document.querySelectorAll('.js-quantity-form').forEach(form => {
+            form.addEventListener('submit', async event => {
+                const submitter = event.submitter;
+                if (!submitter) return;
+                event.preventDefault();
+
+                const row = form.closest('.ref-product');
+                const buttons = row.querySelectorAll('.ref-quantity-widget button');
+                const body = new FormData(form);
+                body.append(submitter.name, submitter.value);
+                buttons.forEach(button => button.disabled = true);
+
+                try {
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body,
+                        headers: { Accept: 'application/json' },
+                        credentials: 'same-origin'
+                    });
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                    const cart = await response.json();
+
+                    row.dataset.quantity = cart.quantity;
+                    row.querySelectorAll('.ref-quantity-widget input').forEach(input => input.value = cart.quantity);
+                    row.querySelector('.ref-product-total-sum').textContent = cart.lineTotal;
+                    document.getElementById('cart-subtotal').textContent = cart.subtotal;
+                    const badge = document.getElementById('cart-count');
+                    if (badge) badge.textContent = cart.itemCount;
+                    buttons.forEach(button => button.disabled = button.value === '-1' && cart.quantity <= 1);
+                } catch (error) {
+                    console.error('Could not update quantity:', error);
+                    location.reload();
+                }
+            });
+        });
+    </script>
+}
