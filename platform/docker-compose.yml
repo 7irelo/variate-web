@@ -155,6 +155,7 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: "Server=sqlserver,1433;Database=variate_legacy;User Id=sa;Password=${MSSQL_SA_PASSWORD:-Your_strong_password123};TrustServerCertificate=True;"
+      Paystack__SecretKey: ${PAYSTACK_SECRET_KEY:-}
     depends_on:
       sqlserver:
         condition: service_healthy

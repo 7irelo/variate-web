@@ -1,0 +1,22 @@
+@using variate.Services
+@model CheckoutOutcome
+@{
+    ViewData["Title"] = "Checkout";
+    var paid = Model is CheckoutOutcome.Paid or CheckoutOutcome.AlreadyPaid;
+}
+
+<section class="py-5 container text-center">
+    @if (paid)
+    {
+        <h2>Payment received</h2>
+        <p>Thank you. Order #@ViewData["OrderId"] is paid and being prepared.</p>
+        <a class="btn btn-primary" asp-controller="Order" asp-action="Details" asp-route-id="@ViewData["OrderId"]">View order</a>
+        <a class="btn btn-outline-primary" asp-controller="Home" asp-action="Index">Continue shopping</a>
+    }
+    else
+    {
+        <h2>Payment not completed</h2>
+        <p>We couldn't confirm your payment yet. If you were charged, the order is confirmed automatically once Paystack notifies us. Your cart is still saved.</p>
+        <a class="btn btn-primary" asp-controller="Cart" asp-action="Index">Back to cart</a>
+    }
+</section>

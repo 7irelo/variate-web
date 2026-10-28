@@ -36,6 +36,10 @@ public class Product
     [Range(0, 100000)]
     public decimal DiscountedPrice { get; set; }
     
+    // What the customer pays: the sale price while the product is on sale.
+    [NotMapped]
+    public decimal EffectivePrice => OnSale && DiscountedPrice > 0 ? DiscountedPrice : Price;
+
     [DisplayName("Release Date")]
     public DateOnly ReleaseDate { get; set; }
     

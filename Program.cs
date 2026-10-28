@@ -55,6 +55,24 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 
+var paystackOptions = builder.Configuration.GetSection(PaystackOptions.SectionName).Get<PaystackOptions>() ?? new PaystackOptions();
+builder.Services.AddSingleton(paystackOptions);
+builder.Services.AddHttpClient<PaystackClient>();
+builder.Services.AddScoped<CheckoutService>();
+
+// Without SMTP, Identity's built-in sender sends nothing and the sign-up page
+// shows the confirmation link instead, which is only acceptable locally.
+var smtpOptions = builder.Configuration.GetSection(SmtpOptions.SectionName).Get<SmtpOptions>() ?? new SmtpOptions();
+if (smtpOptions.IsConfigured)
+{
+    builder.Services.AddSingleton(smtpOptions);
+    builder.Services.AddTransient<Microsoft.AspNetCore.Identity.UI.Services.IEmailSender, SmtpEmailSender>();
+}
+else if (!builder.Environment.IsDevelopment())
+{
+    throw new InvalidOperationException("Smtp:Host and Smtp:From must be configured outside Development so accounts are confirmed by email.");
+}
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

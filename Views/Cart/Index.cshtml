@@ -10,6 +10,10 @@
             <div class="ref-message" style="display: none;">Unable to load shopping cart.</div>
             <div class="ref-cart" style="display: block;">
                 <div class="ref-heading">Shopping Cart</div>
+                @if (TempData["CheckoutError"] is string checkoutError)
+                {
+                    <div class="alert alert-warning">@checkoutError</div>
+                }
                 <div class="ref-th">
                     <div class="ref-product-col">Product</div>
                     <div class="ref-price-col">Price</div>
@@ -30,7 +34,7 @@
                                                 <div class="ref-product-category">@product.Product?.Category?.Name</div>
                                             </div>
                                             <div class="ref-product-price ref-mobile-product-price">
-                                                $@string.Format("{0:0.00}", product.Product?.Price)
+                                                R@(string.Format("{0:0.00}", product.Product?.EffectivePrice))
                                             </div>
                                         </div>
                                         <div class="ref-product-controls ref-mobile-product-controls">
@@ -49,7 +53,7 @@
                             
                             <div class="ref-price-col">
                                 <div class="ref-product-price">
-                                    $@string.Format("{0:0.00}", product.Product?.Price)
+                                    R@(string.Format("{0:0.00}", product.Product?.EffectivePrice))
                                 </div>
                             </div>
                             <div class="ref-quantity-col">
@@ -69,7 +73,7 @@
                             <div class="ref-total-col">
                                 <div class="ref-product-total">
                                     <div class="ref-product-total-sum">
-                                        $@string.Format("{0:0.00}", product.Product?.Price * product.Quantity)
+                                        R@(string.Format("{0:0.00}", product.Product?.EffectivePrice * product.Quantity))
                                     </div>
                                 </div>
                             </div>
@@ -79,22 +83,24 @@
                 <div class="ref-footer">
                     <div class="ref-totals">
                         <div class="ref-subtotal">
-                            Subtotal: $@string.Format("{0:0.00}", Model.CartItems.Sum(item => item.Product?.Price * item.Quantity))
+                            Subtotal: R@(string.Format("{0:0.00}", Model.CartItems.Sum(item => item.Product?.EffectivePrice * item.Quantity)))
                         </div>
                     </div>
-                    <form class="ref-accept-terms" style="display: block;">
-                        <label>
-                            <input id="ref-terms-agreement" type="checkbox" required />
-                            <span class="ref-terms-agreement-text">
-                                I agree to the <a href="https://google.com">Terms &amp; Conditions</a>,
-                                <a href="https://google.com">Privacy Policy</a> and 
-                                <a href="https://google.com">Refund Policy</a>
-                            </span>
-                        </label>
+                    <form asp-controller="Checkout" asp-action="Start" method="post">
+                        <div class="ref-accept-terms" style="display: block;">
+                            <label>
+                                <input id="ref-terms-agreement" name="acceptTerms" type="checkbox" value="true" required />
+                                <span class="ref-terms-agreement-text">
+                                    I agree to the <a asp-controller="Home" asp-action="Terms" target="_blank">Terms &amp; Conditions</a>,
+                                    <a asp-controller="Home" asp-action="Privacy" target="_blank">Privacy Policy</a> and 
+                                    <a asp-controller="Home" asp-action="Returns" target="_blank">Refund Policy</a>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="ref-row ref-checkout-buttons">
+                            <button type="submit" class="ref-button ref-standard-checkout-button" @(Model.CartItems.Count == 0 ? "disabled" : "")>Checkout</button>
+                        </div>
                     </form>
-                    <div class="ref-row ref-checkout-buttons">
-                        <button class="ref-button ref-standard-checkout-button">Checkout</button>
-                    </div>
                 </div>
             </div>
         </div>
