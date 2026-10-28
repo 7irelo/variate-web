@@ -43,10 +43,11 @@ namespace variate.Controllers
             return View(products);
         }
 
-        [Authorize(Policy = "MustBelongToHRDepartment")]
+        [Authorize(Roles = "admin")]
         [HttpGet("create")]
         public IActionResult Create() => View();
 
+        [Authorize(Roles = "admin")]
         [HttpPost("create")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CategoryDto categoryDto)
@@ -64,7 +65,7 @@ namespace variate.Controllers
             return RedirectToAction("Index");
         }
 
-        [Authorize(Policy = "AdminOnly")]
+        [Authorize(Roles = "admin")]
         [HttpGet("edit/{id:int}")]
         public async Task<IActionResult> Edit(int id)
         {
@@ -78,7 +79,7 @@ namespace variate.Controllers
             return View(category);
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpPost("edit/{id:int}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(CategoryDto categoryDto, int id)
@@ -100,7 +101,7 @@ namespace variate.Controllers
             return RedirectToAction("Index");
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpGet("delete/{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -114,7 +115,7 @@ namespace variate.Controllers
             return View(category);
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpPost("delete/{id:int}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

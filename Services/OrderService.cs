@@ -31,6 +31,27 @@ namespace variate.Services
                 .ToListAsync();
         }
 
+        public Task<List<Order>> GetCustomerOrdersAsync(string? userId)
+        {
+            return _dbContext.Orders
+                .AsNoTracking()
+                .Where(o => userId == null || o.ApplicationUserId == userId)
+                .Include(o => o.OrderItems).ThenInclude(oi => oi.Product)
+                .Include(o => o.ApplicationUser)
+                .OrderByDescending(o => o.OrderDateTime)
+                .ToListAsync();
+        }
+
+        public Task<Order?> GetCustomerOrderAsync(int id, string? userId)
+        {
+            return _dbContext.Orders
+                .AsNoTracking()
+                .Where(o => o.Id == id && (userId == null || o.ApplicationUserId == userId))
+                .Include(o => o.OrderItems).ThenInclude(oi => oi.Product)
+                .Include(o => o.ApplicationUser)
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<OrderDto?> GetOrderByIdAsync(int id)
         {
             _logger.LogInformation("Retrieving order with ID {OrderId}.", id);

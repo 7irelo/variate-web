@@ -20,7 +20,6 @@ namespace variate.Controllers
             _logger = logger;
         }
 
-        [Authorize(Roles = "admin")]
         [HttpGet("")]
         public async Task<IActionResult> Index(string searchString)
         {
@@ -41,12 +40,15 @@ namespace variate.Controllers
             return View(product.ToDto());
         }
 
+        [Authorize(Roles = "admin")]
         [HttpGet("create")]
         public IActionResult Create()
         {
             return View();
         }
 
+        [Authorize(Roles = "admin")]
+        [ValidateAntiForgeryToken]
         [HttpPost("create")]
         public async Task<IActionResult> Create(Product product)
         {
@@ -65,6 +67,7 @@ namespace variate.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "admin")]
         [HttpGet("edit/{id:int}")]
         public async Task<IActionResult> Edit(int id)
         {
@@ -78,6 +81,8 @@ namespace variate.Controllers
             return View(product);
         }
 
+        [Authorize(Roles = "admin")]
+        [ValidateAntiForgeryToken]
         [HttpPost("edit/{id:int}")]
         public async Task<IActionResult> Edit(int id, Product product)
         {
@@ -96,6 +101,7 @@ namespace variate.Controllers
             return RedirectToAction("Details", "Product", new { id = id} );
         }
 
+        [Authorize(Roles = "admin")]
         [HttpGet("delete/{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -109,6 +115,8 @@ namespace variate.Controllers
             return View(product.ToDto());
         }
 
+        [Authorize(Roles = "admin")]
+        [ValidateAntiForgeryToken]
         [HttpPost("delete/{id:int}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {

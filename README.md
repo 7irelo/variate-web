@@ -13,8 +13,8 @@
 - **User Authentication**: Secure login and registration functionality.
 - **Product Management**: Browse and search through a diverse range of product categories.
 - **Shopping Cart**: Add, update, and remove items in the shopping cart.
-- **Order Management**: Place orders and track order status.
-- **Payment Gateway Integration**: Secure and reliable payment processing.
+- **Order Management**: Customers see their own orders and their status; admins see every order.
+- **Paystack Checkout**: Payment happens on Paystack's hosted page. Each payment is re-verified server-side against the order's amount, currency and owner, and a signed webhook confirms payments even if the shopper closes the tab.
 - **Responsive Design**: Optimized for both desktop and mobile devices.
 - **Shopping Assistant**: Intent routing, hybrid product search, grounded product answers and order lookups. It is measured by an offline eval suite and instrumented with traces, cost tracking and Prometheus metrics.
 
@@ -43,7 +43,7 @@
 - **Backend**: ASP.NET Core
 - **Frontend**: Razor Pages
 - **Database**: SQL Server
-- **Payment Gateway**: [PayPal](https://paypal.com)
+- **Payment Gateway**: [Paystack](https://paystack.com)
 - **Hosting**: [Azure](https://azure.com)
 - **Assistant**: Python, FastAPI, Pydantic, scikit-learn, Anthropic Claude (Haiku 5.5, Sonnet 5.5, Opus 5.5), OpenAI embeddings, Prometheus
 
@@ -107,15 +107,26 @@ Results and design decisions are in [docs/assistant-writeup.md](docs/assistant-w
    dotnet ef database update
    ```
 
-4. **Run the application:**
+   To load the full catalogue (65 products across 8 categories) on top of the starter products:
+   ```bash
+   sqlcmd -S localhost -d variate -i platform/infra/sql/seed-storefront-products.sql
+   ```
+
+4. **Configure payments and email:**
+   - Set `Paystack__SecretKey` to a Paystack secret key (`sk_test_...` for testing). With Docker Compose, put `PAYSTACK_SECRET_KEY=...` in `platform/.env`.
+   - For webhooks, point Paystack at `https://<your-host>/checkout/paystack/webhook`.
+   - Outside Development, set `Smtp__Host`, `Smtp__Port`, `Smtp__Username`, `Smtp__Password` and `Smtp__From` so accounts are confirmed by email. The app refuses to start without them. In Development the sign-up page shows the confirmation link instead.
+   - Contact details on `/contact` come from the `Contact` section of `appsettings.json`.
+
+5. **Run the application:**
    ```bash
    dotnet run
    ```
 
-5. **Visit the application:**
+6. **Visit the application:**
    Open your browser and navigate to `http://localhost:5263`
 
-6. **Run the assistant service (optional):**
+7. **Run the assistant service (optional):**
    ```bash
    cd platform/src/AssistantService
    pip install -r requirements-dev.txt

@@ -1,3 +1,11 @@
+@using Microsoft.AspNetCore.Identity
+@using variate.Services
+@inject UserManager<ApplicationUser> UserManager
+@inject ICartService CartService
+@{
+    var userId = User.Identity?.IsAuthenticated == true ? UserManager.GetUserId(User) : null;
+    var cartCount = userId == null ? 0 : await CartService.GetItemCountAsync(userId);
+}
 <header>
     <nav class="navbar navbar-expand-md sticky-top navbar-shrink py-3" id="mainNav">
         <div class="container">
@@ -17,20 +25,25 @@
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("Index", "Product")">Products</a>
                     </li>
+                    @if (userId != null)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index", "Order")">Orders</a>
+                        </li>
+                    }
                     <li class="nav-item">
-                        <a class="nav-link" href="contacts.html">Contacts</a>
+                        <a class="nav-link" href="@Url.Action("Contact", "Home")">Contact</a>
                     </li>
                 </ul>
-                <a href="#">
+                <a href="@(userId == null ? Url.Page("/Account/Login", new { area = "Identity" }) : Url.Page("/Account/Manage/Index", new { area = "Identity" }))" aria-label="Account">
                     <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-person-circle" style="font-size: 50px; height: 46.7812px;">
                         <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"></path>
                         <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"></path>
                     </svg>
                 </a>
-                <!-- Update the Login and Register buttons -->
-                @if(User.Identity.IsAuthenticated)
+                @if (userId != null)
                 {
-                    <form method="POST" asp-controller="auth" asp-action="logout">
+                    <form method="post" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home")">
                     <button class="btn btn-primary shadow" type="submit" style="color: rgb(55, 99, 244); background: rgb(255, 255, 255); margin: 5px;">
                         Log out
                     </button>
@@ -38,19 +51,23 @@
                 }
                 else
                 {
-                    <a class="btn btn-primary shadow" role="button" asp-controller="auth" asp-action="login" style="color: rgb(55, 99, 244); background: rgb(255, 255, 255); margin: 5px;">
+                    <a class="btn btn-primary shadow" role="button" asp-area="Identity" asp-page="/Account/Login" style="color: rgb(55, 99, 244); background: rgb(255, 255, 255); margin: 5px;">
                         Log in
                     </a>
+                    <a class="btn btn-primary shadow" role="button" asp-area="Identity" asp-page="/Account/Register" style="margin: 5px;">
+                        Sign up
+                    </a>
                 }
-                <a class="btn btn-primary shadow" role="button" asp-controller="auth" asp-action="register" style="margin: 5px;">
-                    Sign up
-                </a>
-                <a asp-controller="cart">
+                <a asp-controller="Cart" asp-action="Index" class="position-relative" aria-label="Cart (@cartCount items)">
                 <span data-reflow-type="view-cart" data-reflow-summary-type="dropdown">
                     <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-cart-fill" style="font-size: 38px;">
                         <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"></path>
                     </svg>
                 </span>
+                @if (cartCount > 0)
+                {
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">@cartCount</span>
+                }
                 </a>
             </div>
         </div>

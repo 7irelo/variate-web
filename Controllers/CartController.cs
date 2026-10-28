@@ -38,6 +38,7 @@ namespace variate.Controllers
         }
 
         [HttpPost("create")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddToCart(int productId)
         {
             try

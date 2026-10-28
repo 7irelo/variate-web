@@ -1,58 +1,60 @@
-<div class="container">
-    <div data-reflow-type="order-status">
-        <div class="reflow-order-status">
-            <div class="col">
-                <div class="ref-order-info">
-                    <h2>Order #2050714543</h2>
-                    <div class="ref-order-line ref-status"><b>Status</b>returned</div>
-                    <div class="ref-order-line ref-created"><b>Created</b>5/8/2024, 12:56:25 PM</div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="ref-order-customer">
-                    <h2>Customer Details</h2>
-                    <div class="ref-order-line ref-customer-name"><b>Name</b>Amiya Nolan</div>
-                    <div class="ref-order-line ref-customer-email"><b>Email</b>robbie.hansen@ryan.com</div>
-                    <div class="ref-order-line ref-customer-phone"><b>Phone</b>123123123123</div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="ref-order-shipping">
-                    <h2>Shipping</h2>
-                    <div class="ref-order-line ref-shipping-method"><b>Shipping Method</b><span>Standard Delivery ($10.00)</span></div>
-                    <div class="ref-order-line ref-shipping-address"><b>Shipping Address</b><span>Address: Baker Street 4</span><span>City: London</span><span>Postal Code: 987654</span><span>Country: United Kingdom</span></div>
-                    <div class="ref-order-line ref-note"><b>Note</b>Note text.</div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="ref-order-billing">
-                    <h2>Billing</h2>
-                    <div class="ref-order-line ref-billing-address"><b>Billing Name</b><span>Adam Schimmel</span></div>
-                    <div class="ref-order-line ref-billing-address"><b>Billing Address</b><span>Address: Baker Street 4</span><span>City: London</span><span>Postal Code: 987654</span><span>Country: United Kingdom</span></div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="ref-line-items">
-                    <h2>Order Summary</h2>
-                    <div class="ref-order-line ref-line-item ref-product-line">
-                        <div class="ref-name">4 × Kaitlyn Conn</div>
-                        <div class="ref-price"><b>$555.55</b><small>(4 × $8.89)</small></div>
-                    </div>
-                    <div class="ref-tiny-separator">∙∙∙∙∙</div>
-                    <div class="ref-order-line ref-line-item ref-product-line">
-                        <div class="ref-name">Prof. Patricia Halvorson DDS</div>
-                        <div class="ref-price"><b>$621.02</b><small>($488.48)</small></div>
-                    </div>
-                    <hr />
-                    <div class="ref-order-line ref-line-item">Subtotal <span class="ref-price">$478.32</span></div>
-                    <div class="ref-order-line ref-line-item">Shipping <span class="ref-price">$10.00</span></div>
-                    <div class="ref-order-line ref-line-item">
-                        <div class="ref-name">The Vat (21%)</div><span class="ref-price">$50.82</span>
-                    </div>
-                    <hr />
-                    <div class="ref-order-line ref-line-item">Total <b><span class="ref-price">$539.14</span></b></div>
-                </div>
-            </div>
-        </div>
+@model Order
+@{
+    ViewData["Title"] = $"Order #{Model.Id}";
+}
+
+<section class="py-5 container">
+    <a asp-action="Index">&larr; All orders</a>
+    <h1 class="mt-3">Order #@Model.Id</h1>
+    <p class="text-muted">
+        Placed @Model.OrderDateTime.ToString("d MMM yyyy, HH:mm") &middot; <strong>@OrderStatus.Label(Model.Status)</strong>
+        @if (User.IsInRole("admin") && Model.ApplicationUser != null)
+        {
+            <span>&middot; @Model.ApplicationUser.Email</span>
+        }
+    </p>
+
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th class="text-end">Price</th>
+                    <th class="text-end">Quantity</th>
+                    <th class="text-end">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.OrderItems)
+                {
+                    <tr>
+                        <td>
+                            @if (item.Product != null)
+                            {
+                                <a asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductId">@item.Product.Brand @item.Product.Name</a>
+                            }
+                            else
+                            {
+                                <span>Product no longer available</span>
+                            }
+                        </td>
+                        <td class="text-end">R@(item.UnitPrice.ToString("0.00"))</td>
+                        <td class="text-end">@item.Quantity</td>
+                        <td class="text-end">R@((item.UnitPrice * item.Quantity).ToString("0.00"))</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="3" class="text-end">Total</th>
+                    <th class="text-end">R@(Model.TotalCost.ToString("0.00"))</th>
+                </tr>
+            </tfoot>
+        </table>
     </div>
-</div>
+
+    @if (Model.Status == variate.Services.CheckoutService.PendingPayment)
+    {
+        <p class="text-muted">This order hasn't been paid. Orders are only processed once payment is confirmed.</p>
+    }
+</section>

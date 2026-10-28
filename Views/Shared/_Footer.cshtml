@@ -4,25 +4,25 @@
             <div class="col-sm-4 col-md-3 text-center text-lg-start d-flex flex-column">
                 <h3 class="fs-6 fw-bold">Shop</h3>
                 <ul class="list-unstyled">
-                    <li><a href="#">Daily Deals</a></li>
-                    <li><a href="#">Gift Vouchers</a></li>
-                    <li><a href="#">Clearance Sale</a></li>
+                    <li><a asp-controller="Product" asp-action="Index">All products</a></li>
+                    <li><a asp-controller="Category" asp-action="Index">Categories</a></li>
+                    <li><a asp-controller="Cart" asp-action="Index">Cart</a></li>
                 </ul>
             </div>
             <div class="col-sm-4 col-md-3 text-center text-lg-start d-flex flex-column">
-                <h3 class="fs-6 fw-bold">About</h3>
+                <h3 class="fs-6 fw-bold">Help</h3>
                 <ul class="list-unstyled">
-                    <li><a href="#">Company</a></li>
-                    <li><a href="#">Merchants</a></li>
-                    <li><a href="#">Sell on Variate</a></li>
+                    <li><a asp-controller="Home" asp-action="Contact">Contact us</a></li>
+                    <li><a asp-controller="Home" asp-action="Returns">Returns and refunds</a></li>
+                    <li><a asp-controller="Home" asp-action="Terms">Terms and conditions</a></li>
+                    <li><a asp-controller="Home" asp-action="Privacy">Privacy policy</a></li>
                 </ul>
             </div>
             <div class="col-sm-4 col-md-3 text-center text-lg-start d-flex flex-column">
-                <h3 class="fs-6 fw-bold">Careers</h3>
+                <h3 class="fs-6 fw-bold">Account</h3>
                 <ul class="list-unstyled">
-                    <li><a href="#">Job openings</a></li>
-                    <li><a href="#">Employee success</a></li>
-                    <li><a href="#">Benefits</a></li>
+                    <li><a asp-area="Identity" asp-page="/Account/Manage/Index">My account</a></li>
+                    <li><a asp-controller="Order" asp-action="Index">My orders</a></li>
                 </ul>
             </div>
             <div class="col-lg-3 text-center text-lg-start d-flex flex-column align-items-center order-first align-items-lg-start order-lg-last">
@@ -37,7 +37,7 @@
         </div>
         <hr>
         <div class="text-muted d-flex justify-content-between align-items-center pt-3">
-            <p class="mb-0">Copyright © 2024 Variate</p>
+            <p class="mb-0">Copyright © @DateTime.Now.Year Variate</p>
             <ul class="list-inline mb-0">
                 <li class="list-inline-item">
                     <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-facebook">

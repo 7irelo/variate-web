@@ -46,7 +46,26 @@ namespace variate.Controllers
             }
         }
 
+        [HttpGet("contact")]
+        public IActionResult Contact()
+        {
+            return View();
+        }
+
+        [HttpGet("privacy")]
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        [HttpGet("terms")]
+        public IActionResult Terms()
+        {
+            return View();
+        }
+
+        [HttpGet("returns")]
+        public IActionResult Returns()
         {
             return View();
         }

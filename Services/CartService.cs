@@ -41,6 +41,13 @@ namespace variate.Services
             return cart;
         }
 
+        public Task<int> GetItemCountAsync(string userId)
+        {
+            return _db.CartItems
+                .Where(ci => ci.Cart!.ApplicationUserId == userId && ci.Cart.Status == "Active")
+                .SumAsync(ci => ci.Quantity);
+        }
+
         public async Task<bool> AddToCartAsync(string userId, int productId)
         {
             var userCart = await GetOrCreateUserCartAsync(userId);

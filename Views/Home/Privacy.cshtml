@@ -1,6 +1,23 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
+@{
+    ViewData["Title"] = "Privacy policy";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<section class="py-5 container" style="max-width: 760px;">
+    <h1>@ViewData["Title"]</h1>
+
+    <h2 class="h5 mt-4">What we collect</h2>
+    <p>Your name, email address and a hashed password when you create an account; your cart and order history
+        when you shop; and a sign-in cookie that keeps you logged in.</p>
+
+    <h2 class="h5 mt-4">Payments</h2>
+    <p>Card payments are handled by Paystack on its own secure page. We receive confirmation that a payment
+        succeeded and its amount, never your card number.</p>
+
+    <h2 class="h5 mt-4">How we use it</h2>
+    <p>Only to run your account, fulfil and support your orders, and keep the site secure. We don't sell your data.</p>
+
+    <h2 class="h5 mt-4">Your choices</h2>
+    <p>You can download or delete your personal data from your
+        <a asp-area="Identity" asp-page="/Account/Manage/PersonalData">account settings</a>,
+        or <a asp-action="Contact">contact us</a>.</p>
+</section>

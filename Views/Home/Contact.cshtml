@@ -1,0 +1,32 @@
+@inject IConfiguration Configuration
+@{
+    ViewData["Title"] = "Contact us";
+    var contact = Configuration.GetSection("Contact");
+    var email = contact["Email"];
+    var phone = contact["Phone"];
+    var hours = contact["Hours"];
+}
+
+<section class="py-5 container" style="max-width: 760px;">
+    <h1>@ViewData["Title"]</h1>
+    <p>Questions about an order, a return or a product? We're here to help.</p>
+    <ul class="list-unstyled">
+        @if (!string.IsNullOrWhiteSpace(email))
+        {
+            <li><strong>Email:</strong> <a href="mailto:@email">@email</a></li>
+        }
+        @if (!string.IsNullOrWhiteSpace(phone))
+        {
+            <li><strong>Phone:</strong> <a href="tel:@phone">@phone</a></li>
+        }
+        @if (!string.IsNullOrWhiteSpace(hours))
+        {
+            <li><strong>Support hours:</strong> @hours</li>
+        }
+    </ul>
+    <p>
+        For an existing order, include your order number, which you'll find under
+        <a asp-controller="Order" asp-action="Index">Orders</a>.
+        Returns are covered by our <a asp-action="Returns">returns and refunds policy</a>.
+    </p>
+</section>

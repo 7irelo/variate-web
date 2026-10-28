@@ -24,16 +24,16 @@
                     @if (Model.OnSale)
                     {
                         <strong class="ref-price ref-on-sale">
-                            <s class="ref-original-price">$@Model.Price</s>
-                            $@Model.DiscountedPrice
+                            <s class="ref-original-price">R@(Model.Price)</s>
+                            R@(Model.DiscountedPrice)
                         </strong>
                     }
                     else
                     {
-                        <strong class="ref-price">$@Model.Price</strong>
+                        <strong class="ref-price">R@(Model.Price)</strong>
                     }
 
-                    <form asp-controller="cart" asp-action="create" method="post" class="reflow-add-to-cart ref-product-controls">
+                    <form asp-controller="Cart" asp-action="AddToCart" method="post" class="reflow-add-to-cart ref-product-controls">
                         <input type="hidden" name="productId" value="@Model.Id" />
                         <input type="hidden" name="quantity" value="1" />
 
@@ -69,7 +69,10 @@
                     </form>
 
                     <div class="ref-description">@Model.Description</div>
-                    <div><a class="btn btn-dark mb-4 px-5 mx-1" asp-controller="products" asp-action="edit" asp-route-id="@Model.Id">Edit</a><a class="btn btn-danger mb-4 px-5 mx-1" asp-controller="products" asp-action="editz" asp-route-id="@Model.Id">Delete</a></div>
+                    @if (User.IsInRole("admin"))
+                    {
+                        <div><a class="btn btn-dark mb-4 px-5 mx-1" asp-controller="Product" asp-action="Edit" asp-route-id="@Model.Id">Edit</a><a class="btn btn-danger mb-4 px-5 mx-1" asp-controller="Product" asp-action="Delete" asp-route-id="@Model.Id">Delete</a></div>
+                    }
                 </div>
             </div>
         </div>
